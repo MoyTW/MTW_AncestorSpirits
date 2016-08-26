@@ -1,0 +1,8 @@
+/Source/*/Source-DLLs/*
+*Thumbs.db
+/source/*/Bin/*
+
+*.suo
+
+**/bin
+**/obj
