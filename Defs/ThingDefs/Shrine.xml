@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Buildings>
+
+    <ThingDef Name="BuildingBase" Abstract="True">
+        <category>Building</category>
+        <soundImpactDefault>BulletImpactMetal</soundImpactDefault>
+        <selectable>true</selectable>
+        <drawerType>MapMeshAndRealTime</drawerType>
+        <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+        <repairEffect>Repair</repairEffect>
+        <leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
+        <filthLeaving>BuildingRubble</filthLeaving>
+    </ThingDef>
+
+  <ThingDef ParentName="BuildingBase">
+    <defName>MTW_AncestorShrine</defName>
+    <label>shrine to the ancestors</label>
+    <description>A shrine to the ancestors.</description>
+    <thingClass>MTW_AncestorSpirits.Building_Shrine</thingClass>
+    <graphicData>
+      <texPath>PlaceholderSteleFront</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+      </damageData>
+      <drawSize>(2,2)</drawSize>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>Impassable</passability>
+    <fillPercent>0.40</fillPercent>
+    <statBases>
+      <MaxHitPoints>250</MaxHitPoints>
+      <WorkToMake>12000</WorkToMake>
+      <Flammability>1.0</Flammability>
+      <Beauty>50</Beauty>
+    </statBases>
+    <comps></comps>
+    <size>(2,2)</size>    
+    <costList>
+      <Cloth>80</Cloth>
+      <WoodLog>30</WoodLog>
+    </costList>
+    
+    <designationCategory>Misc</designationCategory>
+    <!-- TODO: FIX THIS -->
+		<constructEffect>ConstructMetal</constructEffect>
+    <tickerType>Rare</tickerType>
+    
+    <staticSunShadowHeight>0.20</staticSunShadowHeight>
+    <socialPropernessMatters>true</socialPropernessMatters>
+
+
+    <stuffCategories>
+      <li>Metallic</li>
+      <li>Woody</li>
+      <li>Stony</li>
+    </stuffCategories>
+    
+    <costStuffCount>80</costStuffCount>
+		<placeWorkers>
+			<li>PlaceWorker_NeverAdjacentUnstandable</li>
+		</placeWorkers>
+  </ThingDef>
+
+</Buildings>
