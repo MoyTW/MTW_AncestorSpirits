@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MTW_AncestorSpirits
 {
-    class MapComponent_AncestorInfo : MapComponent
+    class MapComponent_AncestorTicker : MapComponent
     {
         public override void MapComponentTick()
         {

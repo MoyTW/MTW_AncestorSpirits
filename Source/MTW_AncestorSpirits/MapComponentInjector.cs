@@ -17,8 +17,8 @@ namespace MTW_AncestorSpirits
     [StaticConstructorOnStartup]
     public class MapComponentInjectorBehavior : MonoBehaviour
     {
-        public static readonly string mapComponentName = "MTW_AncestorSpirits.MapComponent_AncestorInfo";       // Ditto.
-        private static readonly MapComponent_AncestorInfo mapComponent = new MapComponent_AncestorInfo();       // Ditto.
+        public static readonly string mapComponentName = "MTW_AncestorSpirits.MapComponent_AncestorTicker";       // Ditto.
+        private static readonly MapComponent_AncestorTicker mapComponent = new MapComponent_AncestorTicker();       // Ditto.
 
         #region No editing required
         protected bool reinjectNeeded = false;
