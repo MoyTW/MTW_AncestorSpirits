@@ -41,7 +41,8 @@ namespace MTW_AncestorSpirits
         {
             // TODO: Add a Ancestor faction!
             Faction faction = Find.FactionManager.FirstFactionOfDef(FactionDefOf.Spacer);
-            PawnGenerationRequest request = new PawnGenerationRequest(PawnKindDefOf.SpaceRefugee, faction,
+            PawnKindDef pawnKindDef = PawnKindDef.Named("AncestorSpirit");
+            PawnGenerationRequest request = new PawnGenerationRequest(pawnKindDef, faction,
                 PawnGenerationContext.NonPlayer, false, false, false, false, true, false, 20f, false, true, null, null,
                 null, null, null, null);
             Pawn ancestor = PawnGenerator.GeneratePawn(request);

@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<PawnKindDefs>
+
+  <PawnKindDef>
+    <defName>AncestorSpirit</defName>
+    <label>ancestor</label>
+    <race>Spirit</race>
+    <combatPower>0</combatPower>
+    <baseRecruitDifficulty>0.99</baseRecruitDifficulty>
+    <backstoryCategory>Slave</backstoryCategory>
+    <minGenerationAge>200</minGenerationAge>
+    <backstoryCryptosleepCommonality>0</backstoryCryptosleepCommonality>
+    <apparelMoney>
+      <min>0</min>
+      <max>0</max>
+    </apparelMoney>
+    <inventoryOptions>
+      <skipChance>0</skipChance>
+    </inventoryOptions>
+  </PawnKindDef>
+
+</PawnKindDefs>
