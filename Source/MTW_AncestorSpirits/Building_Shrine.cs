@@ -38,41 +38,15 @@ namespace MTW_AncestorSpirits
 {
     public class Building_Shrine : Building
     {
-        private List<Pawn> ancestors = new List<Pawn>();
-
-        private Pawn SpawnAncestorAdjacent()
-        {
-            IntVec3 adj;
-            GenAdj.TryFindRandomWalkableAdjacentCell8Way(this, out adj);
-            
-            // TODO: Add a Ancestor faction!
-            Faction faction = Find.FactionManager.FirstFactionOfDef(FactionDefOf.Spacer);
-            PawnGenerationRequest request = new PawnGenerationRequest(PawnKindDefOf.SpaceRefugee, faction,
-                PawnGenerationContext.NonPlayer, false, false, false, false, true, false, 20f, false, true, null, null,
-                null, null, null, null);
-            Pawn ancestor = PawnGenerator.GeneratePawn(request);
-
-            GenSpawn.Spawn(ancestor, adj);
-            return ancestor;
-        }
-
         public override void SpawnSetup()
         {
+            Find.Map.GetComponent<MapComponent_AncestorTicker>().RegisterAncestorSpawner(this);
             base.SpawnSetup();
-            if (!this.ancestors.Any())
-            {
-                Pawn ancestor = this.SpawnAncestorAdjacent();
-                this.ancestors.Add(ancestor);
-            }
         }
 
         public override void Destroy(DestroyMode mode = DestroyMode.Vanish)
         {
-            foreach (var ancestor in this.ancestors)
-            {
-                ancestor.Destroy(DestroyMode.Vanish);
-            }
-
+            Find.Map.GetComponent<MapComponent_AncestorTicker>().DeregisterAncestorSpawner(this);
             base.Destroy(mode);
         }
     }
