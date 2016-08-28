@@ -31,47 +31,67 @@ namespace MTW_AncestorSpirits
     {
         private Random rand = new Random();
 
-        private List<Pawn> ancestors = new List<Pawn>();
-        private List<Thing> spawners = new List<Thing>();
+        private Faction _faction = null;
 
         private int numAncestorsToVisit = 3;
-        private int numAncestorsVisiting = 0;
 
         private double approval = 0.0;
 
-        #region Registration
+        #region Properties
 
-        public void RegisterAncestorSpawner(Thing spawner)
+        private Faction AncestorFaction
         {
-            if (!this.spawners.Contains(spawner))
+            get
             {
-                this.spawners.Add(spawner);
+                if (this._faction == null)
+                {
+                    // TODO: Ancestor Faction!
+                    this._faction = Find.FactionManager.FirstFactionOfDef(FactionDefOf.Spacer);
+                }
+                return this._faction;
             }
         }
 
-        public void DeregisterAncestorSpawner(Thing spawner)
+        // I have no idea of the perf implications of these functions!
+        private IEnumerable<Pawn> Ancestors
         {
-            this.spawners.Remove(spawner);
+            get
+            {
+                return Find.MapPawns.PawnsInFaction(this.AncestorFaction);
+            }
+        }
+
+        private IEnumerable<Pawn> AncestorsVisiting
+        {
+            get
+            {
+                return Find.MapPawns.SpawnedPawnsInFaction(this.AncestorFaction);
+            }
+        }
+
+        private IEnumerable<Thing> Spawners
+        {
+            get
+            {
+                // TODO: Figure out why using allBuildingsColonistOfDef will hard-crash the game.
+                // TODO: Why does LINQ cause egregious loading errors!?
+                return Find.ListerThings.ThingsOfDef(ThingDef.Named("MTW_AncestorShrine"));
+            }
         }
 
         #endregion
 
         private Pawn GenAncestor()
         {
-            // TODO: Add a Ancestor faction!
-            Faction faction = Find.FactionManager.FirstFactionOfDef(FactionDefOf.Spacer);
             PawnKindDef pawnKindDef = PawnKindDef.Named("AncestorSpirit");
-            PawnGenerationRequest request = new PawnGenerationRequest(pawnKindDef, faction);
-            Pawn ancestor = PawnGenerator.GeneratePawn(request);
-            this.ancestors.Add(ancestor);
-
-            return ancestor;
+            PawnGenerationRequest request = new PawnGenerationRequest(pawnKindDef, this.AncestorFaction);
+            return PawnGenerator.GeneratePawn(request);
         }
 
         private Pawn GetUnspawnedPawn()
         {
             List<Pawn> unspawned = new List<Pawn>();
-            foreach (Pawn p in this.ancestors)
+            foreach (Pawn p in this.Ancestors)
             {
                 if (!p.Spawned)
                 {
@@ -93,7 +113,7 @@ namespace MTW_AncestorSpirits
         private Pawn GetSpawnedPawn()
         {
             List<Pawn> spawned = new List<Pawn>();
-            foreach (Pawn p in this.ancestors)
+            foreach (Pawn p in this.Ancestors)
             {
                 if (p.Spawned) { spawned.Add(p); }
             }
@@ -103,7 +123,7 @@ namespace MTW_AncestorSpirits
         private bool TrySpawnRandomVisitor()
         {
             Thing spawner;
-            spawners.TryRandomElement(out spawner);
+            this.Spawners.TryRandomElement(out spawner);
             if (spawner == null) { return false; }
 
             IntVec3 pos;
@@ -111,7 +131,6 @@ namespace MTW_AncestorSpirits
             if (pos == null) { return false; }
 
             GenSpawn.Spawn(this.GetUnspawnedPawn(), pos);
-            this.numAncestorsVisiting++;
             return true;
         }
 
@@ -132,7 +151,7 @@ namespace MTW_AncestorSpirits
         private IEnumerable<Pawn> GetSpawnedPawns()
         {
             List<Pawn> spawned = new List<Pawn>();
-            foreach (Pawn p in this.ancestors)
+            foreach (Pawn p in this.Ancestors)
             {
                 if (p.Spawned) { spawned.Add(p); }
             }
@@ -158,11 +177,11 @@ namespace MTW_AncestorSpirits
             // No Rare version of MapComponentTick, so this will do.
             if (!(Find.TickManager.TicksGame % AncestorConstants.TICK_INTERVAL == 0)) { return; }
 
-            if (!this.spawners.Any())
+            if (!this.Spawners.Any())
             {
                 this.DespawnRandomVisitor();
             }
-            else if (numAncestorsVisiting < numAncestorsToVisit)
+            else if (this.AncestorsVisiting.Count() < numAncestorsToVisit)
             {
                 this.TrySpawnRandomVisitor();
             }
@@ -174,12 +193,7 @@ namespace MTW_AncestorSpirits
         {
             base.ExposeData();
             Scribe_Values.LookValue<int>(ref numAncestorsToVisit, "numAncestorsToVisit", 3);
-            Scribe_Values.LookValue<int>(ref numAncestorsVisiting, "numAncestorsVisiting", 0);
             Scribe_Values.LookValue<double>(ref approval, "approval", 0.0);
-            /*
-            Scribe_Collections.LookList<Pawn>(ref ancestors, "ancestors", LookMode.DefReference);
-            Scribe_Collections.LookList<Thing>(ref spawners, "spawners", LookMode.DefReference);
-            */
         }
 
         #endregion
