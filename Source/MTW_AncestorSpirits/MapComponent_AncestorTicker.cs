@@ -7,8 +7,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+/*
+ * Time Reference:
+ * In-Game Time         Ticks
+ * 1 Hour 		        1,250
+ * 1 Day (24 Hours) 	30,000
+ * 1 Season (15 Days) 	450,000
+ * 1 Year (4 Seasons) 	1,800,000
+ */
+
 namespace MTW_AncestorSpirits
 {
+    public static class AncestorConstants
+    {
+        public const int MIN_ANCESTORS = 10;
+        public const double MAX_APPROVAL_PER_ANCESTOR_PER_SEASON = 2;
+        public const int TICKS_PER_SEASON = 45000;
+        public const int TICK_INTERVAL = 250;
+        public const double APPROVAL_INTERVAL_MULTIPLIER = (double)TICK_INTERVAL / (double)TICKS_PER_SEASON * MAX_APPROVAL_PER_ANCESTOR_PER_SEASON;
+    }
+
     class MapComponent_AncestorTicker : MapComponent
     {
         private Random rand = new Random();
@@ -16,9 +34,10 @@ namespace MTW_AncestorSpirits
         private List<Pawn> ancestors = new List<Pawn>();
         private List<Thing> spawners = new List<Thing>();
 
-        private int minAncestors = 10;
         private int numAncestorsToVisit = 3;
         private int numAncestorsVisiting = 0;
+
+        private double approval = 0.0;
 
         #region Registration
 
@@ -42,9 +61,7 @@ namespace MTW_AncestorSpirits
             // TODO: Add a Ancestor faction!
             Faction faction = Find.FactionManager.FirstFactionOfDef(FactionDefOf.Spacer);
             PawnKindDef pawnKindDef = PawnKindDef.Named("AncestorSpirit");
-            PawnGenerationRequest request = new PawnGenerationRequest(pawnKindDef, faction,
-                PawnGenerationContext.NonPlayer, false, false, false, false, true, false, 20f, false, true, null, null,
-                null, null, null, null);
+            PawnGenerationRequest request = new PawnGenerationRequest(pawnKindDef, faction);
             Pawn ancestor = PawnGenerator.GeneratePawn(request);
             this.ancestors.Add(ancestor);
 
@@ -112,12 +129,34 @@ namespace MTW_AncestorSpirits
             }
         }
 
+        private IEnumerable<Pawn> GetSpawnedPawns()
+        {
+            List<Pawn> spawned = new List<Pawn>();
+            foreach (Pawn p in this.ancestors)
+            {
+                if (p.Spawned) { spawned.Add(p); }
+            }
+            return spawned;
+        }
+
+        private void UpdateApproval()
+        {
+            var spawnedPawns = this.GetSpawnedPawns();
+
+            foreach (Pawn p in spawnedPawns)
+            {
+                double moodPercent = p.needs.mood.CurInstantLevelPercentage;
+                this.approval += (moodPercent / 100) * AncestorConstants.APPROVAL_INTERVAL_MULTIPLIER;
+            }
+            Log.Message("Approval: " + this.approval.ToString());
+        }
+
         #region Overrides
 
         public override void MapComponentTick()
         {
             // No Rare version of MapComponentTick, so this will do.
-            if (!(Find.TickManager.TicksGame % 250 == 0)) { return; }
+            if (!(Find.TickManager.TicksGame % AncestorConstants.TICK_INTERVAL == 0)) { return; }
 
             if (!this.spawners.Any())
             {
@@ -127,14 +166,16 @@ namespace MTW_AncestorSpirits
             {
                 this.TrySpawnRandomVisitor();
             }
+
+            this.UpdateApproval();
         }
 
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Values.LookValue<int>(ref minAncestors, "minAncestors", 10);
             Scribe_Values.LookValue<int>(ref numAncestorsToVisit, "numAncestorsToVisit", 3);
             Scribe_Values.LookValue<int>(ref numAncestorsVisiting, "numAncestorsVisiting", 0);
+            Scribe_Values.LookValue<double>(ref approval, "approval", 0.0);
             Scribe_Collections.LookList<Pawn>(ref ancestors, "ancestors", LookMode.DefReference);
             Scribe_Collections.LookList<Thing>(ref spawners, "spawners", LookMode.DefReference);
         }
