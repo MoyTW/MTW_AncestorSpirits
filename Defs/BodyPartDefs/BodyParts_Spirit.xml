@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<BodyPartDefs>
+  <BodyPartDef>
+    <defName>Essence</defName>
+    <label>essence</label>
+    <hitPoints>9999</hitPoints>
+    <oldInjuryBaseChance>0.00</oldInjuryBaseChance>
+    <activities>
+      <li>Consciousness_brain</li>
+      <li>Sight_brain</li>
+      <li>Hearing_brain</li>
+      <li>Moving_brain</li>
+      <li>Talking_brain</li>
+      <li>Moving_source</li>
+      <li>Sight_source</li>
+      <li>Hearing_source</li>
+      <li>Talking_source</li>
+    </activities>
+    <isAlive>false</isAlive>
+    <dontSuggestAmputation>true</dontSuggestAmputation>
+  </BodyPartDef>
+</BodyPartDefs>
