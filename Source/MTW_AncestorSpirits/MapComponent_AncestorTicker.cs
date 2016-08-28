@@ -176,8 +176,10 @@ namespace MTW_AncestorSpirits
             Scribe_Values.LookValue<int>(ref numAncestorsToVisit, "numAncestorsToVisit", 3);
             Scribe_Values.LookValue<int>(ref numAncestorsVisiting, "numAncestorsVisiting", 0);
             Scribe_Values.LookValue<double>(ref approval, "approval", 0.0);
+            /*
             Scribe_Collections.LookList<Pawn>(ref ancestors, "ancestors", LookMode.DefReference);
             Scribe_Collections.LookList<Thing>(ref spawners, "spawners", LookMode.DefReference);
+            */
         }
 
         #endregion
