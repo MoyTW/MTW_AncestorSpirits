@@ -103,7 +103,7 @@
       </ageGenerationCurve>
       <!-- You'll want to change this later -->
       <hediffGiverSets>
-        <li>OrganicStandard</li>
+        <li>SpiritStandard</li>
       </hediffGiverSets>
     </race>
     <recipes></recipes>
