@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <FactionDef>
+    <defName>MTW_Ancestor</defName>
+    <label>ancestor</label>
+    <description>The dearly departed, come to bother the living.</description>
+    <pawnsPlural>ancestors</pawnsPlural>
+    <requiredCountAtGameStart>1</requiredCountAtGameStart>
+    <fixedName>Ancestor</fixedName>
+    <techLevel>Neolithic</techLevel>
+    <backstoryCategory>Civil</backstoryCategory>
+    <hidden>true</hidden>
+    <canMakeRandomly>false</canMakeRandomly>
+    <hairTags>
+      <li>Tribal</li>
+    </hairTags>
+  </FactionDef>
+</Defs>

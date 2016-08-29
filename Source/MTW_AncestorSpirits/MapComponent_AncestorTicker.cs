@@ -45,8 +45,7 @@ namespace MTW_AncestorSpirits
             {
                 if (this._faction == null)
                 {
-                    // TODO: Ancestor Faction!
-                    this._faction = Find.FactionManager.FirstFactionOfDef(FactionDefOf.Spacer);
+                    this._faction = Find.FactionManager.FirstFactionOfDef(FactionDef.Named("MTW_Ancestor"));
                 }
                 return this._faction;
             }
