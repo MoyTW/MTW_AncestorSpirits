@@ -1,9 +1,9 @@
 # Planned Features
 
 ## Useless Ancestors
-+ Ancestors will re-spawn if Shrine is destroyed
-+ Ancestor pool is fixed
-+ Ancestors have their own faction
++ DONE Ancestors will re-spawn if Shrine is destroyed
++ DONE Ancestor pool is fixed
++ DONE Ancestors have their own faction
 + Ancestors hang around the Shrine(s)
 
 ## Picky Ancestors
@@ -15,7 +15,7 @@
 + Magic storage, based on Approval
   + Subtract from if the Ancestors are displeased
   + Add to Magic if the Ancestors are pleased
-  
+
 ## Magical Ancestors
 + Basic weather rituals (use Magic)
   + Rain

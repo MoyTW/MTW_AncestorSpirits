@@ -33,6 +33,7 @@ namespace MTW_AncestorSpirits
 
         private Faction _faction = null;
 
+        private bool initialized = false;
         private List<Pawn> unspawnedAncestors = new List<Pawn>();
         private int numAncestorsToVisit = 3;
 
@@ -73,6 +74,8 @@ namespace MTW_AncestorSpirits
 
         #endregion
 
+        #region Pawn Manipulation
+
         private Pawn GenAncestor()
         {
             PawnKindDef pawnKindDef = PawnKindDef.Named("AncestorSpirit");
@@ -80,9 +83,18 @@ namespace MTW_AncestorSpirits
             return PawnGenerator.GeneratePawn(request);
         }
 
+        private void Initialize()
+        {
+            while (this.unspawnedAncestors.Count() < AncestorConstants.MIN_ANCESTORS)
+            {
+                this.unspawnedAncestors.Add(this.GenAncestor());
+            }
+            this.initialized = true;
+        }
+
         private Pawn PopOrGenUnspawnedPawn()
         {
-            if (this.unspawnedAncestors.Count == 0)
+            if (!this.unspawnedAncestors.Any())
             {
                 return this.GenAncestor();
             }
@@ -138,6 +150,8 @@ namespace MTW_AncestorSpirits
             }
         }
 
+        #endregion
+
         private void UpdateApproval()
         {
             var visitingPawns = this.AncestorsVisiting;
@@ -156,6 +170,7 @@ namespace MTW_AncestorSpirits
         {
             // No Rare version of MapComponentTick, so this will do.
             if (!(Find.TickManager.TicksGame % AncestorConstants.TICK_INTERVAL == 0)) { return; }
+            if (!this.initialized) { this.Initialize(); }
 
             if (!this.Spawners.Any())
             {
@@ -172,6 +187,7 @@ namespace MTW_AncestorSpirits
         public override void ExposeData()
         {
             base.ExposeData();
+            Scribe_Values.LookValue<bool>(ref initialized, "initialized", false);
             Scribe_Values.LookValue<int>(ref numAncestorsToVisit, "numAncestorsToVisit", 3);
             Scribe_Values.LookValue<double>(ref approval, "approval", 0.0);
             Scribe_Collections.LookList<Pawn>(ref this.unspawnedAncestors, "unspawnedAncestors", LookMode.Deep, new object[0]);
