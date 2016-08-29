@@ -33,6 +33,7 @@ namespace MTW_AncestorSpirits
 
         private Faction _faction = null;
 
+        private List<Pawn> unspawnedAncestors = new List<Pawn>();
         private int numAncestorsToVisit = 3;
 
         private double approval = 0.0;
@@ -52,19 +53,11 @@ namespace MTW_AncestorSpirits
         }
 
         // I have no idea of the perf implications of these functions!
-        private IEnumerable<Pawn> Ancestors
-        {
-            get
-            {
-                return Find.MapPawns.PawnsInFaction(this.AncestorFaction);
-            }
-        }
-
         private IEnumerable<Pawn> AncestorsVisiting
         {
             get
             {
-                return Find.MapPawns.SpawnedPawnsInFaction(this.AncestorFaction);
+                return Find.MapPawns.PawnsInFaction(this.AncestorFaction);
             }
         }
 
@@ -87,58 +80,56 @@ namespace MTW_AncestorSpirits
             return PawnGenerator.GeneratePawn(request);
         }
 
-        private Pawn GetUnspawnedPawn()
+        private Pawn PopOrGenUnspawnedPawn()
         {
-            List<Pawn> unspawned = new List<Pawn>();
-            foreach (Pawn p in this.Ancestors)
-            {
-                if (!p.Spawned)
-                {
-                    unspawned.Add(p);
-                }
-            }
-
-            if (unspawned.Count == 0)
+            if (this.unspawnedAncestors.Count == 0)
             {
                 return this.GenAncestor();
             }
             else
             {
-                return unspawned[Rand.Range(0, unspawned.Count)];
-
+                var pawn = this.unspawnedAncestors[Rand.Range(0, this.unspawnedAncestors.Count)];
+                this.unspawnedAncestors.Remove(pawn);
+                return pawn;
             }
         }
 
-        private Pawn GetSpawnedPawn()
+        private Pawn GetVisitingPawn()
         {
-            List<Pawn> spawned = new List<Pawn>();
-            foreach (Pawn p in this.Ancestors)
+            var onMap = this.AncestorsVisiting;
+            if (!onMap.Any())
             {
-                if (p.Spawned) { spawned.Add(p); }
+                return null;
             }
-            return spawned.RandomElement();
+            else
+            {
+                return onMap.RandomElement();
+            }
         }
 
         private bool TrySpawnRandomVisitor()
         {
-            Thing spawner;
-            this.Spawners.TryRandomElement(out spawner);
+            var spawners = this.Spawners;
+            if (!spawners.Any()) { return false; }
+
+            Thing spawner = spawners.RandomElement<Thing>();
             if (spawner == null) { return false; }
 
             IntVec3 pos;
             GenAdj.TryFindRandomWalkableAdjacentCell8Way(spawner, out pos);
             if (pos == null) { return false; }
 
-            GenSpawn.Spawn(this.GetUnspawnedPawn(), pos);
+            GenSpawn.Spawn(this.PopOrGenUnspawnedPawn(), pos);
             return true;
         }
 
         private bool DespawnRandomVisitor()
         {
-            var spawned = this.GetSpawnedPawn();
-            if (spawned != null)
+            var visitor = this.GetVisitingPawn();
+            if (visitor != null)
             {
-                spawned.DeSpawn();
+                visitor.DeSpawn();
+                this.unspawnedAncestors.Add(visitor);
                 return true;
             }
             else
@@ -147,21 +138,11 @@ namespace MTW_AncestorSpirits
             }
         }
 
-        private IEnumerable<Pawn> GetSpawnedPawns()
-        {
-            List<Pawn> spawned = new List<Pawn>();
-            foreach (Pawn p in this.Ancestors)
-            {
-                if (p.Spawned) { spawned.Add(p); }
-            }
-            return spawned;
-        }
-
         private void UpdateApproval()
         {
-            var spawnedPawns = this.GetSpawnedPawns();
+            var visitingPawns = this.AncestorsVisiting;
 
-            foreach (Pawn p in spawnedPawns)
+            foreach (Pawn p in visitingPawns)
             {
                 double moodPercent = p.needs.mood.CurInstantLevelPercentage;
                 this.approval += (moodPercent / 100) * AncestorConstants.APPROVAL_INTERVAL_MULTIPLIER;
@@ -193,6 +174,7 @@ namespace MTW_AncestorSpirits
             base.ExposeData();
             Scribe_Values.LookValue<int>(ref numAncestorsToVisit, "numAncestorsToVisit", 3);
             Scribe_Values.LookValue<double>(ref approval, "approval", 0.0);
+            Scribe_Collections.LookList<Pawn>(ref this.unspawnedAncestors, "unspawnedAncestors", LookMode.Deep, new object[0]);
         }
 
         #endregion
