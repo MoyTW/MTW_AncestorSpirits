@@ -1,5 +1,7 @@
 ﻿using RimWorld;
 using Verse;
+using Verse.AI;
+using Verse.AI.Group;
 
 using System;
 using System.Collections.Generic;
@@ -174,11 +176,20 @@ namespace MTW_AncestorSpirits
 
             if (!this.Spawners.Any())
             {
-                this.DespawnRandomVisitor();
+                while (this.AncestorsVisiting.Count() > 0)
+                {
+                    this.DespawnRandomVisitor();
+                }
             }
             else if (this.AncestorsVisiting.Count() < numAncestorsToVisit)
             {
-                this.TrySpawnRandomVisitor();
+                while (this.AncestorsVisiting.Count() < numAncestorsToVisit)
+                {
+                    this.TrySpawnRandomVisitor();
+                }
+                var loiterPoint = this.Spawners.First().Position;
+                var lordJob = new LordJob_DefendPoint(loiterPoint);
+                LordMaker.MakeNewLord(this.AncestorFaction, lordJob, this.AncestorsVisiting);
             }
 
             this.UpdateApproval();
