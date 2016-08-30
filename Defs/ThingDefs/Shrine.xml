@@ -46,8 +46,6 @@
     </costList>
     
     <designationCategory>Misc</designationCategory>
-    <!-- TODO: FIX THIS -->
-		<constructEffect>ConstructMetal</constructEffect>
     <tickerType>Rare</tickerType>
     
     <staticSunShadowHeight>0.20</staticSunShadowHeight>
