@@ -4,7 +4,7 @@
 + DONE Ancestors will re-spawn if Shrine is destroyed
 + DONE Ancestor pool is fixed
 + DONE Ancestors have their own faction
-+ Ancestors hang around the Shrine(s)
++ DONE Ancestors hang around the Shrine(s)
 
 ## Picky Ancestors
 + Spirits get very angry if you have two Shrines
@@ -26,6 +26,7 @@
   + End Strange Weather (cancel heat wave/cold snap)
 
 ## Joyful Ancestors
++ Ancestors trickle in/out instead of group spawning
 + Ancestors have a Joy need
 + Ancestors will use Joy objects
 

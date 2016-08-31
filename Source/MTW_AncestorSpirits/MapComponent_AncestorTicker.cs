@@ -34,9 +34,12 @@ namespace MTW_AncestorSpirits
         private Random rand = new Random();
 
         private Faction _faction = null;
+        private Building _currentSpawner = null;
 
         private bool initialized = false;
         private List<Pawn> unspawnedAncestors = new List<Pawn>();
+        private HashSet<Building> spawners = new HashSet<Building>();
+
         private int numAncestorsToVisit = 3;
 
         private double approval = 0.0;
@@ -55,22 +58,28 @@ namespace MTW_AncestorSpirits
             }
         }
 
+        private Building CurrentSpawner
+        {
+            get
+            {
+                // Technically, _currentSpawner can be orphaned.
+                if (!this.spawners.Any()) { return null; }
+
+                if (!this.spawners.Contains<Building>(this._currentSpawner))
+                {
+                    this._currentSpawner = this.spawners.First();
+                }
+
+                return this._currentSpawner;
+            }
+        }
+
         // I have no idea of the perf implications of these functions!
         private IEnumerable<Pawn> AncestorsVisiting
         {
             get
             {
                 return Find.MapPawns.PawnsInFaction(this.AncestorFaction);
-            }
-        }
-
-        private IEnumerable<Thing> Spawners
-        {
-            get
-            {
-                // TODO: Figure out why using allBuildingsColonistOfDef will hard-crash the game.
-                // TODO: Why does LINQ cause egregious loading errors!?
-                return Find.ListerThings.ThingsOfDef(ThingDef.Named("MTW_AncestorShrine"));
             }
         }
 
@@ -123,14 +132,10 @@ namespace MTW_AncestorSpirits
 
         private bool TrySpawnRandomVisitor()
         {
-            var spawners = this.Spawners;
-            if (!spawners.Any()) { return false; }
-
-            Thing spawner = spawners.RandomElement<Thing>();
-            if (spawner == null) { return false; }
+            if (this.CurrentSpawner == null) { return false; }
 
             IntVec3 pos;
-            GenAdj.TryFindRandomWalkableAdjacentCell8Way(spawner, out pos);
+            GenAdj.TryFindRandomWalkableAdjacentCell8Way(this.CurrentSpawner, out pos);
             if (pos == null) { return false; }
 
             GenSpawn.Spawn(this.PopOrGenUnspawnedPawn(), pos);
@@ -143,6 +148,7 @@ namespace MTW_AncestorSpirits
             if (visitor != null)
             {
                 visitor.DeSpawn();
+                visitor.GetLord().Notify_PawnLost(visitor, PawnLostCondition.Vanished);
                 this.unspawnedAncestors.Add(visitor);
                 return true;
             }
@@ -152,6 +158,28 @@ namespace MTW_AncestorSpirits
             }
         }
 
+        #endregion
+
+        #region Notifications
+        public void Notify_SpawnerCreated(Building spawner)
+        {
+            this.spawners.Add(spawner);
+        }
+
+        public void Notify_SpawnerDestroyed(Building spawner)
+        {
+            this.spawners.Remove(spawner);
+            if (this.CurrentSpawner != null)
+            {
+                foreach (var ancestor in this.AncestorsVisiting)
+                {
+                    ancestor.GetLord().Notify_PawnLost(ancestor, PawnLostCondition.Vanished);
+                }
+                var loiterPoint = this.CurrentSpawner.Position;
+                var lordJob = new LordJob_DefendPoint(loiterPoint);
+                LordMaker.MakeNewLord(this.AncestorFaction, lordJob, this.AncestorsVisiting);
+            }
+        }
         #endregion
 
         private void UpdateApproval()
@@ -174,7 +202,7 @@ namespace MTW_AncestorSpirits
             if (!(Find.TickManager.TicksGame % AncestorConstants.TICK_INTERVAL == 0)) { return; }
             if (!this.initialized) { this.Initialize(); }
 
-            if (!this.Spawners.Any())
+            if (this.CurrentSpawner == null)
             {
                 while (this.AncestorsVisiting.Count() > 0)
                 {
@@ -187,7 +215,7 @@ namespace MTW_AncestorSpirits
                 {
                     this.TrySpawnRandomVisitor();
                 }
-                var loiterPoint = this.Spawners.First().Position;
+                var loiterPoint = this.CurrentSpawner.Position;
                 var lordJob = new LordJob_DefendPoint(loiterPoint);
                 LordMaker.MakeNewLord(this.AncestorFaction, lordJob, this.AncestorsVisiting);
             }
@@ -202,6 +230,8 @@ namespace MTW_AncestorSpirits
             Scribe_Values.LookValue<int>(ref numAncestorsToVisit, "numAncestorsToVisit", 3);
             Scribe_Values.LookValue<double>(ref approval, "approval", 0.0);
             Scribe_Collections.LookList<Pawn>(ref this.unspawnedAncestors, "unspawnedAncestors", LookMode.Deep, new object[0]);
+            Scribe_Collections.LookHashSet<Building>(ref this.spawners, "spawners", LookMode.MapReference);
+            Scribe_References.LookReference<Building>(ref this._currentSpawner, "currentSpawner");
         }
 
         #endregion
