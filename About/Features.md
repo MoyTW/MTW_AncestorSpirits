@@ -1,13 +1,14 @@
 # Planned Features
 
-## Useless Ancestors
+## DONE Useless Ancestors
 + DONE Ancestors will re-spawn if Shrine is destroyed
 + DONE Ancestor pool is fixed
 + DONE Ancestors have their own faction
 + DONE Ancestors hang around the Shrine(s)
 
 ## Picky Ancestors
-+ Spirits get very angry if you have two Shrines
++ DONE Ancestors get very angry if you have two Shrines
++ DONE Ancestors are very displeased if you have no Shrines
 + Approval score can increase or decrease
 + Semi-random events based on Approval level
   + Flash Storm if Ancestors are angry
