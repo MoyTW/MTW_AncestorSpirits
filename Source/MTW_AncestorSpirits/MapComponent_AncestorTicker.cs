@@ -40,13 +40,6 @@ namespace MTW_AncestorSpirits
 
     class MapComponent_AncestorTicker : MapComponent
     {
-        private enum ShrineStatus
-        {
-            none = 0,
-            one,
-            many
-        }
-
         private Random rand = new Random();
 
         private Faction _faction = null;
@@ -55,16 +48,13 @@ namespace MTW_AncestorSpirits
         private bool initialized = false;
         private List<Pawn> unspawnedAncestors = new List<Pawn>();
         private HashSet<Building> spawners = new HashSet<Building>();
-
-        private ShrineStatus previousShrineStatus = ShrineStatus.one;
+        private AncestorApproval approval = null;
 
         private int numAncestorsToVisit = 3;
 
-        private double approval = 0.0;
-
         #region Properties
 
-        private Faction AncestorFaction
+        public Faction AncestorFaction
         {
             get
             {
@@ -76,7 +66,7 @@ namespace MTW_AncestorSpirits
             }
         }
 
-        private Building CurrentSpawner
+        public Building CurrentSpawner
         {
             get
             {
@@ -92,8 +82,16 @@ namespace MTW_AncestorSpirits
             }
         }
 
+        public int NumSpawners
+        {
+            get
+            {
+                return this.spawners.Count;
+            }
+        }
+
         // I have no idea of the perf implications of these functions!
-        private IEnumerable<Pawn> AncestorsVisiting
+        public IEnumerable<Pawn> AncestorsVisiting
         {
             get
             {
@@ -118,6 +116,7 @@ namespace MTW_AncestorSpirits
             {
                 this.unspawnedAncestors.Add(this.GenAncestor());
             }
+            this.approval = new AncestorApproval();
             this.initialized = true;
         }
 
@@ -200,58 +199,6 @@ namespace MTW_AncestorSpirits
         }
         #endregion
 
-        private void UpdateApprovalNoShrines()
-        {
-            if (this.previousShrineStatus != ShrineStatus.none)
-            {
-                this.previousShrineStatus = ShrineStatus.none;
-                // TODO: Not hardcoded strings!
-                Find.LetterStack.ReceiveLetter("No Shrines!", "Your Ancestors are displeased that you have no " +
-                    "shrines! You will lose approval with them until you build a shrine.", LetterType.BadNonUrgent);
-            }
-            this.approval += AncestorConstants.APP_MOD_NO_SHRINES_INTERVAL;
-        }
-
-        private void UpdateApprovalManyShrines()
-        {
-            if (this.previousShrineStatus != ShrineStatus.many)
-            {
-                this.previousShrineStatus = ShrineStatus.many;
-                // TODO: Not hardcoded strings!
-                Find.LetterStack.ReceiveLetter("Too many Shrines!", "Your Ancestors are displeased that you have " +
-                    "too many shrines! You should have one shrine, and one shrine only! You will lose approval with " +
-                    " them until you demolish the extras.", LetterType.BadNonUrgent);
-            }
-            this.approval += AncestorConstants.APP_MOD_MANY_SHRINES_INTERVAL;
-        }
-
-        private void UpdateApproval()
-        {
-            var visitingPawns = this.AncestorsVisiting;
-
-            // Pawn approval summary
-            foreach (Pawn p in visitingPawns)
-            {
-                double moodPercent = p.needs.mood.CurInstantLevelPercentage;
-                this.approval += (moodPercent / 100) * AncestorConstants.APPROVAL_INTERVAL_MULTIPLIER;
-            }
-
-            // Number of shrines
-            if (this.CurrentSpawner == null)
-            {
-                this.UpdateApprovalNoShrines();
-            }
-            else if (this.spawners.Count > 1)
-            {
-                this.UpdateApprovalManyShrines();
-            }
-            else
-            {
-                this.previousShrineStatus = ShrineStatus.one;
-            }
-            Log.Message("Approval: " + this.approval.ToString());
-        }
-
         #region Overrides
 
         public override void MapComponentTick()
@@ -278,18 +225,16 @@ namespace MTW_AncestorSpirits
                 LordMaker.MakeNewLord(this.AncestorFaction, lordJob, this.AncestorsVisiting);
             }
 
-            this.UpdateApproval();
+            this.approval.UpdateApproval(this);
         }
 
         public override void ExposeData()
         {
             base.ExposeData();
 
-            Scribe_Values.LookValue<ShrineStatus>(ref this.previousShrineStatus, "previousShrineStatus", ShrineStatus.one);
-
             Scribe_Values.LookValue<bool>(ref initialized, "initialized", false);
             Scribe_Values.LookValue<int>(ref numAncestorsToVisit, "numAncestorsToVisit", 3);
-            Scribe_Values.LookValue<double>(ref approval, "approval", 0.0);
+            Scribe_Deep.LookDeep<AncestorApproval>(ref this.approval, "approval", new object[0]);
             Scribe_Collections.LookList<Pawn>(ref this.unspawnedAncestors, "unspawnedAncestors", LookMode.Deep, new object[0]);
             Scribe_Collections.LookHashSet<Building>(ref this.spawners, "spawners", LookMode.MapReference);
             Scribe_References.LookReference<Building>(ref this._currentSpawner, "currentSpawner");

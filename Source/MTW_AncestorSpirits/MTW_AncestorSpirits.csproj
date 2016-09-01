@@ -48,6 +48,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AncestorApproval.cs" />
     <Compile Include="Building_Shrine.cs" />
     <Compile Include="MapComponentInjector.cs" />
     <Compile Include="MapComponent_AncestorTicker.cs" />
