@@ -23,10 +23,16 @@ namespace MTW_AncestorSpirits
     public static class AncestorConstants
     {
         public const int TICKS_PER_SEASON = 45000;
-        public const int TICK_INTERVAL = 250;
+        public const int TICKS_PER_HOUR = 1250;
+        public const int TICKS_PER_DAY = TICKS_PER_HOUR * 24;
+        public const int TICK_INTERVAL = TICKS_PER_HOUR / 5;
         public const double SEASONS_PER_INTERVAL = (double)TICK_INTERVAL / (double)TICKS_PER_SEASON;
 
         public const int MIN_ANCESTORS = 10;
+
+        #region Approval
+
+        public const int APPROVAL_HISTORY_HOURS = 24 * 7;
 
         public const double MAX_APPROVAL_PER_ANCESTOR_PER_SEASON = 2;
         public const double APPROVAL_INTERVAL_MULTIPLIER = SEASONS_PER_INTERVAL * MAX_APPROVAL_PER_ANCESTOR_PER_SEASON;
@@ -36,6 +42,8 @@ namespace MTW_AncestorSpirits
 
         public const double APP_MOD_MANY_SHRINES_PER_SEASON = -4;
         public const double APP_MOD_MANY_SHRINES_INTERVAL = SEASONS_PER_INTERVAL * APP_MOD_MANY_SHRINES_PER_SEASON;
+
+        #endregion
     }
 
     class MapComponent_AncestorTicker : MapComponent
