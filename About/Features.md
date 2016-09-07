@@ -9,7 +9,7 @@
 ## Picky Ancestors
 + DONE Ancestors get very angry if you have two Shrines
 + DONE Ancestors are very displeased if you have no Shrines
-+ Approval score can increase or decrease
++ DONE Approval score can increase or decrease
 + Semi-random events based on Approval level
   + Flash Storm if Ancestors are angry
   + Drop Pods (change this later) if Ancestors are pleased

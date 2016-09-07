@@ -61,11 +61,17 @@ namespace MTW_AncestorSpirits
             var visitingPawns = ancestorDriver.AncestorsVisiting;
             double approvalSum = 0;
 
-            // Pawn approval summary
             foreach (Pawn p in visitingPawns)
             {
-                double moodPercent = p.needs.mood.CurInstantLevelPercentage;
-                approvalSum += (moodPercent / 100) * AncestorConstants.APPROVAL_INTERVAL_MULTIPLIER;
+                double cutMoodPercent = p.needs.mood.CurInstantLevelPercentage - AncestorConstants.APP_NEG_CUTOFF;
+                if (cutMoodPercent > 0)
+                {
+                    approvalSum += cutMoodPercent * AncestorConstants.APP_MULT_GAIN_PER_SEASON;
+                }
+                else
+                {
+                    approvalSum += cutMoodPercent * AncestorConstants.APP_MULT_LOSS_PER_SEASON;
+                }
             }
             return approvalSum;
         }

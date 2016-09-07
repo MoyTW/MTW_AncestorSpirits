@@ -22,11 +22,11 @@ namespace MTW_AncestorSpirits
 {
     public static class AncestorConstants
     {
-        public const int TICKS_PER_SEASON = 45000;
+        public const int TICKS_PER_SEASON = 450000;
         public const int TICKS_PER_HOUR = 1250;
         public const int TICKS_PER_DAY = TICKS_PER_HOUR * 24;
         public const int TICK_INTERVAL = TICKS_PER_HOUR / 5;
-        public const double SEASONS_PER_INTERVAL = (double)TICK_INTERVAL / (double)TICKS_PER_SEASON;
+        public const double INTERVALS_PER_SEASON = (double)TICKS_PER_SEASON / (double)TICK_INTERVAL;
 
         public const int MIN_ANCESTORS = 10;
 
@@ -34,14 +34,25 @@ namespace MTW_AncestorSpirits
 
         public const int APPROVAL_HISTORY_HOURS = 24 * 7;
 
-        public const double MAX_APPROVAL_PER_ANCESTOR_PER_SEASON = 2;
-        public const double APPROVAL_INTERVAL_MULTIPLIER = SEASONS_PER_INTERVAL * MAX_APPROVAL_PER_ANCESTOR_PER_SEASON;
+        /* Approval System
+         * Cutoff is the percentage approval at which they switch from negative to positive.
+         *
+         * Negative/Positive gains are capped at MAX_APP/LOSS_PER_ANCESTOR_PER_SEASON. The multiplier is computed from
+         * the cutoff, the number of intervals per season, and the max gain/loss.
+         *  */
+        public const double APP_NEG_CUTOFF = 40.0 / 100.0;
+
+        public const double MAX_APP_GAIN_PER_ANCESTOR_PER_SEASON = 2;
+        public const double APP_MULT_GAIN_PER_SEASON = (MAX_APP_GAIN_PER_ANCESTOR_PER_SEASON / (1.0 - APP_NEG_CUTOFF)) / INTERVALS_PER_SEASON;
+
+        public const double MAX_APP_LOSS_PER_ANCESTOR_PER_SEASON = 1;
+        public const double APP_MULT_LOSS_PER_SEASON = (MAX_APP_LOSS_PER_ANCESTOR_PER_SEASON / APP_NEG_CUTOFF) / INTERVALS_PER_SEASON;
 
         public const double APP_MOD_NO_SHRINES_PER_SEASON = -8;
-        public const double APP_MOD_NO_SHRINES_INTERVAL = SEASONS_PER_INTERVAL * APP_MOD_NO_SHRINES_PER_SEASON;
+        public const double APP_MOD_NO_SHRINES_INTERVAL = APP_MOD_NO_SHRINES_PER_SEASON / INTERVALS_PER_SEASON;
 
         public const double APP_MOD_MANY_SHRINES_PER_SEASON = -4;
-        public const double APP_MOD_MANY_SHRINES_INTERVAL = SEASONS_PER_INTERVAL * APP_MOD_MANY_SHRINES_PER_SEASON;
+        public const double APP_MOD_MANY_SHRINES_INTERVAL = APP_MOD_MANY_SHRINES_PER_SEASON / INTERVALS_PER_SEASON;
 
         #endregion
     }
