@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
-
   <BodyDef>
     <defName>Spirit</defName>
     <label>spirit</label>
@@ -12,7 +11,7 @@
       <groups>
         <li>Torso</li>
       </groups>
-      </corePart>
+    </corePart>
   </BodyDef>
   
 </Defs>
