@@ -40,19 +40,41 @@ namespace MTW_AncestorSpirits
          * Negative/Positive gains are capped at MAX_APP/LOSS_PER_ANCESTOR_PER_SEASON. The multiplier is computed from
          * the cutoff, the number of intervals per season, and the max gain/loss.
          *  */
-        public const double APP_NEG_CUTOFF = 40.0 / 100.0;
+        public const double APP_NEG_CUTOFF = 0.4;
 
-        public const double MAX_APP_GAIN_PER_ANCESTOR_PER_SEASON = 2;
+        public const double MAX_APP_GAIN_PER_ANCESTOR_PER_SEASON = 2.0;
         public const double APP_MULT_GAIN_PER_SEASON = (MAX_APP_GAIN_PER_ANCESTOR_PER_SEASON / (1.0 - APP_NEG_CUTOFF)) / INTERVALS_PER_SEASON;
 
-        public const double MAX_APP_LOSS_PER_ANCESTOR_PER_SEASON = 1;
+        public const double MAX_APP_LOSS_PER_ANCESTOR_PER_SEASON = 1.0;
         public const double APP_MULT_LOSS_PER_SEASON = (MAX_APP_LOSS_PER_ANCESTOR_PER_SEASON / APP_NEG_CUTOFF) / INTERVALS_PER_SEASON;
 
-        public const double APP_MOD_NO_SHRINES_PER_SEASON = -8;
+        public const double APP_MOD_NO_SHRINES_PER_SEASON = -8.0;
         public const double APP_MOD_NO_SHRINES_INTERVAL = APP_MOD_NO_SHRINES_PER_SEASON / INTERVALS_PER_SEASON;
 
-        public const double APP_MOD_MANY_SHRINES_PER_SEASON = -4;
+        public const double APP_MOD_MANY_SHRINES_PER_SEASON = -4.0;
         public const double APP_MOD_MANY_SHRINES_INTERVAL = APP_MOD_MANY_SHRINES_PER_SEASON / INTERVALS_PER_SEASON;
+
+        /* Events Triggers
+         * There are two conditions for an event trigger - time, or deltas
+         * 
+         * Once an initial time period has passed, the game becomes eligible for events. An event is scheduled with a 
+         * TTL ticker, and when the timer ticks down it will fire. Then, the process resets.
+         * 
+         * Alternatively, if there's a delta within an hour which exceeds the maximum allowed delta, an event will fire
+         * in the next hour. This will also reset the ticker to a new value.
+         * */
+
+        public const double EVENT_TIMER_DAYS_BEFORE_FIRST = 7.0;
+
+        public const double EVENT_TIMER_DAYS_BETWEEN = 7.0;
+        public const double EVENT_TIMER_TICKS_BETWEEN = EVENT_TIMER_DAYS_BETWEEN * TICKS_PER_DAY;
+        public const double EVENT_TIMER_HOURS_PLUS_MINUS = 48.0;
+        public const double EVENT_TIMER_TICKS_PLUS_MINUS = EVENT_TIMER_HOURS_PLUS_MINUS * TICKS_PER_HOUR;
+
+        public const double EVENT_TRIGGER_GAIN_SEASON_DELTA = 5.0;
+        public const double EVENT_TRIGGER_GAIN_INTERVAL_DELTA = EVENT_TRIGGER_GAIN_SEASON_DELTA / INTERVALS_PER_SEASON;
+        public const double EVENT_TRIGGER_LOSS_SEASON_DELTA = 6.0;
+        public const double EVENT_TRIGGER_LOSS_INTERVAL_DELTA = EVENT_TRIGGER_LOSS_SEASON_DELTA / INTERVALS_PER_SEASON;
 
         #endregion
     }
