@@ -21,8 +21,22 @@ namespace MTW_AncestorSpirits
         private ShrineStatus previousShrineStatus = ShrineStatus.one;
 
         private double intervalDelta = 0;
+        private double hourDeltaAcc = 0;
         private List<double> gaugeDeltaHour = new List<double>();
         private List<double> gaugeDeltaDay = new List<double>();
+
+        public double IntervalDelta
+        {
+            get
+            {
+                return this.intervalDelta;
+            }
+        }
+
+        public double HourHistoryDelta()
+        {
+            return this.gaugeDeltaHour.Sum();
+        }
 
         private double CalcShrineApproval(MapComponent_AncestorTicker ancestorDriver)
         {
@@ -80,25 +94,26 @@ namespace MTW_AncestorSpirits
         {
             if (this.gaugeDeltaHour.Count < AncestorConstants.APPROVAL_HISTORY_HOURS)
             {
-                this.gaugeDeltaHour.Add(this.intervalDelta);
+                this.gaugeDeltaHour.Add(this.hourDeltaAcc);
             }
             else
             {
                 this.gaugeDeltaHour.RemoveAt(0);
-                this.gaugeDeltaHour.Add(this.intervalDelta);
+                this.gaugeDeltaHour.Add(this.hourDeltaAcc);
             }
-            this.intervalDelta = 0.0;
+            this.hourDeltaAcc = 0.0;
         }
 
         private void SummarizeDay()
         {
-            var gagueLastHour = this.gaugeDeltaHour.Skip(this.gaugeDeltaHour.Count - 24);
-            this.gaugeDeltaDay.Add(gagueLastHour.Sum());
+            var deltaLastDay = this.gaugeDeltaHour.Skip(this.gaugeDeltaHour.Count - 24).Sum();
+            this.gaugeDeltaDay.Add(deltaLastDay);
         }
 
         private void UpdateHistory(double approvalDelta)
         {
-            this.intervalDelta += approvalDelta;
+            this.intervalDelta = approvalDelta;
+            this.hourDeltaAcc += approvalDelta;
 
             if (Find.TickManager.TicksGame % AncestorConstants.TICKS_PER_HOUR == 0)
             {
@@ -133,13 +148,14 @@ namespace MTW_AncestorSpirits
 
             this.UpdateHistory(approvalDelta);
 
-            Log.Message("Approval: " + this.intervalDelta.ToString());
+            Log.Message("Approval: " + this.hourDeltaAcc.ToString());
         }
 
         public void ExposeData()
         {
             Scribe_Values.LookValue<ShrineStatus>(ref this.previousShrineStatus, "previousShrineStatus", ShrineStatus.one);
             Scribe_Values.LookValue<double>(ref this.intervalDelta, "intervalDelta", 0.0);
+            Scribe_Values.LookValue<double>(ref this.hourDeltaAcc, "hourDeltaAcc", 0.0);
             Scribe_Collections.LookList<double>(ref this.gaugeDeltaHour, "gaugeDeltaHour", LookMode.Value, new object[0]);
             Scribe_Collections.LookList<double>(ref this.gaugeDeltaDay, "gaugeDeltaDay", LookMode.Value, new object[0]);
         }
