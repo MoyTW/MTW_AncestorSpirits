@@ -9,54 +9,105 @@ using System.Threading.Tasks;
 
 namespace MTW_AncestorSpirits
 {
+    internal enum EventType
+    {
+        positive = 0,
+        negative,
+        undecided
+    }
+
+    internal enum EventCause
+    {
+        delta = 0,
+        timer
+    }
+
+    // Does ScribeRef allow you to just scribe it as a...uh, ref?
+    internal class Event : IExposable
+    {
+        private int ttl;
+        private EventType type;
+        private EventCause cause;
+        private bool sentOmen = false;
+        private bool completed = false;
+
+        public EventCause Cause { get { return this.cause; } }
+        public bool SentOmen { get { return this.SentOmen; } } // TODO: Add in omens!
+        public bool Finalized { get { return this.SentOmen; } }
+        public bool Completed { get { return this.completed; } }
+
+        private void TryForceIncident(String name)
+        {
+            var incidentDef = DefDatabase<IncidentDef>.GetNamed(name);
+            var incidentParams = new IncidentParms();
+            incidentParams.forced = true;
+            incidentDef.Worker.TryExecute(incidentParams);
+        }
+
+        private void FireEvent(AncestorApproval approval)
+        {
+            // If undecided, resolve immediately
+            if (this.type == EventType.undecided)
+            {
+                var hourHistoryDelta = approval.HourHistoryDelta();
+                if (hourHistoryDelta >= 0.0)
+                {
+                    this.type = EventType.positive;
+                }
+                else
+                {
+                    this.type = EventType.negative;
+                }
+            }
+
+            if (this.type == EventType.positive)
+            {
+                this.TryForceIncident("ResourcePodCrash");
+            }
+            else
+            {
+                this.TryForceIncident("Flashstorm");
+            }
+        }
+
+        public void UpdateEvent(AncestorApproval approval)
+        {
+            this.ttl -= AncestorConstants.TICK_INTERVAL;
+
+            if (this.ttl <= 0)
+            {
+                this.FireEvent(approval);
+                this.completed = true;
+            }
+        }
+
+        public Event()
+        {
+            this.ttl = (int)AncestorConstants.EVENT_TIMER_TICKS_BETWEEN;
+            this.type = EventType.undecided;
+            this.cause = EventCause.timer;
+        }
+
+        public Event(int ttl, EventType type, EventCause cause)
+        {
+            this.ttl = ttl;
+            this.type = type;
+            this.cause = cause;
+        }
+
+        public void ExposeData()
+        {
+            Scribe_Values.LookValue<int>(ref this.ttl, "ttl", (int)AncestorConstants.EVENT_TIMER_TICKS_BETWEEN);
+            Scribe_Values.LookValue<EventType>(ref this.type, "type", EventType.undecided);
+            Scribe_Values.LookValue<EventCause>(ref this.cause, "cause", EventCause.timer);
+            Scribe_Values.LookValue<bool>(ref this.sentOmen, "sentOmen", false);
+            Scribe_Values.LookValue<bool>(ref this.completed, "completed", false);
+        }
+    }
+
+
     class EventTimer : IExposable
     {
-        #region Data Types
-
-        private enum EventType
-        {
-            positive = 0,
-            negative,
-            undecided
-        }
-
-        private enum EventCause
-        {
-            delta = 0,
-            timer
-        }
-
-        // Does ScribeRef allow you to just scribe it as a...uh, ref?
-        private class Event : IExposable
-        {
-            public int ttl;
-            public EventType type;
-            public EventCause cause;
-
-            public Event()
-            {
-                this.ttl = (int)AncestorConstants.EVENT_TIMER_TICKS_BETWEEN;
-                this.type = EventType.undecided;
-                this.cause = EventCause.timer;
-            }
-
-            public Event(int ttl, EventType type, EventCause cause)
-            {
-                this.ttl = ttl;
-                this.type = type;
-                this.cause = cause;
-            }
-
-            public void ExposeData()
-            {
-                Scribe_Values.LookValue<int>(ref this.ttl, "ttl", (int)AncestorConstants.EVENT_TIMER_TICKS_BETWEEN);
-                Scribe_Values.LookValue<EventType>(ref this.type, "type", EventType.undecided);
-                Scribe_Values.LookValue<EventCause>(ref this.cause, "cause", EventCause.timer);
-            }
-        }
-
-        #endregion
-
         #region Vars & Accessors
 
         private Event nextEvent = null;
@@ -80,9 +131,9 @@ namespace MTW_AncestorSpirits
         {
             get
             {
-                return (this.nextEvent.cause != EventCause.delta &&
+                return (this.nextEvent.Cause != EventCause.delta &&
                     this.prevEvent != null &&
-                    this.prevEvent.cause != EventCause.delta);
+                    this.prevEvent.Cause != EventCause.delta);
             }
         }
 
@@ -121,51 +172,19 @@ namespace MTW_AncestorSpirits
 
         #endregion
 
-        private void TryForceIncident(String name)
-        {
-            var incidentDef = DefDatabase<IncidentDef>.GetNamed(name);
-            var incidentParams = new IncidentParms();
-            incidentParams.forced = true;
-            incidentDef.Worker.TryExecute(incidentParams);
-        }
-
-        private void FireNextEvent(AncestorApproval approval)
-        {
-            // If undecided, resolve immediately
-            if (this.nextEvent.type == EventType.undecided)
-            {
-                var hourHistoryDelta = approval.HourHistoryDelta();
-                if (hourHistoryDelta >= 0.0)
-                {
-                    this.nextEvent.type = EventType.positive;
-                }
-                else
-                {
-                    this.nextEvent.type = EventType.negative;
-                }
-            }
-
-            if (this.nextEvent.type == EventType.positive)
-            {
-                this.TryForceIncident("ResourcePodCrash");
-            }
-            else
-            {
-                this.TryForceIncident("Flashstorm");
-            }
-
-            this.prevEvent = this.nextEvent;
-            this.nextEvent = this.GenTimerEvent();
-        }
-
         public void UpdateTimer(AncestorApproval approval)
         {
             double intervalDelta = approval.IntervalDelta;
-            this.nextEvent.ttl -= AncestorConstants.TICK_INTERVAL;
+            this.nextEvent.UpdateEvent(approval);
 
-            if (this.nextEvent.ttl <= 0)
+            if (this.nextEvent.Completed)
             {
-                this.FireNextEvent(approval);
+                this.prevEvent = this.nextEvent;
+                this.nextEvent = this.GenTimerEvent();
+            }
+            else if (this.nextEvent.Finalized)
+            {
+                return;
             }
             else if (approval.IntervalDelta > AncestorConstants.EVENT_TRIGGER_GAIN_INTERVAL_DELTA &&
                 this.CanScheduleDelta)
