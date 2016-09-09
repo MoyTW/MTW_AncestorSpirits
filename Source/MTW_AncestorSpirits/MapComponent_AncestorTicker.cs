@@ -61,8 +61,8 @@ namespace MTW_AncestorSpirits
          * TTL ticker, and when the timer ticks down it will fire. Then, the process resets.
          * 
          * Alternatively, if there's a delta within an hour which exceeds the maximum allowed delta, an event will fire
-         * in the next hour. This will also reset the ticker to a new value, and no delta-triggered events may fire 
-         * until the next scheduled event.
+         * "soon". The upper/lower bound for this time is set by MIN_OMEN_HOURS/MAX_OMEN_HOURS. This will also reset 
+         * the ticker to a new value, and no delta-triggered events may fire until the next scheduled event.
          * */
 
         public const double EVENT_TIMER_DAYS_BEFORE_FIRST = 7.0;
@@ -76,6 +76,11 @@ namespace MTW_AncestorSpirits
         public const double EVENT_TRIGGER_GAIN_INTERVAL_DELTA = EVENT_TRIGGER_GAIN_SEASON_DELTA / INTERVALS_PER_SEASON;
         public const double EVENT_TRIGGER_LOSS_SEASON_DELTA = -6.0; // TODO: Consistency between pos/negatives here
         public const double EVENT_TRIGGER_LOSS_INTERVAL_DELTA = EVENT_TRIGGER_LOSS_SEASON_DELTA / INTERVALS_PER_SEASON;
+
+        public const double EVENT_TIMER_MIN_OMEN_HOURS = 1.0;
+        public const int EVENT_TIMER_MIN_OMEN_TICKS = (int)(EVENT_TIMER_MIN_OMEN_HOURS * TICKS_PER_HOUR);
+        public const double EVENT_TIMER_MAX_OMEN_HOURS = 6.0;
+        public const int EVENT_TIMER_MAX_OMEN_TICKS = (int)(EVENT_TIMER_MAX_OMEN_HOURS * TICKS_PER_HOUR);
 
         #endregion
     }

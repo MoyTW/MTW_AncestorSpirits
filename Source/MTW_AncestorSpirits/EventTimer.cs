@@ -26,15 +26,29 @@ namespace MTW_AncestorSpirits
     internal class Event : IExposable
     {
         private int ttl;
+        private int omenTicks;
         private EventType type;
         private EventCause cause;
-        private bool sentOmen = false;
+        private bool finalized = false;
         private bool completed = false;
 
         public EventCause Cause { get { return this.cause; } }
-        public bool SentOmen { get { return this.SentOmen; } } // TODO: Add in omens!
-        public bool Finalized { get { return this.SentOmen; } }
+        public bool Finalized { get { return this.finalized; } }
         public bool Completed { get { return this.completed; } }
+
+        public Event() : this((int)AncestorConstants.EVENT_TIMER_TICKS_BETWEEN, EventType.undecided, EventCause.timer)
+        {
+        }
+
+        public Event(int ttl, EventType type, EventCause cause)
+        {
+            var rand = new Random(); // I mean, not great, but we're not gonna generate Events very much.
+            this.omenTicks = rand.Next(AncestorConstants.EVENT_TIMER_MIN_OMEN_TICKS,
+                AncestorConstants.EVENT_TIMER_MAX_OMEN_TICKS);
+            this.ttl = Math.Max(ttl, this.omenTicks);
+            this.type = type;
+            this.cause = cause;
+        }
 
         private void TryForceIncident(String name)
         {
@@ -44,9 +58,8 @@ namespace MTW_AncestorSpirits
             incidentDef.Worker.TryExecute(incidentParams);
         }
 
-        private void FireEvent(AncestorApproval approval)
+        private void FinalizeAndSendLetter(AncestorApproval approval)
         {
-            // If undecided, resolve immediately
             if (this.type == EventType.undecided)
             {
                 var hourHistoryDelta = approval.HourHistoryDelta();
@@ -62,6 +75,21 @@ namespace MTW_AncestorSpirits
 
             if (this.type == EventType.positive)
             {
+                Find.LetterStack.ReceiveLetter("Good Omen!", "One of your colonists has spotted a propitious omen! " +
+                    " Surely the Ancestors are smiling on you.", LetterType.Good);
+            }
+            else
+            {
+                Find.LetterStack.ReceiveLetter("Ill Omen!", "One of your colonists has spotted an inauspicious " +
+                    "omen! Be wary in the coming hours.", LetterType.BadNonUrgent);
+            }
+            this.finalized = true;
+        }
+
+        private void FireEvent(AncestorApproval approval)
+        {
+            if (this.type == EventType.positive)
+            {
                 this.TryForceIncident("ResourcePodCrash");
             }
             else
@@ -74,33 +102,24 @@ namespace MTW_AncestorSpirits
         {
             this.ttl -= AncestorConstants.TICK_INTERVAL;
 
-            if (this.ttl <= 0)
+            if (!this.Finalized && this.ttl < this.omenTicks)
+            {
+                this.FinalizeAndSendLetter(approval);
+            }
+            else if (this.ttl <= 0)
             {
                 this.FireEvent(approval);
                 this.completed = true;
             }
         }
 
-        public Event()
-        {
-            this.ttl = (int)AncestorConstants.EVENT_TIMER_TICKS_BETWEEN;
-            this.type = EventType.undecided;
-            this.cause = EventCause.timer;
-        }
-
-        public Event(int ttl, EventType type, EventCause cause)
-        {
-            this.ttl = ttl;
-            this.type = type;
-            this.cause = cause;
-        }
-
         public void ExposeData()
         {
             Scribe_Values.LookValue<int>(ref this.ttl, "ttl", (int)AncestorConstants.EVENT_TIMER_TICKS_BETWEEN);
+            Scribe_Values.LookValue<int>(ref this.omenTicks, "omenTicks", AncestorConstants.EVENT_TIMER_MIN_OMEN_TICKS);
             Scribe_Values.LookValue<EventType>(ref this.type, "type", EventType.undecided);
             Scribe_Values.LookValue<EventCause>(ref this.cause, "cause", EventCause.timer);
-            Scribe_Values.LookValue<bool>(ref this.sentOmen, "sentOmen", false);
+            Scribe_Values.LookValue<bool>(ref this.finalized, "finalized", false);
             Scribe_Values.LookValue<bool>(ref this.completed, "completed", false);
         }
     }

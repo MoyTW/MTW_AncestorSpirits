@@ -10,10 +10,11 @@
 + DONE Ancestors get very angry if you have two Shrines
 + DONE Ancestors are very displeased if you have no Shrines
 + DONE Approval score can increase or decrease
-+ Semi-random events based on Approval level
++ DONE Semi-random events based on Approval level
   + Flash Storm if Ancestors are angry
   + Drop Pods (change this later) if Ancestors are pleased
 + Magic storage, based on Approval
+  + Magic is seasonal (KODP is the reference point here)
   + Subtract from if the Ancestors are displeased
   + Add to Magic if the Ancestors are pleased
 
