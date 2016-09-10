@@ -161,7 +161,7 @@ namespace MTW_AncestorSpirits
 
         public EventTimer()
         {
-            int timeToFirst = (int)AncestorConstants.EVENT_TIMER_DAYS_BEFORE_FIRST + this.GenTimerTicks();
+            int timeToFirst = (int)AncestorConstants.EVENT_TIMER_TICKS_BEFORE_FIRST + this.GenTimerTicks();
             this.nextEvent = new Event(timeToFirst, EventType.undecided, EventCause.timer);
         }
 
@@ -170,7 +170,8 @@ namespace MTW_AncestorSpirits
         private int GenTimerTicks()
         {
             var multiplier = (this.Random.NextDouble() - 0.5) * 2;
-            return (int)(multiplier * AncestorConstants.EVENT_TIMER_TICKS_PLUS_MINUS) + (int)AncestorConstants.EVENT_TIMER_TICKS_BETWEEN;
+            return (int)(multiplier * AncestorConstants.EVENT_TIMER_TICKS_PLUS_MINUS) +
+                AncestorConstants.EVENT_TIMER_TICKS_BETWEEN;
         }
 
         private Event GenTimerEvent()

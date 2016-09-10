@@ -22,6 +22,9 @@ namespace MTW_AncestorSpirits
 
         private double intervalDelta = 0;
         private double hourDeltaAcc = 0;
+        private int hourOfDay;
+        private int dayOfMonth;
+        private Season season;
         private List<double> gaugeDeltaHour = new List<double>();
         private List<double> gaugeDeltaDay = new List<double>();
 
@@ -36,6 +39,13 @@ namespace MTW_AncestorSpirits
         public double HourHistoryDelta()
         {
             return this.gaugeDeltaHour.Sum();
+        }
+
+        public AncestorApproval()
+        {
+            this.hourOfDay = GenDate.HourOfDay;
+            this.dayOfMonth = GenDate.DayOfMonth;
+            this.season = GenDate.CurrentSeason;
         }
 
         private double CalcShrineApproval(MapComponent_AncestorTicker ancestorDriver)
@@ -90,6 +100,14 @@ namespace MTW_AncestorSpirits
             return approvalSum;
         }
 
+        private void SummarizeSeason()
+        {
+            int lookBackDays = Math.Max(0, this.gaugeDeltaDay.Count - GenDate.DaysPerSeason);
+            var deltaSeason = this.gaugeDeltaDay.Skip(lookBackDays).Sum();
+            Log.Message("Season approval sum: " + deltaSeason);
+
+        }
+
         private void SummarizeHour()
         {
             if (this.gaugeDeltaHour.Count < AncestorConstants.APPROVAL_HISTORY_HOURS)
@@ -110,34 +128,44 @@ namespace MTW_AncestorSpirits
             this.gaugeDeltaDay.Add(deltaLastDay);
         }
 
+        private void TryUpdateSeason()
+        {
+            Season season = GenDate.CurrentSeason;
+            if (season != this.season)
+            {
+                this.season = season;
+                this.SummarizeSeason();
+            }
+        }
+
+        private void TryUpdateDay()
+        {
+            int dayOfMonth = GenDate.DayOfMonth;
+            if (dayOfMonth != this.dayOfMonth)
+            {
+                this.dayOfMonth = dayOfMonth;
+                this.SummarizeDay();
+                this.TryUpdateSeason();
+            }
+        }
+
+        private void TryUpdateHour()
+        {
+            int hourOfDay = GenDate.HourOfDay;
+            if (hourOfDay != this.hourOfDay)
+            {
+                this.hourOfDay = hourOfDay;
+                this.SummarizeHour();
+                this.TryUpdateDay();
+            }
+        }
+
         private void UpdateHistory(double approvalDelta)
         {
             this.intervalDelta = approvalDelta;
             this.hourDeltaAcc += approvalDelta;
 
-            if (Find.TickManager.TicksGame % GenDate.TicksPerHour == 0)
-            {
-                this.SummarizeHour();
-                var sh = "";
-                foreach (var d in this.gaugeDeltaHour)
-                {
-                    var sadd = ", " + d;
-                    sh += sadd;
-                }
-                Log.Message("Hour summary: " + sh);
-
-                if (Find.TickManager.TicksGame % GenDate.TicksPerDay == 0)
-                {
-                    this.SummarizeDay();
-                    var sd = "";
-                    foreach (var d in this.gaugeDeltaDay)
-                    {
-                        var sadd = ", " + d;
-                        sd += sadd;
-                    }
-                    Log.Message("Day summary: " + sd);
-                }
-            }
+            this.TryUpdateHour();
         }
 
         public void UpdateApproval(MapComponent_AncestorTicker ancestorDriver)
@@ -156,6 +184,9 @@ namespace MTW_AncestorSpirits
             Scribe_Values.LookValue<ShrineStatus>(ref this.previousShrineStatus, "previousShrineStatus", ShrineStatus.one);
             Scribe_Values.LookValue<double>(ref this.intervalDelta, "intervalDelta", 0.0);
             Scribe_Values.LookValue<double>(ref this.hourDeltaAcc, "hourDeltaAcc", 0.0);
+            Scribe_Values.LookValue<int>(ref this.hourOfDay, "hourOfDay", GenDate.HourOfDay);
+            Scribe_Values.LookValue<int>(ref this.dayOfMonth, "dayOfMonth", GenDate.DayOfMonth);
+            Scribe_Values.LookValue<Season>(ref this.season, "season", GenDate.CurrentSeason);
             Scribe_Collections.LookList<double>(ref this.gaugeDeltaHour, "gaugeDeltaHour", LookMode.Value, new object[0]);
             Scribe_Collections.LookList<double>(ref this.gaugeDeltaDay, "gaugeDeltaDay", LookMode.Value, new object[0]);
         }

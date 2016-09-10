@@ -54,6 +54,7 @@ namespace MTW_AncestorSpirits
          * */
 
         public const double EVENT_TIMER_DAYS_BEFORE_FIRST = 7.0;
+        public const int EVENT_TIMER_TICKS_BEFORE_FIRST = (int)(EVENT_TIMER_DAYS_BEFORE_FIRST * GenDate.TicksPerDay);
 
         public const double EVENT_TIMER_DAYS_BETWEEN = 7.0;
         public const int EVENT_TIMER_TICKS_BETWEEN = (int)(EVENT_TIMER_DAYS_BETWEEN * GenDate.TicksPerDay);
