@@ -9,24 +9,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-/*
- * Time Reference:
- * In-Game Time         Ticks
- * 1 Hour 		        1,250
- * 1 Day (24 Hours) 	30,000
- * 1 Season (15 Days) 	450,000
- * 1 Year (4 Seasons) 	1,800,000
- */
-
 namespace MTW_AncestorSpirits
 {
     public static class AncestorConstants
     {
-        public const int TICKS_PER_SEASON = 450000;
-        public const int TICKS_PER_HOUR = 1250;
-        public const int TICKS_PER_DAY = TICKS_PER_HOUR * 24;
-        public const int TICK_INTERVAL = TICKS_PER_HOUR / 5;
-        public const double INTERVALS_PER_SEASON = (double)TICKS_PER_SEASON / (double)TICK_INTERVAL;
+        public const int TICKS_PER_INTERVAL = GenDate.TicksPerHour / 10;
+        public const double INTERVALS_PER_SEASON = (double)GenDate.TicksPerSeason / (double)TICKS_PER_INTERVAL;
 
         public const int MIN_ANCESTORS = 10;
 
@@ -68,9 +56,9 @@ namespace MTW_AncestorSpirits
         public const double EVENT_TIMER_DAYS_BEFORE_FIRST = 7.0;
 
         public const double EVENT_TIMER_DAYS_BETWEEN = 7.0;
-        public const double EVENT_TIMER_TICKS_BETWEEN = EVENT_TIMER_DAYS_BETWEEN * TICKS_PER_DAY;
+        public const int EVENT_TIMER_TICKS_BETWEEN = (int)(EVENT_TIMER_DAYS_BETWEEN * GenDate.TicksPerDay);
         public const double EVENT_TIMER_HOURS_PLUS_MINUS = 48.0;
-        public const double EVENT_TIMER_TICKS_PLUS_MINUS = EVENT_TIMER_HOURS_PLUS_MINUS * TICKS_PER_HOUR;
+        public const int EVENT_TIMER_TICKS_PLUS_MINUS = (int)(EVENT_TIMER_HOURS_PLUS_MINUS * GenDate.TicksPerHour);
 
         public const double EVENT_TRIGGER_GAIN_SEASON_DELTA = 5.0;
         public const double EVENT_TRIGGER_GAIN_INTERVAL_DELTA = EVENT_TRIGGER_GAIN_SEASON_DELTA / INTERVALS_PER_SEASON;
@@ -78,9 +66,9 @@ namespace MTW_AncestorSpirits
         public const double EVENT_TRIGGER_LOSS_INTERVAL_DELTA = EVENT_TRIGGER_LOSS_SEASON_DELTA / INTERVALS_PER_SEASON;
 
         public const double EVENT_TIMER_MIN_OMEN_HOURS = 1.0;
-        public const int EVENT_TIMER_MIN_OMEN_TICKS = (int)(EVENT_TIMER_MIN_OMEN_HOURS * TICKS_PER_HOUR);
+        public const int EVENT_TIMER_MIN_OMEN_TICKS = (int)(EVENT_TIMER_MIN_OMEN_HOURS * GenDate.TicksPerHour);
         public const double EVENT_TIMER_MAX_OMEN_HOURS = 6.0;
-        public const int EVENT_TIMER_MAX_OMEN_TICKS = (int)(EVENT_TIMER_MAX_OMEN_HOURS * TICKS_PER_HOUR);
+        public const int EVENT_TIMER_MAX_OMEN_TICKS = (int)(EVENT_TIMER_MAX_OMEN_HOURS * GenDate.TicksPerHour);
 
         #endregion
     }
@@ -253,7 +241,7 @@ namespace MTW_AncestorSpirits
         public override void MapComponentTick()
         {
             // No Rare version of MapComponentTick, so this will do.
-            if (!(Find.TickManager.TicksGame % AncestorConstants.TICK_INTERVAL == 0)) { return; }
+            if (!(Find.TickManager.TicksGame % AncestorConstants.TICKS_PER_INTERVAL == 0)) { return; }
             if (!this.initialized) { this.Initialize(); }
 
             if (this.CurrentSpawner == null)

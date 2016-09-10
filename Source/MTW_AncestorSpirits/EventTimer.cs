@@ -45,6 +45,7 @@ namespace MTW_AncestorSpirits
             var rand = new Random(); // I mean, not great, but we're not gonna generate Events very much.
             this.omenTicks = rand.Next(AncestorConstants.EVENT_TIMER_MIN_OMEN_TICKS,
                 AncestorConstants.EVENT_TIMER_MAX_OMEN_TICKS);
+
             this.ttl = Math.Max(ttl, this.omenTicks);
             this.type = type;
             this.cause = cause;
@@ -100,7 +101,7 @@ namespace MTW_AncestorSpirits
 
         public void UpdateEvent(AncestorApproval approval)
         {
-            this.ttl -= AncestorConstants.TICK_INTERVAL;
+            this.ttl -= AncestorConstants.TICKS_PER_INTERVAL;
 
             if (!this.Finalized && this.ttl < this.omenTicks)
             {
@@ -177,16 +178,10 @@ namespace MTW_AncestorSpirits
             return new Event(this.GenTimerTicks(), EventType.undecided, EventCause.timer);
         }
 
-        // Generates an event which will fire between 1 and 2 hours from generation time
-        private int GenDeltaTicks()
-        {
-            int ticksInHour = (int)(this.Random.NextDouble() * (double)AncestorConstants.TICKS_PER_HOUR);
-            return ticksInHour + AncestorConstants.TICKS_PER_HOUR;
-        }
-
         private Event GenDeltaEvent(EventType type)
         {
-            return new Event(this.GenDeltaTicks(), type, EventCause.delta);
+            // TODO: Passing in -1 here is kind of silly!
+            return new Event(-1, type, EventCause.delta); // -1 causes it to finalize immediately
         }
 
         #endregion

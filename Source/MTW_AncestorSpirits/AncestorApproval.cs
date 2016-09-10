@@ -115,7 +115,7 @@ namespace MTW_AncestorSpirits
             this.intervalDelta = approvalDelta;
             this.hourDeltaAcc += approvalDelta;
 
-            if (Find.TickManager.TicksGame % AncestorConstants.TICKS_PER_HOUR == 0)
+            if (Find.TickManager.TicksGame % GenDate.TicksPerHour == 0)
             {
                 this.SummarizeHour();
                 var sh = "";
@@ -126,7 +126,7 @@ namespace MTW_AncestorSpirits
                 }
                 Log.Message("Hour summary: " + sh);
 
-                if (Find.TickManager.TicksGame % AncestorConstants.TICKS_PER_DAY == 0)
+                if (Find.TickManager.TicksGame % GenDate.TicksPerDay == 0)
                 {
                     this.SummarizeDay();
                     var sd = "";
