@@ -71,6 +71,9 @@ namespace MTW_AncestorSpirits
         public const double EVENT_TIMER_MAX_OMEN_HOURS = 6.0;
         public const int EVENT_TIMER_MAX_OMEN_TICKS = (int)(EVENT_TIMER_MAX_OMEN_HOURS * GenDate.TicksPerHour);
 
+        // Magic
+        public const int MAGIC_START = 6;
+
         #endregion
     }
 
@@ -119,13 +122,7 @@ namespace MTW_AncestorSpirits
             }
         }
 
-        public int NumSpawners
-        {
-            get
-            {
-                return this.spawners.Count;
-            }
-        }
+        public int NumSpawners { get { return this.spawners.Count; } }
 
         // I have no idea of the perf implications of these functions!
         public IEnumerable<Pawn> AncestorsVisiting
@@ -135,6 +132,8 @@ namespace MTW_AncestorSpirits
                 return Find.MapPawns.PawnsInFaction(this.AncestorFaction);
             }
         }
+
+        public int CurrentMagic { get { return this.approval.CurrentMagic; } }
 
         #endregion
 

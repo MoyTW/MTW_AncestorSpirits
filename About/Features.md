@@ -6,14 +6,14 @@
 + DONE Ancestors have their own faction
 + DONE Ancestors hang around the Shrine(s)
 
-## Picky Ancestors
+## DONE Picky Ancestors
 + DONE Ancestors get very angry if you have two Shrines
 + DONE Ancestors are very displeased if you have no Shrines
 + DONE Approval score can increase or decrease
 + DONE Semi-random events based on Approval level
   + Flash Storm if Ancestors are angry
   + Drop Pods (change this later) if Ancestors are pleased
-+ Magic storage, based on Approval
++ DONE Magic storage, based on Approval
   + Magic is seasonal (KODP is the reference point here)
   + Subtract from if the Ancestors are displeased
   + Add to Magic if the Ancestors are pleased
@@ -59,3 +59,4 @@
     - Blight
     - Sickness (various)
     - Ancestral Fury: Lightning strikes your colony/colonists
++ GODLARP

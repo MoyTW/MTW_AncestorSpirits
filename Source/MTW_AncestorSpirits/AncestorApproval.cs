@@ -28,13 +28,10 @@ namespace MTW_AncestorSpirits
         private List<double> gaugeDeltaHour = new List<double>();
         private List<double> gaugeDeltaDay = new List<double>();
 
-        public double IntervalDelta
-        {
-            get
-            {
-                return this.intervalDelta;
-            }
-        }
+        int currentMagic;
+
+        public double IntervalDelta { get { return this.intervalDelta; } }
+        public int CurrentMagic { get { return this.currentMagic; } }
 
         public double HourHistoryDelta()
         {
@@ -43,6 +40,7 @@ namespace MTW_AncestorSpirits
 
         public AncestorApproval()
         {
+            this.currentMagic = AncestorConstants.MAGIC_START;
             this.hourOfDay = GenDate.HourOfDay;
             this.dayOfMonth = GenDate.DayOfMonth;
             this.season = GenDate.CurrentSeason;
@@ -69,7 +67,7 @@ namespace MTW_AncestorSpirits
                     // TODO: Not hardcoded strings!
                     Find.LetterStack.ReceiveLetter("Too many Shrines!", "Your Ancestors are displeased that you have " +
                         "too many shrines! You should have one shrine, and one shrine only! You will lose approval with " +
-                        " them until you demolish the extras.", LetterType.BadNonUrgent);
+                        "them until you demolish the extras.", LetterType.BadNonUrgent);
                 }
                 return AncestorConstants.APP_MOD_MANY_SHRINES_INTERVAL;
             }
@@ -103,9 +101,43 @@ namespace MTW_AncestorSpirits
         private void SummarizeSeason()
         {
             int lookBackDays = Math.Max(0, this.gaugeDeltaDay.Count - GenDate.DaysPerSeason);
-            var deltaSeason = this.gaugeDeltaDay.Skip(lookBackDays).Sum();
-            Log.Message("Season approval sum: " + deltaSeason);
+            int deltaMagic = (int)this.gaugeDeltaDay.Skip(lookBackDays).Sum();
 
+            this.currentMagic += deltaMagic;
+
+            if (deltaMagic == 0)
+            {
+                // TODO: Hardcoded!
+                Find.LetterStack.ReceiveLetter("Indifference",
+                    "A new season is here!" +
+                    Environment.NewLine + Environment.NewLine +
+                    "Your Ancestors are unimpressed by your actions this past season." +
+                    Environment.NewLine + Environment.NewLine +
+                    "You have neither gained nor lost Magic.",
+                    LetterType.BadNonUrgent);
+            }
+            else if (deltaMagic > 0)
+            {
+                // TODO: Hardcoded!
+                Find.LetterStack.ReceiveLetter("Approval",
+                    "A new season is here!" +
+                    Environment.NewLine + Environment.NewLine +
+                    "Your Ancestors are pleased by your actions this past season!" +
+                    Environment.NewLine + Environment.NewLine +
+                    "You have gained " + deltaMagic + " Magic!",
+                    LetterType.Good);
+            }
+            else if (deltaMagic < 0)
+            {
+                // TODO: Hardcoded!
+                Find.LetterStack.ReceiveLetter("Displeasure",
+                    "A new season is here!" +
+                    Environment.NewLine + Environment.NewLine +
+                    "Your Ancestors are angered by your actions this past season!"
+                    + Environment.NewLine + Environment.NewLine +
+                    "You have lost " + Math.Abs(deltaMagic) + " Magic!",
+                    LetterType.BadNonUrgent);
+            }
         }
 
         private void SummarizeHour()
@@ -189,6 +221,7 @@ namespace MTW_AncestorSpirits
             Scribe_Values.LookValue<Season>(ref this.season, "season", GenDate.CurrentSeason);
             Scribe_Collections.LookList<double>(ref this.gaugeDeltaHour, "gaugeDeltaHour", LookMode.Value, new object[0]);
             Scribe_Collections.LookList<double>(ref this.gaugeDeltaDay, "gaugeDeltaDay", LookMode.Value, new object[0]);
+            Scribe_Values.LookValue<int>(ref this.currentMagic, "currentMagic", 0);
         }
     }
 }
