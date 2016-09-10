@@ -274,7 +274,8 @@ namespace MTW_AncestorSpirits
             Scribe_Values.LookValue<int>(ref numAncestorsToVisit, "numAncestorsToVisit", 3);
             Scribe_Deep.LookDeep<AncestorApproval>(ref this.approval, "approval", new object[0]);
             Scribe_Deep.LookDeep<EventTimer>(ref this.timer, "timer", new object[0]);
-            Scribe_Collections.LookList<Pawn>(ref this.unspawnedAncestors, "unspawnedAncestors", LookMode.Deep, new object[0]);
+            // TODO: Fix the loading errors!
+            // Scribe_Collections.LookList<Pawn>(ref this.unspawnedAncestors, "unspawnedAncestors", LookMode.Deep, new object[0]);
             Scribe_Collections.LookHashSet<Building>(ref this.spawners, "spawners", LookMode.MapReference);
             Scribe_References.LookReference<Building>(ref this._currentSpawner, "currentSpawner");
         }

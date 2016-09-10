@@ -40,6 +40,7 @@
 ## Invincible Ancestors
 + Spirits are invulnerable to everything
 + Ancestors cannot be arrested
++ Ancestors will persist between despawns and saves
 
 # This Stuff Would Be Awesome, But Are Not In Scope Right Now
 
