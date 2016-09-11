@@ -63,7 +63,7 @@ namespace MTW_AncestorSpirits
             {
                 Action action = delegate
                 {
-                    Job job = new Job(DefDatabase<JobDef>.GetNamed("PetitionAncestors"), this);
+                    Job job = new Job_PetitionAncestors(DefDatabase<JobDef>.GetNamed("PetitionAncestors"), this, petitionName);
                     myPawn.drafter.TakeOrderedJob(job);
                 };
                 list.Add(new FloatMenuOption(petitionName, action, MenuOptionPriority.Medium, null, null, 0f, null));

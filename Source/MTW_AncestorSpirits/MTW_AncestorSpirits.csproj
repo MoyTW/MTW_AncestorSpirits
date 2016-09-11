@@ -51,6 +51,7 @@
     <Compile Include="Building_Shrine.cs" />
     <Compile Include="EventTimer.cs" />
     <Compile Include="JobDriver_PetitionAncestors.cs" />
+    <Compile Include="Job_PetitionAncestors.cs" />
     <Compile Include="MapComponentInjector.cs" />
     <Compile Include="MapComponent_AncestorTicker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

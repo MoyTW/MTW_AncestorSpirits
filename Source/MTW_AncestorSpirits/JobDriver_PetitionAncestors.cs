@@ -9,7 +9,6 @@ using System.Text;
 
 namespace MTW_AncestorSpirits
 {
-
     class JobDriver_PetitionAncestors : JobDriver
     {
         private const TargetIndex ShrineIndex = TargetIndex.A;
@@ -50,7 +49,7 @@ namespace MTW_AncestorSpirits
 
             toilPetition.AddFinishAction(() =>
             {
-                Log.Message("Petition sent!");
+                Log.Message("Petition sent! Name: " + ((Job_PetitionAncestors)this.CurJob).PetitionName);
             });
 
             toilPetition.defaultCompleteMode = ToilCompleteMode.Never;
