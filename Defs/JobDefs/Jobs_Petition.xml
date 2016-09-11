@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <JobDef>
+    <defName>PetitionAncestors</defName>
+    <driverClass>MTW_AncestorSpirits.JobDriver_PetitionAncestors</driverClass>
+    <reportString>petitioning ancestors.</reportString>
+  </JobDef>
+
+</Defs>

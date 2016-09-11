@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Verse;
+using Verse.AI;
 using System.Text;
 
 namespace MTW_AncestorSpirits
@@ -31,6 +32,44 @@ namespace MTW_AncestorSpirits
             builder.Append(base.GetInspectString());
 
             return builder.ToString();
+        }
+
+        public override IEnumerable<FloatMenuOption> GetFloatMenuOptions(Pawn myPawn)
+        {
+            if (!myPawn.CanReserve(this, 1))
+            {
+                FloatMenuOption disallowed = new FloatMenuOption("CannotUseReserved".Translate(), null, MenuOptionPriority.Medium, null, null, 0f, null);
+                return new List<FloatMenuOption> { disallowed };
+            }
+            else if (!myPawn.CanReach(this, PathEndMode.InteractionCell, Danger.Some, false, TraverseMode.ByPawn))
+            {
+                FloatMenuOption disallowed = new FloatMenuOption("CannotUseNoPath".Translate(), null, MenuOptionPriority.Medium, null, null, 0f, null);
+                return new List<FloatMenuOption> { disallowed };
+            }
+            else if (!myPawn.health.capacities.CapableOf(PawnCapacityDefOf.Talking))
+            {
+                FloatMenuOption disallowed = new FloatMenuOption("CannotUseReason".Translate(new object[]
+                {
+                    "IncapableOfCapacity".Translate(new object[]
+                    {
+                        PawnCapacityDefOf.Talking.label
+                    })
+                }), null, MenuOptionPriority.Medium, null, null, 0f, null);
+                return new List<FloatMenuOption> { disallowed };
+            }
+
+            List<FloatMenuOption> list = new List<FloatMenuOption>();
+            foreach (String petitionName in AncestorConstants.Petitionables)
+            {
+                Action action = delegate
+                {
+                    Job job = new Job(DefDatabase<JobDef>.GetNamed("PetitionAncestors"), this);
+                    myPawn.drafter.TakeOrderedJob(job);
+                };
+                list.Add(new FloatMenuOption(petitionName, action, MenuOptionPriority.Medium, null, null, 0f, null));
+            }
+
+            return list;
         }
     }
 }
