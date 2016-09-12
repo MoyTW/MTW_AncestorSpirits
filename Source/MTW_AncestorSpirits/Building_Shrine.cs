@@ -59,14 +59,14 @@ namespace MTW_AncestorSpirits
             }
 
             List<FloatMenuOption> list = new List<FloatMenuOption>();
-            foreach (String petitionName in AncestorConstants.Petitionables)
+            foreach (PetitionDef petition in DefDatabase<PetitionDef>.AllDefs)
             {
                 Action action = delegate
                 {
-                    Job job = new Job_PetitionAncestors(DefDatabase<JobDef>.GetNamed("PetitionAncestors"), this, petitionName);
+                    Job job = new Job_PetitionAncestors(DefDatabase<JobDef>.GetNamed("PetitionAncestors"), this, petition);
                     myPawn.drafter.TakeOrderedJob(job);
                 };
-                list.Add(new FloatMenuOption(petitionName, action, MenuOptionPriority.Medium, null, null, 0f, null));
+                list.Add(new FloatMenuOption(petition.PetitionSummary, action, MenuOptionPriority.Medium, null, null, 0f, null));
             }
 
             return list;

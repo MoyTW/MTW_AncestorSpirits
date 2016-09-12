@@ -20,6 +20,8 @@ namespace MTW_AncestorSpirits
             ticksElapsed = 0;
         }
 
+        private Job_PetitionAncestors Petition { get { return (Job_PetitionAncestors)this.CurJob; } }
+
         protected override IEnumerable<Toil> MakeNewToils()
         {
             //Set fail conditions
@@ -38,7 +40,7 @@ namespace MTW_AncestorSpirits
 
             toilPetition.AddPreTickAction(() =>
             {
-                if (this.ticksElapsed > AncestorConstants.PETITION_FAST_TICKS)
+                if (this.ticksElapsed > this.Petition.PetitionTicks)
                     ReadyForNextToil();
             });
 
@@ -49,7 +51,7 @@ namespace MTW_AncestorSpirits
 
             toilPetition.AddFinishAction(() =>
             {
-                Log.Message("Petition sent! Name: " + ((Job_PetitionAncestors)this.CurJob).PetitionName);
+                Log.Message("Petition sent! Name: " + this.Petition.PetitionName);
             });
 
             toilPetition.defaultCompleteMode = ToilCompleteMode.Never;

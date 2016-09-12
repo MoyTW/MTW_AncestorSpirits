@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <MTW_AncestorSpirits.PetitionDef>
+    <defName>MTW_PetitionRain</defName>
+    <label>falling rain</label>
+    <workerClass>IncidentWorker_Flashstorm</workerClass>
+    <petitionHours>0.2</petitionHours>
+    <magicCost>1</magicCost>
+  </MTW_AncestorSpirits.PetitionDef>
+
+  <MTW_AncestorSpirits.PetitionDef>
+    <defName>MTW_PetitionWind</defName>
+    <label>howling wind</label>
+    <workerClass>IncidentWorker_Flashstorm</workerClass>
+    <petitionHours>0.2</petitionHours>
+    <magicCost>1</magicCost>
+  </MTW_AncestorSpirits.PetitionDef>
+
+  <MTW_AncestorSpirits.PetitionDef>
+    <defName>MTW_PetitionHeatWave</defName>
+    <label>sweltering heat</label>
+    <workerClass>IncidentWorker_Flashstorm</workerClass>
+    <petitionHours>0.4</petitionHours>
+    <magicCost>2</magicCost>
+  </MTW_AncestorSpirits.PetitionDef>
+
+  <MTW_AncestorSpirits.PetitionDef>
+    <defName>MTW_PetitionColdSnap</defName>
+    <label>icy chill</label>
+    <workerClass>IncidentWorker_Flashstorm</workerClass>
+    <petitionHours>0.4</petitionHours>
+    <magicCost>2</magicCost>
+  </MTW_AncestorSpirits.PetitionDef>
+
+  <MTW_AncestorSpirits.PetitionDef>
+    <defName>MTW_PetitionEndAbnormalWeather</defName>
+    <label>restore natural weather</label>
+    <workerClass>IncidentWorker_Flashstorm</workerClass>
+    <petitionHours>0.4</petitionHours>
+    <magicCost>2</magicCost>
+  </MTW_AncestorSpirits.PetitionDef>
+
+</Defs>

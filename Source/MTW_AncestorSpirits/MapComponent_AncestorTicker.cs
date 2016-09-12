@@ -74,19 +74,6 @@ namespace MTW_AncestorSpirits
         // Magic
         public const int MAGIC_START = 6;
 
-        public const double PETITION_FAST_HOURS = .25;
-        public const int PETITION_FAST_TICKS = (int)(PETITION_FAST_HOURS * GenDate.TicksPerHour);
-
-        // Later, this should be pulled out into...I don't know how to define custom defs, but if you can do that 
-        // easily that seems like it would be a good idea.
-        public static readonly IEnumerable<String> Petitionables = new ReadOnlyCollection<String>(new List<String> {
-            "Failling Rain (1 Magic)",
-            "Howlong Wind (1 Magic)",
-            "Sweltering Heat (2 Magic)",
-            "Icy Chill (2 Magic)",
-            "Restore The Weather (2 Magic)"
-        });
-
         #endregion
     }
 

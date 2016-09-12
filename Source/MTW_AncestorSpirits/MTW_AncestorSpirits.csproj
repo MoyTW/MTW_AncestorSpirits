@@ -52,6 +52,7 @@
     <Compile Include="EventTimer.cs" />
     <Compile Include="JobDriver_PetitionAncestors.cs" />
     <Compile Include="Job_PetitionAncestors.cs" />
+    <Compile Include="PetitionDef.cs" />
     <Compile Include="MapComponentInjector.cs" />
     <Compile Include="MapComponent_AncestorTicker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
