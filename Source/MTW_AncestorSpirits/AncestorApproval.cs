@@ -37,6 +37,11 @@ namespace MTW_AncestorSpirits
             return this.gaugeDeltaHour.Sum();
         }
 
+        public void SubtractMagic(int magic)
+        {
+            this.currentMagic -= magic;
+        }
+
         public AncestorApproval()
         {
             this.currentMagic = AncestorConstants.MAGIC_START;

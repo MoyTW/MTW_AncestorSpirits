@@ -20,7 +20,8 @@ namespace MTW_AncestorSpirits
             ticksElapsed = 0;
         }
 
-        private Job_PetitionAncestors Petition { get { return (Job_PetitionAncestors)this.CurJob; } }
+        private Job_PetitionAncestors PetitionJob { get { return (Job_PetitionAncestors)this.CurJob; } }
+        private PetitionDef PetitionDef { get { return this.PetitionJob.PetitionDef; } }
 
         protected override IEnumerable<Toil> MakeNewToils()
         {
@@ -40,7 +41,7 @@ namespace MTW_AncestorSpirits
 
             toilPetition.AddPreTickAction(() =>
             {
-                if (this.ticksElapsed > this.Petition.PetitionTicks)
+                if (this.ticksElapsed > this.PetitionJob.PetitionTicks)
                     ReadyForNextToil();
             });
 
@@ -51,7 +52,7 @@ namespace MTW_AncestorSpirits
 
             toilPetition.AddFinishAction(() =>
             {
-                Log.Message("Petition sent! Name: " + this.Petition.PetitionName);
+                Find.Map.GetComponent<MapComponent_AncestorTicker>().Notify_PetitionMade(this.PetitionDef, this.pawn);
             });
 
             toilPetition.defaultCompleteMode = ToilCompleteMode.Never;

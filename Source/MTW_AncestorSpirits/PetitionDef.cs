@@ -8,10 +8,8 @@ using System.Text;
 
 namespace MTW_AncestorSpirits
 {
-    public class PetitionDef : Def
+    public class PetitionDef : IncidentDef
     {
-        public Type workerClass;
-
         public float petitionHours;
 
         public int magicCost;

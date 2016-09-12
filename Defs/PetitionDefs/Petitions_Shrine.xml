@@ -3,10 +3,13 @@
 
   <MTW_AncestorSpirits.PetitionDef>
     <defName>MTW_PetitionRain</defName>
-    <label>falling rain</label>
+    <label>beating rain</label>
     <workerClass>IncidentWorker_Flashstorm</workerClass>
     <petitionHours>0.2</petitionHours>
     <magicCost>1</magicCost>
+    <letterLabel>Beating Rain</letterLabel>
+    <letterText>Not yet implemented. Is lightning!</letterText>
+    <letterType>Good</letterType>
   </MTW_AncestorSpirits.PetitionDef>
 
   <MTW_AncestorSpirits.PetitionDef>
@@ -15,6 +18,9 @@
     <workerClass>IncidentWorker_Flashstorm</workerClass>
     <petitionHours>0.2</petitionHours>
     <magicCost>1</magicCost>
+    <letterLabel>Howling Wind</letterLabel>
+    <letterText>Not yet implemented. Is lightning!</letterText>
+    <letterType>Good</letterType>
   </MTW_AncestorSpirits.PetitionDef>
 
   <MTW_AncestorSpirits.PetitionDef>
@@ -23,6 +29,9 @@
     <workerClass>IncidentWorker_Flashstorm</workerClass>
     <petitionHours>0.4</petitionHours>
     <magicCost>2</magicCost>
+    <letterLabel>Sweltering Heat</letterLabel>
+    <letterText>Not yet implemented. Is lightning!</letterText>
+    <letterType>Good</letterType>
   </MTW_AncestorSpirits.PetitionDef>
 
   <MTW_AncestorSpirits.PetitionDef>
@@ -31,6 +40,9 @@
     <workerClass>IncidentWorker_Flashstorm</workerClass>
     <petitionHours>0.4</petitionHours>
     <magicCost>2</magicCost>
+    <letterLabel>Icy Chill</letterLabel>
+    <letterText>Not yet implemented. Is lightning!</letterText>
+    <letterType>Good</letterType>
   </MTW_AncestorSpirits.PetitionDef>
 
   <MTW_AncestorSpirits.PetitionDef>
@@ -39,6 +51,9 @@
     <workerClass>IncidentWorker_Flashstorm</workerClass>
     <petitionHours>0.4</petitionHours>
     <magicCost>2</magicCost>
+    <letterLabel>Normal Weather</letterLabel>
+    <letterText>Not yet implemented. Is lightning!</letterText>
+    <letterType>Good</letterType>
   </MTW_AncestorSpirits.PetitionDef>
 
 </Defs>

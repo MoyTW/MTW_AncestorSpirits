@@ -234,6 +234,22 @@ namespace MTW_AncestorSpirits
                 LordMaker.MakeNewLord(this.AncestorFaction, lordJob, this.AncestorsVisiting);
             }
         }
+
+        public void Notify_PetitionMade(PetitionDef petition, Pawn petitioner)
+        {
+            if (this.approval.CurrentMagic >= petition.magicCost)
+            {
+                Messages.Message("The Ancestors have heard your petition!", MessageSound.Benefit);
+                var incidentParams = new IncidentParms();
+                incidentParams.forced = true;
+                petition.Worker.TryExecute(incidentParams);
+                this.approval.SubtractMagic(petition.magicCost);
+            }
+            else
+            {
+                Messages.Message("You haven't enough magic! The Ancestors have rejected your petition.", MessageSound.Negative);
+            }
+        }
         #endregion
 
         #region Overrides
