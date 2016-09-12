@@ -50,6 +50,8 @@
     <Compile Include="AncestorApproval.cs" />
     <Compile Include="Building_Shrine.cs" />
     <Compile Include="EventTimer.cs" />
+    <Compile Include="IncidentWorker_FoggyRain.cs" />
+    <Compile Include="IncidentWorker_StrongWind.cs" />
     <Compile Include="JobDriver_PetitionAncestors.cs" />
     <Compile Include="Job_PetitionAncestors.cs" />
     <Compile Include="PetitionDef.cs" />
