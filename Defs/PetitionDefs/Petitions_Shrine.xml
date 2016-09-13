@@ -12,7 +12,7 @@
     <letterText>Your Ancestors have heard your propitiations! They bring upon you a torrent of rain.</letterText>
     <letterType>Good</letterType>
     <durationDays>
-      <min>7.5</min>
+      <min>5.5</min>
       <max>9.5</max>
     </durationDays>
   </MTW_AncestorSpirits.PetitionDef>

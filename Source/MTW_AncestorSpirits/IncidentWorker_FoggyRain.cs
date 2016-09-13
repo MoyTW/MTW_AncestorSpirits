@@ -13,20 +13,15 @@ namespace MTW_AncestorSpirits
     {
         public override bool TryExecute(IncidentParms parms)
         {
-            Find.WeatherManager.TransitionTo(DefDatabase<WeatherDef>.GetNamed("FoggyRain"));
+            WeatherDef weatherDef = DefDatabase<WeatherDef>.GetNamed("FoggyRain");
+            Find.WeatherManager.TransitionTo(weatherDef);
 
             /* ##### HACK ALERT! #####
-             *
-             *  We set the curWeatherAge (which is inexplicably public) to a negative value, equal to the intended
-             *  duration of the effet. This is to get around the fact that the value against which it's compared, the
-             *  curWeatherDuration in WeatherDecider, is completely inaccessible except by starting a new weather
-             *  cycle. This means that the effect will last a time equal to the set duration + the last weather
-             *  effect's duration.
-             *
-             *  Note that the curWeatherAge will reset to 0 if it is forcibly transitioned.
+             * We force the weather to stay the same for extended periods through a watcher in the MapComponent. See
+             * the Notify_ForceWeather function for details.
              */
-            int rainDuration = Mathf.RoundToInt(this.def.durationDays.RandomInRange * GenDate.TicksPerDay);
-            Find.WeatherManager.curWeatherAge -= rainDuration;
+            int weatherDuration = Mathf.RoundToInt(this.def.durationDays.RandomInRange * GenDate.TicksPerDay);
+            Find.Map.GetComponent<MapComponent_AncestorTicker>().Notify_ForceWeather(weatherDef, weatherDuration);
 
             return true;
         }
