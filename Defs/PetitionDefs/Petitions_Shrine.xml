@@ -64,14 +64,15 @@
     <magicCost>2</magicCost>
   </MTW_AncestorSpirits.PetitionDef>
 
+  <!-- This is Super Duper OP - it clears *all* map conditions. Should be fixed. -->
   <MTW_AncestorSpirits.PetitionDef>
-    <defName>MTW_PetitionEndAbnormalWeather</defName>
-    <label>restore natural weather</label>
-    <workerClass>IncidentWorker_Flashstorm</workerClass>
+    <defName>MTW_PetitionCleanseSkies</defName>
+    <label>cleanse the skies</label>
+    <workerClass>MTW_AncestorSpirits.IncidentWorker_CleanseSkies</workerClass>
     <petitionHours>0.4</petitionHours>
-    <magicCost>2</magicCost>
-    <letterLabel>Normal Weather</letterLabel>
-    <letterText>Not yet implemented. Is lightning!</letterText>
+    <magicCost>9</magicCost>
+    <letterLabel>Cleansed Skies</letterLabel>
+    <letterText>Your Ancestors have heard your propitiations! They have cleansed the skies!</letterText>
     <letterType>Good</letterType>
   </MTW_AncestorSpirits.PetitionDef>
 
