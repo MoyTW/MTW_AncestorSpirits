@@ -18,14 +18,14 @@
   + Subtract from if the Ancestors are displeased
   + Add to Magic if the Ancestors are pleased
 
-## Magical Ancestors
-+ Basic weather rituals (use Magic)
+## DONE Magical Ancestors
++ DONE Basic weather rituals (use Magic)
   + Rain
   + Wind
-+ Advanced weather rituals (use Magic)
++ DONE Advanced weather rituals (use Magic)
   + Warmth (heat wave)
   + Cold (cold snap)
-  + End Strange Weather (cancel heat wave/cold snap)
+  + End Strange Weather (cancel map conditions, clear weather)
 
 ## Joyful Ancestors
 + Ancestors trickle in/out instead of group spawning
