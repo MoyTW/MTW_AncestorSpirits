@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<WeatherDefs>
+
+  <WeatherDef>
+    <defName>MTW_HeavyWind</defName>
+    <label>gusting</label>
+    <description>Heavy wind reduces move speed slightly and makes it harder to aim.</description>
+    <!-- This is to prevent it from ever firing normally -->
+    <temperatureRange>
+      <min>-1000</min>
+      <max>-999</max>
+    </temperatureRange>
+    <windSpeedFactor>3.0</windSpeedFactor>
+    <repeatable>false</repeatable>
+    <!-- HACK ALERT: The transition period is 4000, so we need a minimum of that. The max is the point at which it returns control to the weather system, so it should end directly afterwards. -->
+    <durationRange>
+      <min>4001</min>
+      <max>4002</max>
+    </durationRange>
+    <favorability>Neutral</favorability>
+    <moveSpeedMultiplier>0.95</moveSpeedMultiplier>
+    <accuracyMultiplier>0.95</accuracyMultiplier>
+    <ambientSounds>
+      <li>AmbientWind_Storm</li>
+    </ambientSounds>   
+    <!-- Colors are Clear -->
+    <skyColorsDay>
+      <sky>(1,1,1)</sky>
+      <shadow>(0.718,0.745,0.757)</shadow>
+      <overlay>(1,1,1)</overlay>
+      <saturation>1.25</saturation>
+    </skyColorsDay>
+    <skyColorsDusk>
+      <sky>(0.858,0.650,0.423)</sky>
+      <shadow>(0.955,0.886,0.914)</shadow>
+      <overlay>(0.8,0.8,0.8)</overlay>
+      <saturation>1.25</saturation>
+    </skyColorsDusk>
+    <skyColorsNightEdge>
+      <sky>(0.482,0.603,0.682)</sky>
+      <shadow>(0.92,0.92,0.92)</shadow>
+      <overlay>(0.6,0.6,0.6)</overlay>
+      <saturation>1.25</saturation>
+    </skyColorsNightEdge>
+    <skyColorsNightMid>
+      <sky>(0.482,0.603,0.682)</sky>
+      <shadow>(0.85, 0.85, 0.85)</shadow>
+      <overlay>(0.6,0.6,0.6)</overlay>
+      <saturation>1.25</saturation>
+    </skyColorsNightMid>
+  </WeatherDef>
+
+</WeatherDefs>

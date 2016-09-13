@@ -9,7 +9,7 @@
     <magicCost>1</magicCost>
     <letterLabel>Beating Rain</letterLabel>
     <!-- I have no idea if that's how you use that word. -->
-    <letterText>Your Ancestors have heard your propitiations! They bring upon you a torrent of rain.</letterText>
+    <letterText>Your Ancestors have heard your propitiations! They bring upon you a torrent of rain!</letterText>
     <letterType>Good</letterType>
     <durationDays>
       <min>5.5</min>
@@ -20,12 +20,16 @@
   <MTW_AncestorSpirits.PetitionDef>
     <defName>MTW_PetitionWind</defName>
     <label>howling wind</label>
-    <workerClass>IncidentWorker_Flashstorm</workerClass>
+    <workerClass>MTW_AncestorSpirits.IncidentWorker_HeavyWind</workerClass>
     <petitionHours>0.2</petitionHours>
     <magicCost>1</magicCost>
     <letterLabel>Howling Wind</letterLabel>
-    <letterText>Not yet implemented. Is lightning!</letterText>
+    <letterText>Your Ancestors have heard your propitiations! They bring upon you a gusting winds!</letterText>
     <letterType>Good</letterType>
+    <durationDays>
+      <min>5.5</min>
+      <max>9.5</max>
+    </durationDays>
   </MTW_AncestorSpirits.PetitionDef>
 
   <MTW_AncestorSpirits.PetitionDef>
