@@ -35,23 +35,33 @@
   <MTW_AncestorSpirits.PetitionDef>
     <defName>MTW_PetitionHeatWave</defName>
     <label>sweltering heat</label>
-    <workerClass>IncidentWorker_Flashstorm</workerClass>
+    <workerClass>IncidentWorker_HeatWave</workerClass>
+    <mapCondition>HeatWave</mapCondition>
+    <letterLabel>Heat wave</letterLabel>
+    <letterText>Your Ancestors have heard your propitiations! They bring upon you sweltering heat!</letterText>
+    <letterType>Good</letterType>
+    <durationDays>
+      <min>5.5</min>
+      <max>9.5</max>
+    </durationDays>
     <petitionHours>0.4</petitionHours>
     <magicCost>2</magicCost>
-    <letterLabel>Sweltering Heat</letterLabel>
-    <letterText>Not yet implemented. Is lightning!</letterText>
-    <letterType>Good</letterType>
   </MTW_AncestorSpirits.PetitionDef>
 
   <MTW_AncestorSpirits.PetitionDef>
     <defName>MTW_PetitionColdSnap</defName>
     <label>icy chill</label>
-    <workerClass>IncidentWorker_Flashstorm</workerClass>
+    <workerClass>IncidentWorker_ColdSnap</workerClass>
+    <mapCondition>ColdSnap</mapCondition>
+    <letterLabel>Cold snap</letterLabel>
+    <letterText>Your Ancestors have heard your propitiations! They bring upon you an icy chill!</letterText>
+    <letterType>Good</letterType>
+    <durationDays>
+      <min>5.5</min>
+      <max>9.5</max>
+    </durationDays>
     <petitionHours>0.4</petitionHours>
     <magicCost>2</magicCost>
-    <letterLabel>Icy Chill</letterLabel>
-    <letterText>Not yet implemented. Is lightning!</letterText>
-    <letterType>Good</letterType>
   </MTW_AncestorSpirits.PetitionDef>
 
   <MTW_AncestorSpirits.PetitionDef>
