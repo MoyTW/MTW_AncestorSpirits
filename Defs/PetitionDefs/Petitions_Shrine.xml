@@ -4,13 +4,17 @@
   <MTW_AncestorSpirits.PetitionDef>
     <defName>MTW_PetitionRain</defName>
     <label>beating rain</label>
-    <!-- Note that there's no duration logic in the IncidentWorker (yet)! -->
     <workerClass>MTW_AncestorSpirits.IncidentWorker_FoggyRain</workerClass>
     <petitionHours>0.2</petitionHours>
     <magicCost>1</magicCost>
     <letterLabel>Beating Rain</letterLabel>
-    <letterText>Not yet implemented. Is lightning!</letterText>
+    <!-- I have no idea if that's how you use that word. -->
+    <letterText>Your Ancestors have heard your propitiations! They bring upon you a torrent of rain.</letterText>
     <letterType>Good</letterType>
+    <durationDays>
+      <min>7.5</min>
+      <max>9.5</max>
+    </durationDays>
   </MTW_AncestorSpirits.PetitionDef>
 
   <MTW_AncestorSpirits.PetitionDef>
