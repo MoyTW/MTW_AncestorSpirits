@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -49,10 +50,15 @@
   <ItemGroup>
     <Compile Include="AncestorApproval.cs" />
     <Compile Include="Building_Shrine.cs" />
+    <Compile Include="Detouring\Pawn_NeedsTracker.cs" />
     <Compile Include="EventTimer.cs" />
     <Compile Include="IncidentWorker_CleanseSkies.cs" />
     <Compile Include="IncidentWorker_FoggyRain.cs" />
     <Compile Include="IncidentWorker_HeavyWind.cs" />
+    <Compile Include="DetourAttribute.cs" />
+    <Compile Include="Injectors\Detours.cs" />
+    <Compile Include="Injectors\SpecialInjector.cs" />
+    <Compile Include="Injectors\SpecialInjectorWorker.cs" />
     <Compile Include="JobDriver_PetitionAncestors.cs" />
     <Compile Include="Job_PetitionAncestors.cs" />
     <Compile Include="PetitionDef.cs" />
