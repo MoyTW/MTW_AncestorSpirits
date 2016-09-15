@@ -234,7 +234,7 @@ namespace MTW_AncestorSpirits
                     ancestor.GetLord().Notify_PawnLost(ancestor, PawnLostCondition.Vanished);
                 }
                 var loiterPoint = this.CurrentSpawner.Position;
-                var lordJob = new LordJob_DefendPoint(loiterPoint);
+                var lordJob = new LordJob_HauntColony(loiterPoint);
                 LordMaker.MakeNewLord(this.AncestorFaction, lordJob, this.AncestorsVisiting);
             }
         }
@@ -319,7 +319,7 @@ namespace MTW_AncestorSpirits
                     this.TrySpawnRandomVisitor();
                 }
                 var loiterPoint = this.CurrentSpawner.Position;
-                var lordJob = new LordJob_DefendPoint(loiterPoint);
+                var lordJob = new LordJob_HauntColony(loiterPoint);
                 LordMaker.MakeNewLord(this.AncestorFaction, lordJob, this.AncestorsVisiting);
             }
 
