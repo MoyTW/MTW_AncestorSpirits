@@ -37,7 +37,7 @@ namespace MTW_AncestorSpirits.Detouring
                 return true;
             }
             */
-            if ((nd == NeedDefOf.Joy || nd == defComfort || nd == defBeauty || nd == defSpace) && pawn.def.defName == "AncestorSpirit") // ADDED
+            if ((nd == NeedDefOf.Joy || nd == defComfort || nd == defBeauty || nd == defSpace) && pawn.def.defName == "Spirit") // ADDED
             {
                 return true;
             }
