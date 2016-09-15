@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Conflicts with:
+  Hospitality - Load Hospitality BEFORE this mod and I *think* it will work properly. I tested only at a surface level!
+-->
 <ModMetaData>
 	<name>MTW_AncestorSpirits</name>
 	<author>MoyTW</author>
