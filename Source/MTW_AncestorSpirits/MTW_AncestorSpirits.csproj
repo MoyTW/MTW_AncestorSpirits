@@ -60,8 +60,10 @@
     <Compile Include="Injectors\SpecialInjector.cs" />
     <Compile Include="Injectors\SpecialInjectorWorker.cs" />
     <Compile Include="JobDriver_PetitionAncestors.cs" />
+    <Compile Include="JobGiver_Relax.cs" />
     <Compile Include="Job_PetitionAncestors.cs" />
     <Compile Include="LordJob_HauntColony.cs" />
+    <Compile Include="LordToil_HauntPoint.cs" />
     <Compile Include="PetitionDef.cs" />
     <Compile Include="Injectors\MapComponentInjector.cs" />
     <Compile Include="MapComponent_AncestorTicker.cs" />
