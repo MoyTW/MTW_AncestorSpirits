@@ -31,7 +31,7 @@
 + Ancestors trickle in/out instead of group spawning
 + DONE Ancestors have a Joy need
 + DONE Ancestors will use Joy objects
-+ Ancestors will not get stuck in a Joy-object using loop!
++ DONE Ancestors will not get stuck in a Joy-object using loop!
 
 ## Homebound Ancestors
 + Shrine building creates a "Shrine Room"

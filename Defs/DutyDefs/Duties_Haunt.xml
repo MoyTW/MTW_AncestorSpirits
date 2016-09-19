@@ -11,13 +11,10 @@
         <li Class="ThinkNode_PrioritySorter">
           <subNodes>
             <li Class="MTW_AncestorSpirits.JobGiver_Relax"/>
-            <li Class="JobGiver_Work"/>
+            <li Class="MTW_AncestorSpirits.JobGiver_InspectColony"/>
           </subNodes>
         </li>
       </subNodes>
-      <!--li Class="JobGiver_WanderNearDutyLocation">
-        <wanderRadius>8</wanderRadius>
-      </li-->
     </thinkNode>
   </DutyDef>
 
