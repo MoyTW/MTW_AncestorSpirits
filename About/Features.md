@@ -1,4 +1,4 @@
-# Planned Features
+# MVP Planned Features
 
 ## DONE Useless Ancestors
 + DONE Ancestors will re-spawn if Shrine is destroyed
@@ -42,30 +42,36 @@
 + Ancestors cannot be arrested
 + Ancestors will persist between despawns and saves
 
-# This Stuff Would Be Awesome, But Are Not In Scope Right Now
-
-+ Hospitality-like visits
+# Bonus Planned Features
+## Hospitality-style visits
   - Ancestors spawn for "visits" instead of constantly
   - Visits are semi-random but normalized to give same approval+/-
   - Approval changes submitted when Ancestors return to the spirit world
   - Ancestors vanish (huge approval hit) if shrine destroyed while visiting
+## Variable-magic rituals
+  - Rituals now have a failure chance (Ancestors are indifferent)
+  - Rituals can be overbid/underbid to influence failure chances
+  - Control magic bid by lighting attached altar buildings
+## More Rituals/Punishments
+  + Rituals
+    - Crop Growth: Your crops grow really fast
+    - Instant Healing: Your colonists are instantly healed
+    - Ancestral Fury: Lightning strikes your foes
+  + Punishments
+    - Blight
+    - Sickness (various)
+    - Ancestral Fury: Lightning strikes your colony/colonists
+
+# This Stuff Would Be Awesome, But Are Not In Scope Right Now
 + Ancestor Actions
   - Ancestors will hunt down and compliment/insult colonists
   - Ensure Ancestors never do romantic actions?
   - Ancestors will occasionally wander outside the colony
 + Offerings
-    - Altar at which you can offer things to your Ancestors to boost Approval
-    - Requests from Ancestors that you have to fulfill, or lose Approval
-    - Specific Ancestors having likes/dislikes in terms of offerings
+  - Altar at which you can offer things to your Ancestors to boost Approval
+  - Requests from Ancestors that you have to fulfill, or lose Approval
+  - Specific Ancestors having likes/dislikes in terms of offerings
 + Ancestor Events
-    - Ancestral visit: many Ancestors manifest for a period of time
-    - Quiet dead: Ancestors leave your colony for a period of time
-+ Awesome Rituals
-    - Crop Growth: Your crops grow really fast
-    - Instant Healing: Your colonists are instantly healed
-    - Ancestral Fury: Lightning strikes your foes
-+ Hilarious Punishments
-    - Blight
-    - Sickness (various)
-    - Ancestral Fury: Lightning strikes your colony/colonists
+  - Ancestral visit: many Ancestors manifest for a period of time
+  - Quiet dead: Ancestors leave your colony for a period of time
 + GODLARP
