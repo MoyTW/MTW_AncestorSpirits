@@ -27,8 +27,7 @@
   + Cold (cold snap)
   + End Strange Weather (cancel map conditions, clear weather)
 
-## Joyful Ancestors
-+ Ancestors trickle in/out instead of group spawning
+## DONE Joyful Ancestors
 + DONE Ancestors have a Joy need
 + DONE Ancestors will use Joy objects
 + DONE Ancestors will not get stuck in a Joy-object using loop!
@@ -45,23 +44,24 @@
 
 # Bonus Planned Features
 ## Hospitality-style visits
-  - Ancestors spawn for "visits" instead of constantly
-  - Visits are semi-random but normalized to give same approval+/-
-  - Approval changes submitted when Ancestors return to the spirit world
-  - Ancestors vanish (huge approval hit) if shrine destroyed while visiting
++ Ancestors trickle in/out instead of group spawning
++ Ancestors spawn for "visits" instead of constantly
++ Visits are semi-random but normalized to give same approval+/-
++ Approval changes submitted when Ancestors return to the spirit world
++ Ancestors vanish (huge approval hit) if shrine destroyed while visiting
 ## Variable-magic rituals
-  - Rituals now have a failure chance (Ancestors are indifferent)
-  - Rituals can be overbid/underbid to influence failure chances
-  - Control magic bid by lighting attached altar buildings
++ Rituals now have a failure chance (Ancestors are indifferent)
++ Rituals can be overbid/underbid to influence failure chances
++ Control magic bid by lighting attached altar buildings
 ## More Rituals/Punishments
-  + Rituals
-    - Crop Growth: Your crops grow really fast
-    - Instant Healing: Your colonists are instantly healed
-    - Ancestral Fury: Lightning strikes your foes
-  + Punishments
-    - Blight
-    - Sickness (various)
-    - Ancestral Fury: Lightning strikes your colony/colonists
++ Rituals
+  + Crop Growth: Your crops grow really fast
+  + Instant Healing: Your colonists are instantly healed
+  + Ancestral Fury: Lightning strikes your foes
++ Punishments
+  + Blight
+  + Sickness (various)
+  + Ancestral Fury: Lightning strikes your colony/colonists
 
 # This Stuff Would Be Awesome, But Are Not In Scope Right Now
 + Ancestor Actions
