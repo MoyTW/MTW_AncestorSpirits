@@ -44,6 +44,15 @@
 
 # This Stuff Would Be Awesome, But Are Not In Scope Right Now
 
++ Hospitality-like visits
+  - Ancestors spawn for "visits" instead of constantly
+  - Visits are semi-random but normalized to give same approval+/-
+  - Approval changes submitted when Ancestors return to the spirit world
+  - Ancestors vanish (huge approval hit) if shrine destroyed while visiting
++ Ancestor Actions
+  - Ancestors will hunt down and compliment/insult colonists
+  - Ensure Ancestors never do romantic actions?
+  - Ancestors will occasionally wander outside the colony
 + Offerings
     - Altar at which you can offer things to your Ancestors to boost Approval
     - Requests from Ancestors that you have to fulfill, or lose Approval
