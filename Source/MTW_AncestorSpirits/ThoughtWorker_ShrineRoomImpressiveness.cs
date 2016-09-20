@@ -10,6 +10,8 @@ namespace MTW_AncestorSpirits
 {
     class ThoughtWorker_ShrineRoomImpressiveness : ThoughtWorker
     {
+        private static RoomRoleDef shrineRoomDef = DefDatabase<RoomRoleDef>.GetNamed("MTW_ShrineRoom");
+
         protected override ThoughtState CurrentStateInternal(Pawn p)
         {
             // TODO: There's gotta be a better way of doin' this!
@@ -21,6 +23,7 @@ namespace MTW_AncestorSpirits
             // HACK ALERT! Change Shrines to have an Interaction cell, and use that instead of a random one!
             var room = RoomQuery.RoomAtFast(shrine.RandomAdjacentCellCardinal());
             if (room == null) { return ThoughtState.Inactive; }
+            else if (room.Role != shrineRoomDef) { return ThoughtState.Inactive; }
 
             int scoreStageIndex = RoomStatDefOf.Impressiveness.GetScoreStageIndex(room.GetStat(RoomStatDefOf.Impressiveness));
             if (this.def.stages[scoreStageIndex] != null)

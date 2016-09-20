@@ -35,6 +35,7 @@
 ## Homebound Ancestors
 + DONE Shrine building creates a "Shrine Room"
 + DONE Ancestors get a happy/sad thought for the Shrine Room
++ Ancestors will get a sad thought if there is no Shrine Room
 + Ancestors will periodically return to their Shrine Room
 
 ## Invincible Ancestors
