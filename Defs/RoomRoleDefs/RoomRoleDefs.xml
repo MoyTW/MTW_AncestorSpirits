@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <RoomRoleDef>
+    <defName>MTW_ShrineRoom</defName>
+    <label>shrine room</label>
+    <workerClass>MTW_AncestorSpirits.RoomRoleWorker_ShrineRoom</workerClass>
+    <relatedStats>
+      <li>Beauty</li>
+      <li>Cleanliness</li>
+      <li>Wealth</li>
+      <li>Space</li>
+      <li>Impressiveness</li>
+    </relatedStats>
+  </RoomRoleDef>
+</Defs>
