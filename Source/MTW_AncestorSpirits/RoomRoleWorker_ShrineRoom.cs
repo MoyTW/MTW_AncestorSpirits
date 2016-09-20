@@ -16,14 +16,14 @@ namespace MTW_AncestorSpirits
             // a Shrine - if you Shrine room wall gets broken down by a bug, this will probably push all the attached
             // rooms into the "Shrine Room" - is that a desired behaviour?
 
-            Thing shrine = room.AllContainedThings.FirstOrDefault<Thing>(t => t is Building_Shrine);
-            if (shrine == null)
+            var shrine = Find.Map.GetComponent<MapComponent_AncestorTicker>().CurrentSpawner;
+            if (room.AllContainedThings.Contains<Thing>(shrine))
             {
-                return 0.0f;
+                return 9999.0f;
             }
             else
             {
-                return 9999.0f;
+                return 0.0f;
             }
         }
     }
