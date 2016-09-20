@@ -33,8 +33,8 @@
 + DONE Ancestors will not get stuck in a Joy-object using loop!
 
 ## Homebound Ancestors
-DONE + Shrine building creates a "Shrine Room"
-+ Ancestors get a happy/sad thought for the Shrine Room
++ DONE Shrine building creates a "Shrine Room"
++ DONE Ancestors get a happy/sad thought for the Shrine Room
 + Ancestors will periodically return to their Shrine Room
 
 ## Invincible Ancestors

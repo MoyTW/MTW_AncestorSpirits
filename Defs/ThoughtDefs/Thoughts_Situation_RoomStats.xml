@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <ThoughtDef>
+    <defName>MTW_ShrineRoom</defName>
+    <workerClass>MTW_AncestorSpirits.ThoughtWorker_ShrineRoomImpressiveness</workerClass>
+    <stages>
+      <li>
+        <label>awful shrine room</label>
+        <description>Our shrine room is disgraceful! I will punish you for this!</description>
+        <baseMoodEffect>-15</baseMoodEffect>
+      </li>
+      <li>
+        <label>repulsive shrine room</label>
+        <description>Our shrine room is shameful! I will bring misfortune upon you for this!</description>
+        <baseMoodEffect>-9</baseMoodEffect>
+      </li>
+      <li>
+        <label>dull shrine room</label>
+        <description>Our shrine room is unimpressive. I am deeploy unamused.</description>
+        <baseMoodEffect>-5</baseMoodEffect>
+      </li>
+      <li>
+        <label>mediocre shrine room</label>
+        <description>Our shrine room is common and dull. I am unimpressed.</description>
+        <baseMoodEffect>-1</baseMoodEffect>
+      </li>
+      <li>
+        <label>interesting shrine room</label>
+        <description>Our shrine room is interesting. I am paying attention now.</description>
+        <baseMoodEffect>1</baseMoodEffect>
+      </li>
+      <li>
+        <label>little bit impressive shrine room</label>
+        <description>Our shrine room is a little impressive. I approve.</description>
+        <baseMoodEffect>3</baseMoodEffect>
+      </li>
+      <li>
+        <label>impressive shrine room</label>
+        <description>Our shrine room is impressive. I am pleased with this.</description>
+        <baseMoodEffect>5</baseMoodEffect>
+      </li>
+      <li>
+        <label>very impressive shrine room</label>
+        <description>Our shrine room is very impressive. I am even a little proud.</description>
+        <baseMoodEffect>7</baseMoodEffect>
+      </li>
+      <li>
+        <label>extremely impressive shrine room</label>
+        <description>Our shrine room is extremely impressive. I am proud, which is not easy!</description>
+        <baseMoodEffect>9</baseMoodEffect>
+      </li>
+      <li>
+        <label>unbelievably impressive shrine room</label>
+        <description>Our shrine room is unbelievably impressive. I am honored by my descendents!</description>
+        <baseMoodEffect>11</baseMoodEffect>
+      </li>
+      <li>
+        <label>miraculously wonderful shrine room</label>
+        <description>Our shrine room is the best place one can ever imagine. I am incredibly honored!</description>
+        <baseMoodEffect>13</baseMoodEffect>
+      </li>
+      <li>
+        <label>wonder of the World</label>
+        <description>Never in the history of our people have we been honored so!</description>
+        <baseMoodEffect>15</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+</Defs>
