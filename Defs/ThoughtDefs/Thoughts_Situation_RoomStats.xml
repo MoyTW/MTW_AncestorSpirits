@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
+
+  <ThoughtDef>
+    <defName>MTW_NoShrineRoom</defName>
+    <workerClass>MTW_AncestorSpirits.ThoughtWorker_NoShrineRoom</workerClass>
+    <stages>
+      <li>
+        <label>no shrine room</label>
+        <description>Our shrine is not even enclosed! I will punish you for this!</description>
+        <baseMoodEffect>-20</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
   <ThoughtDef>
     <defName>MTW_ShrineRoom</defName>
     <workerClass>MTW_AncestorSpirits.ThoughtWorker_ShrineRoomImpressiveness</workerClass>
     <stages>
       <li>
         <label>awful shrine room</label>
-        <description>Our shrine room is disgraceful! I will punish you for this!</description>
+        <description>Our shrine room is disgraceful! I will discipline you for this!</description>
         <baseMoodEffect>-15</baseMoodEffect>
       </li>
       <li>
