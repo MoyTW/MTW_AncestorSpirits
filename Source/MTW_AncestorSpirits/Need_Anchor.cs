@@ -22,6 +22,8 @@ namespace MTW_AncestorSpirits
 
         static Need_Anchor() { }
 
+        public bool IsLow { get { return this.CurLevel < threshLow; } }
+
         public override int GUIChangeArrow
         {
             get

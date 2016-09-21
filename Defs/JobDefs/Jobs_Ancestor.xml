@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
+  <!-- Petition -->
   <JobDef>
     <defName>PetitionAncestors</defName>
     <driverClass>MTW_AncestorSpirits.JobDriver_PetitionAncestors</driverClass>
     <reportString>petitioning ancestors.</reportString>
+  </JobDef>
+
+  <!-- Misc -->
+  <JobDef>
+    <defName>MTW_ReturnAnchor</defName>
+    <driverClass>JobDriver_Goto</driverClass>
+    <reportString>returning to anchor.</reportString>
+    <casualInterruptible>false</casualInterruptible>
   </JobDef>
 
 </Defs>
