@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <!-- This Need must be selectively applied to *only* Spirits! There's no def for this - it has to happen in code. -->
+  <NeedDef>
+    <DefName>MTW_Anchor</DefName>
+    <needClass>MTW_AncestorSpirits.Need_Anchor</needClass>
+    <label>anchor</label>
+    <description>Spirits can only stay so long in this plane before returning to their anchor.</description>
+    <listPriority>675</listPriority>
+    <major>true</major>
+  </NeedDef>
+
+</Defs>

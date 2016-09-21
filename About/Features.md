@@ -50,6 +50,7 @@
 + Visits are semi-random but normalized to give same approval+/-
 + Approval changes submitted when Ancestors return to the spirit world
 + Ancestors vanish (huge approval hit) if shrine destroyed while visiting
++ Ancestors will occasionally walk outside of colony
 ## Variable-magic rituals
 + Rituals now have a failure chance (Ancestors are indifferent)
 + Rituals can be overbid/underbid to influence failure chances
