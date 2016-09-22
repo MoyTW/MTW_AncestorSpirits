@@ -86,6 +86,7 @@ namespace MTW_AncestorSpirits
 
         private bool initialized = false;
         private List<Pawn> unspawnedAncestors = new List<Pawn>();
+        private List<Pawn> despawnBuffer = new List<Pawn>();
         private HashSet<Building> spawners = new HashSet<Building>();
         private AncestorApproval approval = null;
         private EventTimer timer = null;
@@ -200,13 +201,16 @@ namespace MTW_AncestorSpirits
             return true;
         }
 
-        private bool DespawnRandomVisitor()
+        private bool DespawnVisitor(Pawn visitor)
         {
-            var visitor = this.GetVisitingPawn();
             if (visitor != null)
             {
-                visitor.DeSpawn();
                 visitor.GetLord().Notify_PawnLost(visitor, PawnLostCondition.Vanished);
+                visitor.DeSpawn();
+                if (this.despawnBuffer.Contains(visitor))
+                {
+                    this.despawnBuffer.Remove(visitor);
+                }
                 this.unspawnedAncestors.Add(visitor);
                 return true;
             }
@@ -214,6 +218,12 @@ namespace MTW_AncestorSpirits
             {
                 return false;
             }
+        }
+
+        private bool DespawnRandomVisitor()
+        {
+            var visitor = this.GetVisitingPawn();
+            return this.DespawnVisitor(visitor);
         }
 
         #endregion
@@ -260,6 +270,13 @@ namespace MTW_AncestorSpirits
             this.ticksToKeepWeather = durationTicks;
             this.forcedWeatherDef = weatherDef;
         }
+
+        // Kinda messy. Should work out how you want state of visitors to be handled.
+        public void Notify_ShouldDespawn(Pawn ancestor)
+        {
+            this.DespawnVisitor(ancestor);
+        }
+
         #endregion
 
         #region Overrides
@@ -304,6 +321,11 @@ namespace MTW_AncestorSpirits
             // No Rare version of MapComponentTick, so this will do.
             if (!(Find.TickManager.TicksGame % AncestorConstants.TICKS_PER_INTERVAL == 0)) { return; }
             if (!this.initialized) { this.Initialize(); }
+
+            foreach (Pawn visitor in this.despawnBuffer)
+            {
+                this.DespawnVisitor(visitor);
+            }
 
             if (this.CurrentSpawner == null)
             {

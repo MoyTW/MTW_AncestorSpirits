@@ -60,6 +60,7 @@
     <Compile Include="Injectors\SpecialInjector.cs" />
     <Compile Include="Injectors\SpecialInjectorWorker.cs" />
     <Compile Include="JobDriver_PetitionAncestors.cs" />
+    <Compile Include="JobDriver_ReturnAnchor.cs" />
     <Compile Include="JobGiver_InspectColony.cs" />
     <Compile Include="JobGiver_ReturnAnchor.cs" />
     <Compile Include="JobGiver_Relax.cs" />

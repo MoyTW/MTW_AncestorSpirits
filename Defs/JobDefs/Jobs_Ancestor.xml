@@ -11,7 +11,7 @@
   <!-- Misc -->
   <JobDef>
     <defName>MTW_ReturnAnchor</defName>
-    <driverClass>JobDriver_Goto</driverClass>
+    <driverClass>MTW_AncestorSpirits.JobDriver_ReturnAnchor</driverClass>
     <reportString>returning to anchor.</reportString>
     <casualInterruptible>false</casualInterruptible>
   </JobDef>

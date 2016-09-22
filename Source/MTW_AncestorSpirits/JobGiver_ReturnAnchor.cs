@@ -46,7 +46,7 @@ namespace MTW_AncestorSpirits
             if (anchorCell == null) { return null; }
 
             Find.PawnDestinationManager.ReserveDestinationFor(pawn, anchorCell);
-            return new Job(JobDefOf.Goto, anchorCell);
+            return new Job(DefDatabase<JobDef>.GetNamed("MTW_ReturnAnchor"), spawner);
         }
     }
 }
