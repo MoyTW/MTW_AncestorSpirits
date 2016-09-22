@@ -15,8 +15,8 @@
       <ComfyTemperatureMax>9999</ComfyTemperatureMax>
       <Flammability>0.0</Flammability>
       <ToxicSensitivity>0.0</ToxicSensitivity>
-      <ArmorRating_Blunt>1.0</ArmorRating_Blunt>
-      <ArmorRating_Sharp>1.0</ArmorRating_Sharp>
+      <ArmorRating_Blunt>99999999.0</ArmorRating_Blunt>
+      <ArmorRating_Sharp>99999999.0</ArmorRating_Sharp>
     </statBases>
     <race>
       <foodType>None</foodType>
