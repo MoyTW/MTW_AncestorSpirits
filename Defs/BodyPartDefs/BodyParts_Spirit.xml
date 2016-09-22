@@ -3,7 +3,18 @@
 <BodyPartDefs>
 
   <BodyPartDef>
-    <defName>Essence</defName>
+    <defName>MTW_SpiritBody</defName>
+    <label>spirit body</label>
+    <hitPoints>9999</hitPoints>
+    <oldInjuryBaseChance>0.00</oldInjuryBaseChance>
+    <frostbiteVulnerability>0.01</frostbiteVulnerability>
+    <isAlive>true</isAlive>
+    <isSolid>true</isSolid>
+    <dontSuggestAmputation>true</dontSuggestAmputation>
+  </BodyPartDef>
+
+  <BodyPartDef>
+    <defName>MTW_SpiritEssence</defName>
     <label>essence</label>
     <hitPoints>9999</hitPoints>
     <oldInjuryBaseChance>0.00</oldInjuryBaseChance>
@@ -18,6 +29,12 @@
       <li>Sight_source</li>
       <li>Hearing_source</li>
       <li>Talking_source</li>
+
+      <!-- If these are not present, pawn auto-dies on damage taken. -->
+      <li>BloodPumping</li>
+      <li>BloodFiltration</li>
+      <li>Metabolism</li>
+      <li>Breathing</li>
     </activities>
     <isAlive>true</isAlive>
     <dontSuggestAmputation>true</dontSuggestAmputation>

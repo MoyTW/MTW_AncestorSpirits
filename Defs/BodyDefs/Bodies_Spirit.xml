@@ -5,12 +5,17 @@
     <defName>Spirit</defName>
     <label>spirit</label>
     <corePart>
-      <def>Essence</def>
-      <depth>Outside</depth>
+      <def>MTW_SpiritBody</def>
       <height>Middle</height>
-      <groups>
-        <li>Torso</li>
-      </groups>
+      <depth>Outside</depth>
+      <parts>
+        <li>
+          <def>MTW_SpiritEssence</def>
+          <coverage>0.0</coverage>
+          <height>Middle</height>
+          <depth>Inside</depth>
+        </li>
+      </parts>
     </corePart>
   </BodyDef>
   
