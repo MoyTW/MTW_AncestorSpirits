@@ -39,9 +39,10 @@
 + DONE Ancestors will periodically return to their Anchor
 
 ## Invincible Ancestors
-+ Spirits are invulnerable to everything
++ DONE Spirits are invulnerable to everything
 + Ancestors cannot be arrested
 + Ancestors will persist between despawns and saves
++ Ancestors cannot be simply walled-in
 
 # Bonus Planned Features
 ## Hospitality-style visits
