@@ -32,11 +32,11 @@
 + DONE Ancestors will use Joy objects
 + DONE Ancestors will not get stuck in a Joy-object using loop!
 
-## Homebound Ancestors
+## DONE Homebound Ancestors
 + DONE Shrine building creates a "Shrine Room"
 + DONE Ancestors get a happy/sad thought for the Shrine Room
 + DONE Ancestors will get a sad thought if there is no Shrine Room
-+ Ancestors will periodically return to their Shrine Room
++ DONE Ancestors will periodically return to their Anchor
 
 ## Invincible Ancestors
 + Spirits are invulnerable to everything

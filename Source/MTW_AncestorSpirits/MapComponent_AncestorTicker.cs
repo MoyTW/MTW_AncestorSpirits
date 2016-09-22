@@ -197,7 +197,15 @@ namespace MTW_AncestorSpirits
             GenAdj.TryFindRandomWalkableAdjacentCell8Way(this.CurrentSpawner, out pos);
             if (pos == null) { return false; }
 
-            GenSpawn.Spawn(this.PopOrGenUnspawnedPawn(), pos);
+            var visitor = this.PopOrGenUnspawnedPawn();
+            GenSpawn.Spawn(visitor, pos);
+
+            var anchorNeed = visitor.needs.TryGetNeed<Need_Anchor>();
+            if (anchorNeed != null)
+            {
+                anchorNeed.CurLevel = 1.0f;
+            }
+
             return true;
         }
 
@@ -334,7 +342,7 @@ namespace MTW_AncestorSpirits
                     this.DespawnRandomVisitor();
                 }
             }
-            else if (this.AncestorsVisiting.Count() < numAncestorsToVisit)
+            else if (this.AncestorsVisiting.Count() < numAncestorsToVisit && this.AncestorsVisiting.Count() == 0)
             {
                 while (this.AncestorsVisiting.Count() < numAncestorsToVisit)
                 {
