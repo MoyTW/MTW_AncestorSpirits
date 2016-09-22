@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="AncestorApproval.cs" />
     <Compile Include="Building_Shrine.cs" />
+    <Compile Include="Detouring\GenAI.cs" />
     <Compile Include="Detouring\Pawn_NeedsTracker.cs" />
     <Compile Include="EventTimer.cs" />
     <Compile Include="IncidentWorker_CleanseSkies.cs" />

@@ -40,7 +40,7 @@
 
 ## Invincible Ancestors
 + DONE Spirits are invulnerable to everything
-+ Ancestors cannot be arrested
++ DONE Ancestors cannot be arrested
 + Ancestors will persist between despawns and saves
 + Ancestors cannot be simply walled-in
 
@@ -79,3 +79,6 @@
   - Ancestral visit: many Ancestors manifest for a period of time
   - Quiet dead: Ancestors leave your colony for a period of time
 + GODLARP
+
+# Your Code Sucks
++ Stop checking against the literal string "Spirit" to see if you can Do X
