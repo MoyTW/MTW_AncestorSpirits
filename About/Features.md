@@ -38,20 +38,13 @@
 + DONE Ancestors will get a sad thought if there is no Shrine Room
 + DONE Ancestors will periodically return to their Anchor
 
-## Invincible Ancestors
+## DONE Invincible Ancestors
 + DONE Spirits are invulnerable to everything
 + DONE Ancestors cannot be arrested
 + DONE Ancestors will persist between despawns and saves
-+ Ancestors cannot be simply walled-in
++ DONE Ancestors cannot be simply walled-in
 
 # Bonus Planned Features
-## Hospitality-style visits
-+ Ancestors trickle in/out instead of group spawning
-+ Ancestors spawn for "visits" instead of constantly
-+ Visits are semi-random but normalized to give same approval+/-
-+ Approval changes submitted when Ancestors return to the spirit world
-+ Ancestors vanish (huge approval hit) if shrine destroyed while visiting
-+ Ancestors will occasionally walk outside of colony
 ## Variable-magic rituals
 + Rituals now have a failure chance (Ancestors are indifferent)
 + Rituals can be overbid/underbid to influence failure chances
@@ -65,6 +58,14 @@
   + Blight
   + Sickness (various)
   + Ancestral Fury: Lightning strikes your colony/colonists
+## Hospitality-style visits
++ Ancestors trickle in/out instead of group spawning
++ Ancestors spawn for "visits" instead of constantly
++ Visits are semi-random but normalized to give same approval+/-
++ Approval changes submitted when Ancestors return to the spirit world
++ Ancestors vanish (huge approval hit) if shrine destroyed while visiting
++ Ancestors will occasionally walk outside of colony
++ Ancestors will get super mad if they can't return to their anchor
 
 # This Stuff Would Be Awesome, But Are Not In Scope Right Now
 + Ancestor Actions

@@ -19,10 +19,17 @@ namespace MTW_AncestorSpirits
         private const float maxStart = .99f;
 
         private int lastGainTick;
+        private bool hasHitZero = false;
 
         static Need_Anchor() { }
 
         public bool IsLow { get { return this.CurLevel < threshLow; } }
+
+        public void SetToMax()
+        {
+            this.CurLevel = 1f;
+            this.hasHitZero = false;
+        }
 
         public override int GUIChangeArrow
         {
@@ -50,6 +57,8 @@ namespace MTW_AncestorSpirits
         public override void ExposeData()
         {
             base.ExposeData();
+
+            Scribe_Values.LookValue<bool>(ref hasHitZero, "hasHitZero", false);
         }
 
         public override void SetInitialLevel()
@@ -72,11 +81,17 @@ namespace MTW_AncestorSpirits
             {
                 this.curLevelInt -= (baseFallPerTick * baseGainPerTickRate);
             }
-            if (this.curLevelInt >= 0.0)
+
+            if (this.curLevelInt <= 0.0)
             {
-                return;
+                this.curLevelInt = 0.0f;
+                if (!this.hasHitZero)
+                {
+                    this.hasHitZero = true;
+                    // TODO: Don't directly notify from here - this ties the Anchor Need *explicitly* to the MapComponent!
+                    Find.Map.GetComponent<MapComponent_AncestorTicker>().Notify_ShouldDespawn(this.pawn);
+                }
             }
-            this.curLevelInt = 0.0f;
         }
 
         public override string GetTipString()

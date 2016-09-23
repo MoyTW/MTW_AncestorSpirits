@@ -194,7 +194,7 @@ namespace MTW_AncestorSpirits
             var anchorNeed = visitor.needs.TryGetNeed<Need_Anchor>();
             if (anchorNeed != null)
             {
-                anchorNeed.CurLevel = 1.0f;
+                anchorNeed.SetToMax();
             }
 
             return true;
