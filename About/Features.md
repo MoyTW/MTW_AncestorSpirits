@@ -66,6 +66,9 @@
 + Ancestors vanish (huge approval hit) if shrine destroyed while visiting
 + Ancestors will occasionally walk outside of colony
 + Ancestors will get super mad if they can't return to their anchor
+## Spritual Ancestors
++ Ancestors are colored differently or transparent or something distinct
++ Ancestors don't have nudist/clothing-based thoughts
 
 # This Stuff Would Be Awesome, But Are Not In Scope Right Now
 + Ancestor Actions
