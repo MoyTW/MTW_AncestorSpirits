@@ -41,7 +41,7 @@
 ## Invincible Ancestors
 + DONE Spirits are invulnerable to everything
 + DONE Ancestors cannot be arrested
-+ Ancestors will persist between despawns and saves
++ DONE Ancestors will persist between despawns and saves
 + Ancestors cannot be simply walled-in
 
 # Bonus Planned Features

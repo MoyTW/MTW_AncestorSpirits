@@ -82,12 +82,11 @@ namespace MTW_AncestorSpirits
         private Random rand = new Random();
 
         private Faction _faction = null;
-        private Building _currentSpawner = null;
 
         private bool initialized = false;
         private List<Pawn> unspawnedAncestors = new List<Pawn>();
         private List<Pawn> despawnBuffer = new List<Pawn>();
-        private HashSet<Building> spawners = new HashSet<Building>();
+        private List<Building> spawners = new List<Building>();
         private AncestorApproval approval = null;
         private EventTimer timer = null;
 
@@ -115,15 +114,7 @@ namespace MTW_AncestorSpirits
         {
             get
             {
-                // Technically, _currentSpawner can be orphaned.
-                if (!this.spawners.Any()) { return null; }
-
-                if (!this.spawners.Contains<Building>(this._currentSpawner))
-                {
-                    this._currentSpawner = this.spawners.First();
-                }
-
-                return this._currentSpawner;
+                return this.spawners.LastOrDefault<Building>();
             }
         }
 
@@ -365,10 +356,8 @@ namespace MTW_AncestorSpirits
             Scribe_Values.LookValue<int>(ref numAncestorsToVisit, "numAncestorsToVisit", 3);
             Scribe_Deep.LookDeep<AncestorApproval>(ref this.approval, "approval", new object[0]);
             Scribe_Deep.LookDeep<EventTimer>(ref this.timer, "timer", new object[0]);
-            // TODO: Fix the loading errors!
-            // Scribe_Collections.LookList<Pawn>(ref this.unspawnedAncestors, "unspawnedAncestors", LookMode.Deep, new object[0]);
-            Scribe_Collections.LookHashSet<Building>(ref this.spawners, "spawners", LookMode.MapReference);
-            Scribe_References.LookReference<Building>(ref this._currentSpawner, "currentSpawner");
+            Scribe_Collections.LookList<Pawn>(ref this.unspawnedAncestors, "unspawnedAncestors", LookMode.Deep, new object[0]);
+            Scribe_Collections.LookList<Building>(ref this.spawners, "spawners", LookMode.MapReference);
         }
 
         #endregion
