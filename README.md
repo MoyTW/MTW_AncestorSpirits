@@ -4,23 +4,23 @@ You Ancestors are watching you, and they are hard to impress. To ignore them wou
 
 Build a shrine room:
 
-![alt text] [shrineroom]
+![It's a pretty dull room, this one is.](https://github.com/MoyTW/MTW_AncestorSpirits/blob/master/About/Images/ShrineRoom.jpg)
 
 Once you've established a Shrine, Ancestors will come visit:
 
-![alt text] [ancestorcard]
+![I'll work on the naked thought. Also, they should be ghostly (see planned features).](https://github.com/MoyTW/MTW_AncestorSpirits/blob/master/About/Images/AncestorCard.jpg)
 
 Ancestors are immune to basically everything, flames included! Samantha and Nanor are just fiiiine here (and if you find something that can kill them, tell me so I can fix that):
 
-![alt text] [ancestorflames]
+![Can tank a Doomsday rocket to the face and take no injures!](https://github.com/MoyTW/MTW_AncestorSpirits/blob/master/About/Images/AncestorFlames.jpg)
 
 If the Ancestors are pleased, they'll give you Magic, which you can use for Rituals:
 
-![alt text] [petitions]
+![Some balance work needed.](https://github.com/MoyTW/MTW_AncestorSpirits/blob/master/About/Images/Petitions.jpg)
 
 The actual petitioning is pretty dull-looking at the moment though:
 
-![alt text] [petitioning]
+![Maybe I should add a Petitioning skill? Maybe base it off Social? Probably just base it off Social.](https://github.com/MoyTW/MTW_AncestorSpirits/blob/master/About/Images/Petitioning.jpg)
 
 I'll make a more detailed writeup Sometime Later, when I iron out a lot of these issues and make it more friendly and full-featured and Officially Release It, but you can probably derive how most of it works from the features list.
 
@@ -30,12 +30,6 @@ This mod is current very much a work-in-progress! It can be applied to in-progre
 
 # Incompatibilities
 + It is incompatible with the Hospitality mod. I intend to patch it to be compatible (see planned features section).
-
-[shrineroom]: https://github.com/MoyTW/MTW_AncestorSpirits/tree/master/About/images/ShrineRoom.jpg "It's a pretty dull room, this one is."
-[ancestorcard]: https://github.com/MoyTW/MTW_AncestorSpirits/tree/master/About/images/AncestorCard.jpg "I'll work on the naked thought. Also, they should be ghostly (see planned features)."
-[ancestorflames]: https://github.com/MoyTW/MTW_AncestorSpirits/tree/master/About/images/AncestorFlames.jpg "Can tank a Doomsday rocket to the face and take no injures!"
-[petitions]: https://github.com/MoyTW/MTW_AncestorSpirits/tree/master/About/images/Petitions.jpg "Some balance work needed."
-[petitioning]: https://github.com/MoyTW/MTW_AncestorSpirits/tree/master/About/images/Petitioning.jpg "Maybe I should add a Petitioning skill? Maybe base it off Social?"
 
 # Planned Features
 
@@ -88,6 +82,7 @@ This mod is current very much a work-in-progress! It can be applied to in-progre
 + Rituals now have a failure chance (Ancestors are indifferent)
 + Rituals can be overbid/underbid to influence failure chances
 + Control magic bid by lighting attached altar buildings
+
 ## More Rituals/Punishments
 + Rituals
   + Crop Growth: Your crops grow really fast
@@ -97,6 +92,7 @@ This mod is current very much a work-in-progress! It can be applied to in-progre
   + Blight
   + Sickness (various)
   + Ancestral Fury: Lightning strikes your colony/colonists
+
 ## Hospitality-style visits
 + Ancestors trickle in/out instead of group spawning
 + Ancestors spawn for "visits" instead of constantly
@@ -105,9 +101,12 @@ This mod is current very much a work-in-progress! It can be applied to in-progre
 + Ancestors vanish (huge approval hit) if shrine destroyed while visiting
 + Ancestors will occasionally walk outside of colony
 + Ancestors will get super mad if they can't return to their anchor
+
 ## Spritual Ancestors
 + Ancestors are colored differently or transparent or something distinct
 + Ancestors don't have nudist/clothing-based thoughts
+
+## Hospitality Compatibility
 
 # This Stuff Would Be Awesome, But Are Not In Scope Right Now
 + Ancestor Actions
