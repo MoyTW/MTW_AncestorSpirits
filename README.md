@@ -78,10 +78,10 @@ This mod is current very much a work-in-progress! It can be applied to in-progre
 + DONE Ancestors cannot be simply walled-in
 
 # Bonus Planned Features
-## Variable-magic rituals
-+ Rituals now have a failure chance (Ancestors are indifferent)
-+ Rituals can be overbid/underbid to influence failure chances
-+ Control magic bid by lighting attached altar buildings
+## DONE Variable-magic rituals
++ DONE Rituals now have a failure chance (Ancestors are indifferent)
++ DONE Rituals can be overbid/underbid to influence failure chances
++ DONE Control magic bid by lighting attached altar buildings
 
 ## More Rituals/Punishments
 + Rituals
@@ -124,3 +124,4 @@ This mod is current very much a work-in-progress! It can be applied to in-progre
 
 # Your Code Sucks
 + Stop checking against the literal string "Spirit" to see if you can Do X
++ Use Reflection to set the private weather ticker insteaed of...what you do
