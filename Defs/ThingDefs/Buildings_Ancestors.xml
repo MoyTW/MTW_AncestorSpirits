@@ -38,7 +38,13 @@
       <Flammability>1.0</Flammability>
       <Beauty>50</Beauty>
     </statBases>
-    <comps></comps>
+    <comps>
+      <li Class="CompProperties_AffectedByFacilities">
+        <linkableFacilities>
+          <li>MTW_Brazier</li>
+        </linkableFacilities>
+      </li>
+    </comps>
     <size>(2,2)</size>
     <costList>
       <Cloth>80</Cloth>
@@ -57,6 +63,46 @@
 		<placeWorkers>
 			<li>PlaceWorker_NeverAdjacentUnstandable</li>
 		</placeWorkers>
+  </ThingDef>
+
+  <ThingDef ParentName="BuildingBase">
+    <defName>MTW_Brazier</defName>
+    <label>shrine brazier</label>
+    <thingClass>MTW_AncestorSpirits.Building_Brazier</thingClass>
+    <category>Building</category>
+    <description>Determines how much Magic to use in a ritual. Active braziers send 1 each.</description>
+    <graphicData>
+      <texPath>PlaceholderBrazierFront</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <drawSize>(1,1)</drawSize>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+    <statBases>
+      <MaxHitPoints>120</MaxHitPoints>
+      <WorkToMake>200</WorkToMake>
+      <Flammability>0.0</Flammability>
+      <Beauty>5</Beauty>
+    </statBases>
+    <stuffCategories>
+      <li>Metallic</li>
+      <li>Stony</li>
+    </stuffCategories>
+    <costStuffCount>15</costStuffCount>
+    <comps>
+      <li Class="CompProperties_Facility">
+        <maxSimultaneous>9999</maxSimultaneous>
+        <mustBePlacedAdjacent>false</mustBePlacedAdjacent>
+      </li>
+      <li Class="CompProperties_Flickable"/>
+    </comps>
+    <rotatable>false</rotatable>
+    <selectable>true</selectable>
+    <neverMultiSelect>false</neverMultiSelect>
+    <tickerType>Normal</tickerType>
+    <designationCategory>Misc</designationCategory>
   </ThingDef>
 
 </Buildings>
