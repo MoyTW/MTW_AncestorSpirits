@@ -9,6 +9,7 @@ using System.Text;
 
 namespace MTW_AncestorSpirits
 {
+    [StaticConstructorOnStartup]
     class Building_Brazier : Building
     {
         private CompFlickable flickableComp;
