@@ -54,6 +54,16 @@ namespace MTW_AncestorSpirits
             }
         }
 
+        protected override void ReceiveCompSignal(string signal)
+        {
+            base.ReceiveCompSignal(signal);
+
+            if (signal == "FlickedOff" || signal == "FlickedOn")
+            {
+                Find.MapDrawer.MapMeshDirty(base.Position, MapMeshFlag.Things, true, false);
+            }
+        }
+
         public override string GetInspectString()
         {
             if (this.flickableComp.SwitchIsOn)
