@@ -254,20 +254,6 @@ namespace MTW_AncestorSpirits
             }
         }
 
-        private float petitionSuccesChance(PetitionDef petition, int magicUsed)
-        {
-            if (magicUsed < petition.MinMagic)
-            {
-                return 0.0f;
-            }
-            else
-            {
-                float percentUsedOverMin = ((float)magicUsed - (float)petition.MinMagic) / (float)petition.magicCost;
-                return AncestorConstants.PETITION_BASE_SUCCESS +
-                    (1.0f - AncestorConstants.PETITION_BASE_SUCCESS) * percentUsedOverMin;
-            }
-        }
-
         public void Notify_PetitionMade(PetitionDef petition, Pawn petitioner)
         {
             var magicUsed = ((Building_Shrine)this.CurrentSpawner).MagicForNextRitual;
@@ -285,7 +271,7 @@ namespace MTW_AncestorSpirits
             }
 
             var successTarget = Rand.Value;
-            var successChance = this.petitionSuccesChance(petition, magicUsed);
+            var successChance = petition.SuccesChance(magicUsed);
             if (successChance == 0.0f)
             {
                 // TODO: PUNISH for this?
