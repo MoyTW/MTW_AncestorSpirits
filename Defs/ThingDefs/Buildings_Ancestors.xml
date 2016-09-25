@@ -103,6 +103,9 @@
     <neverMultiSelect>false</neverMultiSelect>
     <tickerType>Normal</tickerType>
     <designationCategory>Misc</designationCategory>
+    <placeWorkers>
+			<li>PlaceWorker_ShowFacilitiesConnections</li>
+		</placeWorkers>
   </ThingDef>
 
 </Buildings>
