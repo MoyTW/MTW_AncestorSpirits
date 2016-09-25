@@ -14,6 +14,14 @@ namespace MTW_AncestorSpirits
 
         public int magicCost;
 
+        public int MinMagic
+        {
+            get
+            {
+                return (int)Math.Ceiling((float)this.magicCost * AncestorConstants.PETITION_SPEND_MIN_MULT);
+            }
+        }
+
         public int PetitionTicks
         {
             get

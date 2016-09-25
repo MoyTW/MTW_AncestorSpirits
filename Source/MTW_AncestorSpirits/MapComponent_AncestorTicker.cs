@@ -71,8 +71,14 @@ namespace MTW_AncestorSpirits
         public const double EVENT_TIMER_MAX_OMEN_HOURS = 6.0;
         public const int EVENT_TIMER_MAX_OMEN_TICKS = (int)(EVENT_TIMER_MAX_OMEN_HOURS * GenDate.TicksPerHour);
 
-        // Magic
+        /* Magic & Petitions
+         * The petition base success chance is listed here. The min multiplier is how much less you can spent to
+         * achieve the base success chance, and how much you have to overspend to achieve 100%. Success is linear from
+         * the base chance up to cost*(1 + min_multi).
+         */
         public const int MAGIC_START = 6;
+        public const float PETITION_BASE_SUCCESS = .60f;
+        public const float PETITION_SPEND_MIN_MULT = .5f;
 
         #endregion
     }
@@ -248,20 +254,60 @@ namespace MTW_AncestorSpirits
             }
         }
 
+        private float petitionSuccesChance(PetitionDef petition, int magicUsed)
+        {
+            if (magicUsed < petition.MinMagic)
+            {
+                return 0.0f;
+            }
+            else
+            {
+                float percentUsedOverMin = ((float)magicUsed - (float)petition.MinMagic) / (float)petition.magicCost;
+                return AncestorConstants.PETITION_BASE_SUCCESS +
+                    (1.0f - AncestorConstants.PETITION_BASE_SUCCESS) * percentUsedOverMin;
+            }
+        }
+
         public void Notify_PetitionMade(PetitionDef petition, Pawn petitioner)
         {
-            if (this.approval.CurrentMagic >= petition.magicCost)
+            var magicUsed = ((Building_Shrine)this.CurrentSpawner).MagicForNextRitual;
+            if (magicUsed == 0)
+            {
+                Messages.Message("You cannot petition your Ancestors without using magic! Are your braziers lit?",
+                    MessageSound.Negative);
+                return;
+            }
+            if (magicUsed > this.approval.CurrentMagic)
+            {
+                Messages.Message("Your magic was insufficient to even begin the petition! No magic has been used.",
+                    MessageSound.Negative);
+                return;
+            }
+
+            var successTarget = Rand.Value;
+            var successChance = this.petitionSuccesChance(petition, magicUsed);
+            if (successChance == 0.0f)
+            {
+                // TODO: PUNISH for this?
+                Messages.Message("Your offerings were insulting! The Ancestors have rejected your petition.",
+                    MessageSound.Negative);
+            }
+            else if (successTarget >= successChance)
+            {
+                Messages.Message("The Ancestors have not heard your petition - or if they have, they are silent.",
+                    MessageSound.Negative);
+            }
+            else
             {
                 Messages.Message("The Ancestors have heard your petition!", MessageSound.Benefit);
                 var incidentParams = new IncidentParms();
                 incidentParams.forced = true;
                 petition.Worker.TryExecute(incidentParams);
-                this.approval.SubtractMagic(petition.magicCost);
             }
-            else
-            {
-                Messages.Message("You haven't enough magic! The Ancestors have rejected your petition.", MessageSound.Negative);
-            }
+
+            this.approval.SubtractMagic(magicUsed);
+            Messages.Message("You have spent " + magicUsed + ". Your magic is now " + this.approval.CurrentMagic,
+                MessageSound.Standard);
         }
 
         public void Notify_ForceWeather(WeatherDef weatherDef, int durationTicks)

@@ -13,7 +13,7 @@ namespace MTW_AncestorSpirits
     {
         private CompAffectedByFacilities facilitiesComp;
 
-        private int MagicForNextRitual
+        public int MagicForNextRitual
         {
             get
             {
