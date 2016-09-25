@@ -98,10 +98,6 @@ namespace MTW_AncestorSpirits
 
         private int numAncestorsToVisit = 3;
 
-        /* HACK ALERT - See the Notify_ForceWeather function for details. */
-        private int ticksToKeepWeather;
-        private WeatherDef forcedWeatherDef;
-
         #region Properties
 
         public Faction AncestorFaction
@@ -296,12 +292,6 @@ namespace MTW_AncestorSpirits
                 MessageSound.Standard);
         }
 
-        public void Notify_ForceWeather(WeatherDef weatherDef, int durationTicks)
-        {
-            this.ticksToKeepWeather = durationTicks;
-            this.forcedWeatherDef = weatherDef;
-        }
-
         // Kinda messy. Should work out how you want state of visitors to be handled.
         public void Notify_ShouldDespawn(Pawn ancestor)
         {
@@ -312,43 +302,8 @@ namespace MTW_AncestorSpirits
 
         #region Overrides
 
-        /* HACK ALERT
-         * Because it's not possible to manually set the duration of a weather event through any defs other than the
-         * WeatherDef (the variable in the WeatherDecider which controls when it transitions, curWeatherDuration, is
-         * private and cannot be assigned to through functions) we trick the system into thinking that the weather
-         * effect has never passed 4000 ticks by constantly resetting it to 4000.
-         * 
-         * The reason we set it to 4000 is because that is how many ticks it takes for the weather to complete
-         * transitioning from the previous weather to the current one (rainfall takes time to ramp up).
-         * 
-         * Here is how the weather loops works:
-         * + WeatherDecider starts a new weather cycle. It decides how long this cycle should last using the def, and
-         *   stores it in its curWeatherDuration variable.
-         * + WeatherDecider tells the WeatherManager to transition to the new weather, and sets curWeatherAge = 0
-         * + Every tick, curWeatherAge increments
-         * + When curWeatherAge > curWeatherDuration, WeatherDecider decides on a new weather
-         * 
-         * Therefore, we set curWeatherAge (which for some reason is public) to 4000 until our targeted ticks have
-         * passed, thereby freezing the weather.
-         * 
-         * It could be broken off into its own Component I suppose, but I'll deal with that if it becomes an issue.
-         */
-        private void ForceWeather()
-        {
-            if (this.forcedWeatherDef == Find.WeatherManager.curWeather && this.ticksToKeepWeather > 0)
-            {
-                if (Find.WeatherManager.curWeatherAge > 4000)
-                {
-                    Find.WeatherManager.curWeatherAge = 4000;
-                }
-                this.ticksToKeepWeather--;
-            }
-        }
-
         public override void MapComponentTick()
         {
-            this.ForceWeather();
-
             // No Rare version of MapComponentTick, so this will do.
             if (!(Find.TickManager.TicksGame % AncestorConstants.TICKS_PER_INTERVAL == 0)) { return; }
             if (!this.initialized) { this.Initialize(); }

@@ -124,4 +124,4 @@ This mod is current very much a work-in-progress! It can be applied to in-progre
 
 # Your Code Sucks
 + Stop checking against the literal string "Spirit" to see if you can Do X
-+ Use Reflection to set the private weather ticker insteaed of...what you do
++ DONE Use Reflection to set the private weather ticker insteaed of...what you do

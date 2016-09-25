@@ -2,10 +2,7 @@
 using Verse;
 using UnityEngine;
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Reflection;
 
 namespace MTW_AncestorSpirits
 {
@@ -13,15 +10,16 @@ namespace MTW_AncestorSpirits
     {
         public override bool TryExecute(IncidentParms parms)
         {
+            // Force a transition
             WeatherDef weatherDef = DefDatabase<WeatherDef>.GetNamed("MTW_HeavyWind");
             Find.WeatherManager.TransitionTo(weatherDef);
 
-            /* ##### HACK ALERT! #####
-             * We force the weather to stay the same for extended periods through a watcher in the MapComponent. See
-             * the Notify_ForceWeather function for details.
-             */
+            // Set the duration using reflection
             int weatherDuration = Mathf.RoundToInt(this.def.durationDays.RandomInRange * GenDate.TicksPerDay);
-            Find.Map.GetComponent<MapComponent_AncestorTicker>().Notify_ForceWeather(weatherDef, weatherDuration);
+            var decider = Find.Storyteller.weatherDecider;
+            typeof(WeatherDecider)
+                .GetField("curWeatherDuration", BindingFlags.Instance | BindingFlags.NonPublic)
+                .SetValue(decider, weatherDuration);
 
             return true;
         }

@@ -12,11 +12,6 @@
     </temperatureRange>
     <windSpeedFactor>3.0</windSpeedFactor>
     <repeatable>false</repeatable>
-    <!-- HACK ALERT: The transition period is 4000, so we need a minimum of that. The max is the point at which it returns control to the weather system, so it should end directly afterwards. -->
-    <durationRange>
-      <min>4001</min>
-      <max>4002</max>
-    </durationRange>
     <favorability>Neutral</favorability>
     <moveSpeedMultiplier>0.95</moveSpeedMultiplier>
     <accuracyMultiplier>0.95</accuracyMultiplier>
