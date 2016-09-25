@@ -29,6 +29,7 @@ namespace MTW_AncestorSpirits
         }
 
         public bool IsActive { get { return this.flickableComp.SwitchIsOn; } }
+        public int MagicContributed { get { return this.IsActive ? 1 : 0; } }
 
         static Building_Brazier()
         {

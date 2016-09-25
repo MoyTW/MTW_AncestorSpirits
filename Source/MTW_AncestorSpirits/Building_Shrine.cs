@@ -11,10 +11,35 @@ namespace MTW_AncestorSpirits
 {
     public class Building_Shrine : Building
     {
+        private CompAffectedByFacilities facilitiesComp;
+
+        private int MagicForNextRitual
+        {
+            get
+            {
+                return this.facilitiesComp.LinkedFacilitiesListForReading
+                    .Sum(n => ((Building_Brazier)n).MagicContributed);
+            }
+        }
+
         public override void SpawnSetup()
         {
-            Find.Map.GetComponent<MapComponent_AncestorTicker>().Notify_SpawnerCreated(this);
             base.SpawnSetup();
+
+            this.facilitiesComp = base.GetComp<CompAffectedByFacilities>();
+            Find.Map.GetComponent<MapComponent_AncestorTicker>().Notify_SpawnerCreated(this);
+        }
+
+        public override void ExposeData()
+        {
+            base.ExposeData();
+            if (Scribe.mode == LoadSaveMode.PostLoadInit)
+            {
+                if (this.facilitiesComp == null)
+                {
+                    this.facilitiesComp = base.GetComp<CompAffectedByFacilities>();
+                }
+            }
         }
 
         public override void Destroy(DestroyMode mode = DestroyMode.Vanish)
@@ -28,7 +53,8 @@ namespace MTW_AncestorSpirits
             int magic = Find.Map.GetComponent<MapComponent_AncestorTicker>().CurrentMagic;
 
             StringBuilder builder = new StringBuilder();
-            builder.AppendLine("Magic: " + magic);
+            builder.AppendLine("Magic available: " + magic);
+            builder.AppendLine("Magic for next ritual: " + this.MagicForNextRitual);
             builder.Append(base.GetInspectString());
 
             return builder.ToString();
