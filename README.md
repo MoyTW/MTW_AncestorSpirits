@@ -106,6 +106,10 @@ This mod is current very much a work-in-progress! It can be applied to in-progre
 + Ancestors are colored differently or transparent or something distinct
 + Ancestors don't have nudist/clothing-based thoughts
 
+## Beginner Affordances
++ Don't start timer on Shrines until after a certain time period has passed
++ Possibly add in a tutorial message?
+
 ## Hospitality Compatibility
 
 # This Stuff Would Be Awesome, But Are Not In Scope Right Now
