@@ -64,6 +64,17 @@
     <magicCost>2</magicCost>
   </MTW_AncestorSpirits.PetitionDef>
 
+  <MTW_AncestorSpirits.PetitionDef>
+    <defName>MTW_PetitionHelpHealWounds</defName>
+    <label>help heal wounds</label>
+    <workerClass>MTW_AncestorSpirits.IncidentWorker_HelpHealWounds</workerClass>
+    <letterLabel>Faster Healing</letterLabel>
+    <letterText>Your Ancestors have heard your propitiations! They will aid in the recovery the colonists' wounds!</letterText>
+    <letterType>Good</letterType>
+    <petitionHours>4</petitionHours>
+    <magicCost>1</magicCost>
+  </MTW_AncestorSpirits.PetitionDef>
+
   <!-- This is Super Duper OP - it clears *all* map conditions. Should be fixed. -->
   <MTW_AncestorSpirits.PetitionDef>
     <defName>MTW_PetitionCleanseSkies</defName>
