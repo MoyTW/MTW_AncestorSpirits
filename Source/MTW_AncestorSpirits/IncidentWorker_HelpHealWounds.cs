@@ -27,10 +27,7 @@ namespace MTW_AncestorSpirits
                 }
             }
 
-            if (this.def.letterLabel != null && this.def.letterText != null)
-            {
-                Find.LetterStack.ReceiveLetter(this.def.letterLabel, this.def.letterText, this.def.letterType);
-            }
+            Find.LetterStack.ReceiveLetter(this.def.letterLabel, this.def.letterText, this.def.letterType);
 
             return true;
         }
