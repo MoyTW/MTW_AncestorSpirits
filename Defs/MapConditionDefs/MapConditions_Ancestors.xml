@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<MapConditionDefs>
+
+  <MapConditionDef>
+    <defName>MTW_CropsBlessed</defName>
+    <conditionClass>MTW_AncestorSpirits.MapCondition_CropsBlessed</conditionClass>
+    <label>crops blessed</label>
+    <description>Your crops have been blessed by the Ancestors!</description>
+    <endMessage>Your Ancestors' crop magic has been exhausted.</endMessage>
+    <canBePermanent>false</canBePermanent>
+  </MapConditionDef>
+
+</MapConditionDefs>

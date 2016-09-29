@@ -71,6 +71,7 @@
     <Compile Include="Job_PetitionAncestors.cs" />
     <Compile Include="LordJob_HauntColony.cs" />
     <Compile Include="LordToil_HauntPoint.cs" />
+    <Compile Include="MapCondition_CropsBlessed.cs" />
     <Compile Include="Need_Anchor.cs" />
     <Compile Include="PetitionDef.cs" />
     <Compile Include="Injectors\MapComponentInjector.cs" />
