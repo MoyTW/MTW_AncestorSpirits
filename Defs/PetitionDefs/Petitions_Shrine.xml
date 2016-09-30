@@ -91,7 +91,7 @@
     <label>bless crops</label>
     <workerClass>IncidentWorker_MakeMapCondition</workerClass>
     <mapCondition>MTW_CropsBlessed</mapCondition>
-    <letterLabel>Crops blessed</letterLabel>
+    <letterLabel>Crops Blessed</letterLabel>
     <letterText>Your Ancestors have heard your propitiations! They have blessed your crops to grow faster and be hardier!</letterText>
     <letterType>Good</letterType>
     <durationDays>
