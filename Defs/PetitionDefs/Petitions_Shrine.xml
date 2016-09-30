@@ -2,6 +2,22 @@
 <Defs>
 
   <MTW_AncestorSpirits.PetitionDef>
+    <defName>MTW_PetitionLightningEnemies</defName>
+    <label>smite attackers</label>
+    <workerClass>IncidentWorker_MakeMapCondition</workerClass>
+    <mapCondition>MTW_LightningEnemies</mapCondition>
+    <letterLabel>Smite Attackers</letterLabel>
+    <letterText>Your Ancestors have heard your propitiations! They will call down lightning on your enemies!</letterText>
+    <letterType>Good</letterType>
+    <durationDays>
+      <min>0.0315</min>
+      <max>0.0525</max>
+    </durationDays>
+    <petitionHours>0.1</petitionHours>
+    <magicCost>3</magicCost>
+  </MTW_AncestorSpirits.PetitionDef>
+
+  <MTW_AncestorSpirits.PetitionDef>
     <defName>MTW_PetitionRain</defName>
     <label>beating rain</label>
     <workerClass>MTW_AncestorSpirits.IncidentWorker_FoggyRain</workerClass>
