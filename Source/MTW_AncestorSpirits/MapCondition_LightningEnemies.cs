@@ -26,8 +26,7 @@ namespace MTW_AncestorSpirits
             if (Find.TickManager.TicksGame > this.nextStrikeTicks)
             {
                 var target = Find.MapPawns.AllPawnsSpawned
-                    .Where(p => p.HostileTo(Faction.OfPlayer))
-                    .Where(p => !p.Position.Roofed())
+                    .Where(p => p.HostileTo(Faction.OfPlayer) && !p.Position.Roofed() && !p.Downed)
                     .RandomElement();
 
                 float offsetRadius = (float)radiusRange.RandomInRange;
