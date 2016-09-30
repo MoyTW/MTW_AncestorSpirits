@@ -9,9 +9,10 @@
     <letterLabel>Smite Attackers</letterLabel>
     <letterText>Your Ancestors have heard your propitiations! They will call down lightning on your enemies!</letterText>
     <letterType>Good</letterType>
+    <!-- Duration is ~30/45 minutes -->
     <durationDays>
-      <min>0.0315</min>
-      <max>0.0525</max>
+      <min>0.02083</min>
+      <max>0.03125</max>
     </durationDays>
     <petitionHours>0.1</petitionHours>
     <magicCost>3</magicCost>

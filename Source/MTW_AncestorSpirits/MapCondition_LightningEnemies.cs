@@ -11,12 +11,12 @@ namespace MTW_AncestorSpirits
 {
     class MapCondition_LightningEnemies : MapCondition
     {
-        private const int minStrikeInterval = GenDate.TicksPerHour / 30;
-        private const int maxStrikeInterval = GenDate.TicksPerHour / 15;
+        private const int minStrikeInterval = GenDate.TicksPerHour / 120;
+        private const int maxStrikeInterval = GenDate.TicksPerHour / 60;
         private static readonly IntRange strikeIntervalRange = new IntRange(minStrikeInterval, maxStrikeInterval);
 
-        private const int minRadius = 3;
-        private const int maxRadius = 7;
+        private const int minRadius = 1;
+        private const int maxRadius = 3;
         private static readonly IntRange radiusRange = new IntRange(minRadius, maxRadius);
 
         private int nextStrikeTicks = 0;
