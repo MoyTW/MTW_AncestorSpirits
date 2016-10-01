@@ -83,15 +83,10 @@ This mod is current very much a work-in-progress! It can be applied to in-progre
 + DONE Rituals can be overbid/underbid to influence failure chances
 + DONE Control magic bid by lighting attached altar buildings
 
-## More Rituals/Punishments
-+ Rituals
-  + Crop Growth: Your crops grow really fast
-  + Instant Healing: Your colonists are instantly healed
-  + Ancestral Fury: Lightning strikes your foes
-+ Punishments
-  + Blight
-  + Sickness (various)
-  + Ancestral Fury: Lightning strikes your colony/colonists
+## DONE More Petitions 1
++ DONE Crop Growth: Your crops grow really fast
++ DONE Instant Healing: Your colonists are instantly healed
++ DONE Ancestral Fury: Lightning strikes your foes
 
 ## Hospitality-style visits
 + Ancestors trickle in/out instead of group spawning
@@ -109,6 +104,14 @@ This mod is current very much a work-in-progress! It can be applied to in-progre
 ## Beginner Affordances
 + Don't start timer on Shrines until after a certain time period has passed
 + Possibly add in a tutorial message?
+
+## Blessings/Punishments
++ Add blessings/punishments instead of cargo pods/flashstorm
++ Create Defs for Blessings/Punishments
++ Punishments
+  + Blight
+  + Sickness (various)
+  + Lightning strike
 
 ## Hospitality Compatibility
 
