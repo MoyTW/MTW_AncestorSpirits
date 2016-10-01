@@ -22,9 +22,8 @@ namespace MTW_AncestorSpirits
             this.petitionDef = petitionDef;
         }
 
-        public new void ExposeData()
+        public void ExposeAdditionalData()
         {
-            base.ExposeData();
             Scribe_Defs.LookDef<PetitionDef>(ref this.petitionDef, "petitionDef");
         }
     }

@@ -15,11 +15,6 @@ namespace MTW_AncestorSpirits
         // The driver holds this state? This is how it's done in the example, but...?
         private int ticksElapsed;
 
-        public JobDriver_PetitionAncestors() : base()
-        {
-            ticksElapsed = 0;
-        }
-
         private Job_PetitionAncestors PetitionJob { get { return (Job_PetitionAncestors)this.CurJob; } }
         private PetitionDef PetitionDef { get { return this.PetitionJob.PetitionDef; } }
 
@@ -58,6 +53,12 @@ namespace MTW_AncestorSpirits
             toilPetition.defaultCompleteMode = ToilCompleteMode.Never;
 
             yield return toilPetition;
+        }
+
+        public override void ExposeData()
+        {
+            base.ExposeData();
+            Scribe_Values.LookValue<int>(ref this.ticksElapsed, "ticksElapsed", 0);
         }
     }
 }
