@@ -25,9 +25,11 @@ namespace MTW_AncestorSpirits
         {
             if (Find.TickManager.TicksGame > this.nextStrikeTicks)
             {
-                var target = Find.MapPawns.AllPawnsSpawned
+                Pawn target;
+                Find.MapPawns.AllPawnsSpawned
                     .Where(p => p.HostileTo(Faction.OfPlayer) && !p.Position.Roofed() && !p.Downed)
-                    .RandomElement();
+                    .TryRandomElement(out target);
+                if (target == null) { return; }
 
                 float offsetRadius = (float)radiusRange.RandomInRange;
                 Vector2 offset = new Vector2(Rand.Gaussian(0f, 1f), Rand.Gaussian(0f, 1f));
