@@ -22,12 +22,16 @@ namespace MTW_AncestorSpirits
             }
         }
 
+        public override void PostMake()
+        {
+            base.PostMake();
+            Find.Map.GetComponent<MapComponent_AncestorTicker>().Notify_SpawnerCreated(this);
+        }
+
         public override void SpawnSetup()
         {
             base.SpawnSetup();
-
             this.facilitiesComp = base.GetComp<CompAffectedByFacilities>();
-            Find.Map.GetComponent<MapComponent_AncestorTicker>().Notify_SpawnerCreated(this);
         }
 
         public override void ExposeData()
@@ -42,10 +46,10 @@ namespace MTW_AncestorSpirits
             }
         }
 
-        public override void Destroy(DestroyMode mode = DestroyMode.Vanish)
+        public override void DeSpawn()
         {
+            base.DeSpawn();
             Find.Map.GetComponent<MapComponent_AncestorTicker>().Notify_SpawnerDestroyed(this);
-            base.Destroy(mode);
         }
 
         public override string GetInspectString()
