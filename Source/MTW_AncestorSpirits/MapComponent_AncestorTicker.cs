@@ -122,7 +122,6 @@ namespace MTW_AncestorSpirits
 
         public int NumSpawners { get { return this.spawners.Count; } }
 
-        // I have no idea of the perf implications of these functions!
         public IEnumerable<Pawn> AncestorsVisiting
         {
             get
@@ -169,19 +168,6 @@ namespace MTW_AncestorSpirits
             }
         }
 
-        private Pawn GetVisitingPawn()
-        {
-            var onMap = this.AncestorsVisiting;
-            if (!onMap.Any())
-            {
-                return null;
-            }
-            else
-            {
-                return onMap.RandomElement();
-            }
-        }
-
         private bool TrySpawnRandomVisitor()
         {
             if (this.CurrentSpawner == null) { return false; }
@@ -219,12 +205,6 @@ namespace MTW_AncestorSpirits
             {
                 return false;
             }
-        }
-
-        private bool DespawnRandomVisitor()
-        {
-            var visitor = this.GetVisitingPawn();
-            return this.DespawnVisitor(visitor);
         }
 
         #endregion
@@ -315,9 +295,9 @@ namespace MTW_AncestorSpirits
 
             if (this.CurrentSpawner == null)
             {
-                while (this.AncestorsVisiting.Count() > 0)
+                foreach (Pawn visitor in this.AncestorsVisiting)
                 {
-                    this.DespawnRandomVisitor();
+                    this.DespawnVisitor(visitor);
                 }
             }
             else if (this.AncestorsVisiting.Count() < numAncestorsToVisit && this.AncestorsVisiting.Count() == 0)
