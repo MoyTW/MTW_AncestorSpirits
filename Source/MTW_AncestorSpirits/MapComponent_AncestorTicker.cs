@@ -18,6 +18,8 @@ namespace MTW_AncestorSpirits
 
         public const int MIN_ANCESTORS = 10;
 
+        public const int ANCESTORS_PER_VISIT = 3;
+
         #region Approval
 
         public const int APPROVAL_HISTORY_HOURS = 24 * 7;
@@ -168,13 +170,13 @@ namespace MTW_AncestorSpirits
             }
         }
 
-        private bool TrySpawnRandomVisitor()
+        public Pawn TrySpawnRandomVisitor()
         {
-            if (this.CurrentSpawner == null) { return false; }
+            if (this.CurrentSpawner == null) { return null; }
 
             IntVec3 pos;
             GenAdj.TryFindRandomWalkableAdjacentCell8Way(this.CurrentSpawner, out pos);
-            if (pos == null) { return false; }
+            if (pos == null) { return null; }
 
             var visitor = this.PopOrGenUnspawnedPawn();
             GenSpawn.Spawn(visitor, pos);
@@ -185,7 +187,7 @@ namespace MTW_AncestorSpirits
                 anchorNeed.SetToMax();
             }
 
-            return true;
+            return visitor;
         }
 
         private bool DespawnVisitor(Pawn visitor)
