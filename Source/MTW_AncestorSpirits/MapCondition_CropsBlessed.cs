@@ -49,8 +49,7 @@ namespace MTW_AncestorSpirits
             }
             if (this.blessedPlants.Count == 0)
             {
-                // 1 tick less than "Permenant" check
-                this.duration = 999999999;
+                this.duration = 0;
             }
         }
 
