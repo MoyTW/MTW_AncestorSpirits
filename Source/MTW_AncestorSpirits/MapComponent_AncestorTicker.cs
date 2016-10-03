@@ -93,8 +93,8 @@ namespace MTW_AncestorSpirits
         private List<Pawn> unspawnedAncestors = new List<Pawn>();
         private List<Pawn> despawnBuffer = new List<Pawn>();
         private List<Building> spawners = new List<Building>();
-        private AncestorApproval approval = null;
-        private EventTimer timer = null;
+        private ApprovalTracker approval = null;
+        private AncestorEdictTimer timer = null;
 
         private int numAncestorsToVisit = 3;
 
@@ -149,8 +149,8 @@ namespace MTW_AncestorSpirits
             {
                 this.unspawnedAncestors.Add(this.GenAncestor());
             }
-            this.approval = new AncestorApproval();
-            this.timer = new EventTimer();
+            this.approval = new ApprovalTracker();
+            this.timer = new AncestorEdictTimer();
             this.initialized = true;
         }
 
@@ -321,8 +321,8 @@ namespace MTW_AncestorSpirits
 
             Scribe_Values.LookValue<bool>(ref initialized, "initialized", false);
             Scribe_Values.LookValue<int>(ref numAncestorsToVisit, "numAncestorsToVisit", 3);
-            Scribe_Deep.LookDeep<AncestorApproval>(ref this.approval, "approval", new object[0]);
-            Scribe_Deep.LookDeep<EventTimer>(ref this.timer, "timer", new object[0]);
+            Scribe_Deep.LookDeep<ApprovalTracker>(ref this.approval, "approval", new object[0]);
+            Scribe_Deep.LookDeep<AncestorEdictTimer>(ref this.timer, "timer", new object[0]);
             Scribe_Collections.LookList<Pawn>(ref this.unspawnedAncestors, "unspawnedAncestors", LookMode.Deep, new object[0]);
             Scribe_Collections.LookList<Building>(ref this.spawners, "spawners", LookMode.MapReference);
         }

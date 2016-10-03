@@ -8,7 +8,7 @@ using System.Text;
 
 namespace MTW_AncestorSpirits
 {
-    class AncestorApproval : IExposable
+    class ApprovalTracker : IExposable
     {
         private enum ShrineStatus
         {
@@ -42,7 +42,7 @@ namespace MTW_AncestorSpirits
             this.currentMagic -= magic;
         }
 
-        public AncestorApproval()
+        public ApprovalTracker()
         {
             this.currentMagic = AncestorConstants.MAGIC_START;
             this.hourOfDay = GenDate.HourOfDay;

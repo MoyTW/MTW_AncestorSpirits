@@ -58,7 +58,7 @@ namespace MTW_AncestorSpirits
             incidentDef.Worker.TryExecute(incidentParams);
         }
 
-        private void FinalizeAndSendLetter(AncestorApproval approval)
+        private void FinalizeAndSendLetter(ApprovalTracker approval)
         {
             if (this.type == EventType.undecided)
             {
@@ -86,7 +86,7 @@ namespace MTW_AncestorSpirits
             this.finalized = true;
         }
 
-        private void FireEvent(AncestorApproval approval)
+        private void FireEvent(ApprovalTracker approval)
         {
             if (this.type == EventType.positive)
             {
@@ -98,7 +98,7 @@ namespace MTW_AncestorSpirits
             }
         }
 
-        public void UpdateEvent(AncestorApproval approval)
+        public void UpdateEvent(ApprovalTracker approval)
         {
             this.ttl -= AncestorConstants.TICKS_PER_INTERVAL;
 
@@ -125,7 +125,7 @@ namespace MTW_AncestorSpirits
     }
 
 
-    class EventTimer : IExposable
+    class AncestorEdictTimer : IExposable
     {
         #region Vars & Accessors
 
@@ -158,7 +158,7 @@ namespace MTW_AncestorSpirits
 
         #endregion
 
-        public EventTimer()
+        public AncestorEdictTimer()
         {
             int timeToFirst = (int)AncestorConstants.EVENT_TIMER_TICKS_BEFORE_FIRST + this.GenTimerTicks();
             this.nextEvent = new Event(timeToFirst, EventType.undecided, EventCause.timer);
@@ -186,7 +186,7 @@ namespace MTW_AncestorSpirits
 
         #endregion
 
-        public void UpdateTimer(AncestorApproval approval)
+        public void UpdateTimer(ApprovalTracker approval)
         {
             double intervalDelta = approval.IntervalDelta;
             this.nextEvent.UpdateEvent(approval);

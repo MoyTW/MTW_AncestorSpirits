@@ -48,13 +48,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AncestorApproval.cs" />
+    <Compile Include="ApprovalTracker.cs" />
     <Compile Include="Building_Brazier.cs" />
     <Compile Include="Building_Shrine.cs" />
     <Compile Include="Detouring\GenAI.cs" />
     <Compile Include="Detouring\Job.cs" />
     <Compile Include="Detouring\Pawn_NeedsTracker.cs" />
-    <Compile Include="EventTimer.cs" />
+    <Compile Include="AncestorEdictTimer.cs" />
     <Compile Include="IncidentWorker_CleanseSkies.cs" />
     <Compile Include="IncidentWorker_FoggyRain.cs" />
     <Compile Include="IncidentWorker_HelpCureSickness.cs" />
