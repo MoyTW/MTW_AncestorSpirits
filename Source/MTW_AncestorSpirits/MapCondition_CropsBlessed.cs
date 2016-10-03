@@ -53,6 +53,12 @@ namespace MTW_AncestorSpirits
             }
         }
 
+        public override void ExposeData()
+        {
+            base.ExposeData();
+            Scribe_Collections.LookList<Thing>(ref this.blessedPlants, "blessedPlants", LookMode.MapReference);
+        }
+
         public override string TooltipString
         {
             get
