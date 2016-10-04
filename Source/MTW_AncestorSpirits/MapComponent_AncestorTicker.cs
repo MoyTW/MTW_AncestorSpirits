@@ -302,15 +302,13 @@ namespace MTW_AncestorSpirits
                     this.DespawnVisitor(visitor);
                 }
             }
+
             else if (this.AncestorsVisiting.Count() < numAncestorsToVisit && this.AncestorsVisiting.Count() == 0)
             {
-                while (this.AncestorsVisiting.Count() < numAncestorsToVisit)
-                {
-                    this.TrySpawnRandomVisitor();
-                }
-                var loiterPoint = this.CurrentSpawner.Position;
-                var lordJob = new LordJob_HauntColony(loiterPoint);
-                LordMaker.MakeNewLord(this.AncestorFaction, lordJob, this.AncestorsVisiting);
+                var incidentDef = DefDatabase<IncidentDef>.GetNamed("MTW_AncestralVisit");
+                var incidentParams = new IncidentParms();
+                incidentParams.forced = true;
+                incidentDef.Worker.TryExecute(incidentParams);
             }
 
             this.approval.ApprovalTrackerTickInterval(this);
