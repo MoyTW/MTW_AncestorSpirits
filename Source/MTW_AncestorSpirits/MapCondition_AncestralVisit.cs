@@ -17,6 +17,7 @@ namespace MTW_AncestorSpirits
         public override void Init()
         {
             this.visitors = new List<Pawn>();
+            this.approvalMap = new Dictionary<Pawn, double>();
 
             var spawnController = Find.Map.GetComponent<MapComponent_AncestorTicker>();
             for (int i = 0; i < AncestorConstants.ANCESTORS_PER_VISIT; i++)
@@ -39,7 +40,20 @@ namespace MTW_AncestorSpirits
 
         private void PawnApprovalTick(Pawn p)
         {
-            // TODO: Implement this!
+            double curMoodPercent = p.needs.mood.CurInstantLevelPercentage - AncestorConstants.APP_NEG_CUTOFF;
+            if (curMoodPercent > 0)
+            {
+                this.approvalMap[p] += curMoodPercent * AncestorConstants.APP_MULT_GAIN_PER_SEASON;
+            }
+            else
+            {
+                this.approvalMap[p] += curMoodPercent * AncestorConstants.APP_MULT_LOSS_PER_SEASON;
+            }
+        }
+
+        private void SubmitApprovalChanges()
+        {
+            Log.Message("Implement this!");
         }
 
         public override void MapConditionTick()
@@ -49,16 +63,31 @@ namespace MTW_AncestorSpirits
             if (this.visitors.Count == 0)
             {
                 this.duration = 0;
-                return;
+                this.SubmitApprovalChanges();
             }
-
-            // Track the approval of each pawn here
-            foreach (Pawn p in this.visitors)
+            else
             {
-                this.PawnApprovalTick(p);
+                foreach (Pawn p in this.visitors)
+                {
+                    this.PawnApprovalTick(p);
+                }
             }
         }
 
-
+        public override string TooltipString
+        {
+            get
+            {
+                // TODO: Use "Displeased" or "Pleased" or something other than numbers!
+                StringBuilder builder = new StringBuilder(base.TooltipString);
+                builder.AppendLine();
+                builder.AppendLine("Ancestors:");
+                foreach (var entry in this.approvalMap)
+                {
+                    builder.AppendLine(entry.Key + ": " + entry.Value);
+                }
+                return builder.ToString();
+            }
+        }
     }
 }
