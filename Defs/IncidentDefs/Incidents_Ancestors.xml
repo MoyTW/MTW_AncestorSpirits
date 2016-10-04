@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <IncidentDef>
+    <defName>MTW_AncestralVisit</defName>
+    <label>ancestral visit</label>
+    <workerClass>IncidentWorker_MakeMapCondition</workerClass>
+    <mapCondition>MTW_AncestralVisit</mapCondition>
+    <letterLabel>Ancestral Visit</letterLabel>
+    <letterText>You Ancestors have decided to drop in!</letterText>
+    <letterType>BadNonUrgent</letterType>
+    <baseChance>0</baseChance>
+    <durationDays>
+      <min>2.5</min>
+      <max>3.5</max>
+    </durationDays>
+  </IncidentDef>
+
+</Defs>

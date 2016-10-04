@@ -19,4 +19,13 @@
     <canBePermanent>false</canBePermanent>
   </MapConditionDef>
 
+  <MapConditionDef>
+    <defName>MTW_AncestralVisit</defName>
+    <conditionClass>MTW_AncestorSpirits.MapCondition_AncestralVisit</conditionClass>
+    <label>ancestral visit</label>
+    <description>Your Ancestors have come to visit!</description>
+    <endMessage>Your Ancestors have decided to leave.</endMessage>
+    <canBePermanent>false</canBePermanent>
+  </MapConditionDef>
+
 </MapConditionDefs>
