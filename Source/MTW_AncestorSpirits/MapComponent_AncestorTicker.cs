@@ -280,6 +280,11 @@ namespace MTW_AncestorSpirits
             this.DespawnVisitor(ancestor);
         }
 
+        public void Notify_VisitEnded(AncestralVisitSummary summary)
+        {
+            this.approval.SubmitVisitSummary(summary);
+        }
+
         #endregion
 
         #region Overrides

@@ -42,6 +42,12 @@ namespace MTW_AncestorSpirits
             this.currentMagic -= magic;
         }
 
+        public void SubmitVisitSummary(AncestralVisitSummary summary)
+        {
+            double sumApprovals = summary.approvalMap.Values.Sum();
+            this.UpdateHistory(sumApprovals);
+        }
+
         public ApprovalTracker()
         {
             this.currentMagic = AncestorConstants.MAGIC_START;
@@ -80,26 +86,6 @@ namespace MTW_AncestorSpirits
                 this.previousShrineStatus = ShrineStatus.one;
                 return 0;
             }
-        }
-
-        private double CalcPawnApproval(MapComponent_AncestorTicker ancestorDriver)
-        {
-            var visitingPawns = ancestorDriver.AncestorsVisiting;
-            double approvalSum = 0;
-
-            foreach (Pawn p in visitingPawns)
-            {
-                double cutMoodPercent = p.needs.mood.CurInstantLevelPercentage - AncestorConstants.APP_NEG_CUTOFF;
-                if (cutMoodPercent > 0)
-                {
-                    approvalSum += cutMoodPercent * AncestorConstants.APP_MULT_GAIN_PER_SEASON;
-                }
-                else
-                {
-                    approvalSum += cutMoodPercent * AncestorConstants.APP_MULT_LOSS_PER_SEASON;
-                }
-            }
-            return approvalSum;
         }
 
         private void SummarizeSeason()
@@ -207,7 +193,6 @@ namespace MTW_AncestorSpirits
         public void ApprovalTrackerTickInterval(MapComponent_AncestorTicker ancestorDriver)
         {
             double approvalDelta = 0;
-            approvalDelta += this.CalcPawnApproval(ancestorDriver);
             approvalDelta += this.CalcShrineApproval(ancestorDriver);
 
             this.UpdateHistory(approvalDelta);

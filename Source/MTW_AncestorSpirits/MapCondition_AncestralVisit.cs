@@ -9,6 +9,18 @@ using System.Text;
 
 namespace MTW_AncestorSpirits
 {
+    class AncestralVisitSummary
+    {
+        public List<Pawn> visitors;
+        public Dictionary<Pawn, double> approvalMap;
+
+        public AncestralVisitSummary(List<Pawn> visitors, Dictionary<Pawn, double> approvalMap)
+        {
+            this.visitors = visitors;
+            this.approvalMap = approvalMap;
+        }
+    }
+
     class MapCondition_AncestralVisit : MapCondition
     {
         private List<Pawn> visitors;
@@ -53,7 +65,8 @@ namespace MTW_AncestorSpirits
 
         private void SubmitApprovalChanges()
         {
-            Log.Message("Implement this!");
+            var summary = new AncestralVisitSummary(this.visitors, this.approvalMap);
+            Find.Map.GetComponent<MapComponent_AncestorTicker>().Notify_VisitEnded(summary);
         }
 
         public override void MapConditionTick()
