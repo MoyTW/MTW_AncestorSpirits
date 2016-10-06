@@ -222,6 +222,8 @@ namespace MTW_AncestorSpirits
             this.spawners.Remove(spawner);
             if (this.CurrentSpawner != null)
             {
+                // TODO: Add in the ability to change the anchor!
+                /*
                 foreach (var ancestor in this.AncestorsVisiting)
                 {
                     ancestor.GetLord().Notify_PawnLost(ancestor, PawnLostCondition.Vanished);
@@ -229,6 +231,7 @@ namespace MTW_AncestorSpirits
                 var loiterPoint = this.CurrentSpawner.Position;
                 var lordJob = new LordJob_HauntColony(loiterPoint);
                 LordMaker.MakeNewLord(this.AncestorFaction, lordJob, this.AncestorsVisiting);
+                */
             }
         }
 

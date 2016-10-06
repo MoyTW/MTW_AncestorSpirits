@@ -43,7 +43,7 @@ namespace MTW_AncestorSpirits
             }
 
             var loiterPoint = spawnController.CurrentSpawner.Position;
-            var lordJob = new LordJob_HauntColony(loiterPoint);
+            var lordJob = new LordJob_HauntColony(loiterPoint, this.duration);
             var lord = LordMaker.MakeNewLord(spawnController.AncestorFaction, lordJob, this.visitors);
 
             // Set duration to 1 less than "Permenant" because this will end when visitors despawned

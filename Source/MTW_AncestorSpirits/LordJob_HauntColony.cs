@@ -13,15 +13,17 @@ namespace MTW_AncestorSpirits
     class LordJob_HauntColony : LordJob
     {
         private IntVec3 chillSpot;
+        private int duration;
 
         public LordJob_HauntColony()
         {
             // Required
         }
 
-        public LordJob_HauntColony(IntVec3 chillSpot)
+        public LordJob_HauntColony(IntVec3 chillSpot, int duration)
         {
             this.chillSpot = chillSpot;
+            this.duration = duration;
         }
 
         public override void Notify_PawnLost(Pawn p, PawnLostCondition condition)
@@ -54,13 +56,21 @@ namespace MTW_AncestorSpirits
         {
             base.ExposeData();
             Scribe_Values.LookValue(ref chillSpot, "chillSpot", default(IntVec3));
+            Scribe_Values.LookValue(ref this.duration, "duration");
         }
 
         public override StateGraph CreateGraph()
         {
             StateGraph graph = new StateGraph();
-            var startToil = new LordToil_HauntPoint(this.chillSpot);
-            graph.StartingToil = startToil;
+            var hauntPointToil = new LordToil_HauntPoint(this.chillSpot);
+            graph.StartingToil = hauntPointToil;
+
+            LordToil returnAnchorToil = new LordToil_ReturnAnchor();
+            graph.lordToils.Add(returnAnchorToil);
+            Transition t1 = new Transition(hauntPointToil, returnAnchorToil);
+            t1.triggers.Add(new Trigger_TicksPassed(this.duration));
+            t1.preActions.Add(new TransitionAction_Message("Your Ancestors are leaving!"));
+            graph.transitions.Add(t1);
 
             return graph;
             /* wowee thar's a doozy
