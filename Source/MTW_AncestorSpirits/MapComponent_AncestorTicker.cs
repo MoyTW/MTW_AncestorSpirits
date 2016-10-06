@@ -181,12 +181,6 @@ namespace MTW_AncestorSpirits
             var visitor = this.PopOrGenUnspawnedPawn();
             GenSpawn.Spawn(visitor, pos);
 
-            var anchorNeed = visitor.needs.TryGetNeed<Need_Anchor>();
-            if (anchorNeed != null)
-            {
-                anchorNeed.SetToMax();
-            }
-
             return visitor;
         }
 

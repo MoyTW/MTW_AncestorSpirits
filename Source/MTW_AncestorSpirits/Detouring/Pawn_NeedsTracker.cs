@@ -19,8 +19,7 @@ namespace MTW_AncestorSpirits.Detouring
         private static readonly NeedDef defComfort = DefDatabase<NeedDef>.GetNamed("Comfort");
         private static readonly NeedDef defBeauty = DefDatabase<NeedDef>.GetNamed("Beauty");
         private static readonly NeedDef defSpace = DefDatabase<NeedDef>.GetNamed("Space");
-        private static readonly NeedDef defAnchor = DefDatabase<NeedDef>.GetNamed("MTW_Anchor");
-
+        
         [Detour(typeof(Source), bindingFlags = BindingFlags.NonPublic | BindingFlags.Instance)]
         public static bool ShouldHaveNeed(this Source _this, NeedDef nd)
         {
@@ -41,13 +40,9 @@ namespace MTW_AncestorSpirits.Detouring
             {
                 return false;
             }
-            if ((nd == NeedDefOf.Joy || nd == defComfort || nd == defBeauty || nd == defSpace || nd == defAnchor) && pawn.def.defName == "Spirit") // ADDED
+            if ((nd == NeedDefOf.Joy || nd == defComfort || nd == defBeauty || nd == defSpace) && pawn.def.defName == "Spirit") // ADDED
             {
                 return true;
-            }
-            if (nd == defAnchor) // ADDED
-            {
-                return false;
             }
             if (nd.colonistsOnly && (pawn.Faction == null || !pawn.Faction.IsPlayer))
             {
