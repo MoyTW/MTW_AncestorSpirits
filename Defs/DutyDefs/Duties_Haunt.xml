@@ -2,7 +2,7 @@
 <Defs>
   <!-- Copied from Hospitality -->
   <DutyDef>
-    <defName>Relax</defName>
+    <defName>MTW_Relax</defName>
     <thinkNode Class="ThinkNode_Priority">
       <!-- Todo here - if outside of duty radius, go to within duty radius-->
       <!-- Currently this is handled by a hack in JobGiver_AIFightBase-->
@@ -11,7 +11,6 @@
           <subNodes>
             <li Class="MTW_AncestorSpirits.JobGiver_Relax"/>
             <li Class="MTW_AncestorSpirits.JobGiver_InspectColony"/>
-            <li Class="MTW_AncestorSpirits.JobGiver_ReturnAnchor"/>
           </subNodes>
         </li>
       </subNodes>

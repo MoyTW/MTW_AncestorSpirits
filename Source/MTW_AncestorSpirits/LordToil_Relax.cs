@@ -73,7 +73,7 @@ namespace MTW_AncestorSpirits
         {
             foreach (Pawn pawn in lord.ownedPawns)
             {
-                DutyDef relaxDef = DefDatabase<DutyDef>.GetNamed("Relax");
+                DutyDef relaxDef = DefDatabase<DutyDef>.GetNamed("MTW_Relax");
                 pawn.mindState.duty = new PawnDuty(relaxDef, FlagLoc, Data.radius);
             }
         }
