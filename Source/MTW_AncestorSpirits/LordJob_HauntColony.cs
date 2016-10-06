@@ -62,7 +62,7 @@ namespace MTW_AncestorSpirits
         public override StateGraph CreateGraph()
         {
             StateGraph graph = new StateGraph();
-            var hauntPointToil = new LordToil_Relax(this.chillSpot);
+            var hauntPointToil = new LordToil_Relax();
             graph.StartingToil = hauntPointToil;
 
             LordToil returnAnchorToil = new LordToil_ReturnAnchor();
