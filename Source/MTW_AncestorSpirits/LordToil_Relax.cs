@@ -25,7 +25,7 @@ namespace MTW_AncestorSpirits
         }
     }
 
-    class LordToil_HauntPoint : LordToil
+    class LordToil_Relax : LordToil
     {
         public LordToilData_HauntPoint Data { get { return (LordToilData_HauntPoint)this.data; } }
         public override IntVec3 FlagLoc
@@ -33,7 +33,7 @@ namespace MTW_AncestorSpirits
             get { return this.Data.point; }
         }
 
-        public LordToil_HauntPoint(IntVec3 point)
+        public LordToil_Relax(IntVec3 point)
         {
             this.data = new LordToilData_HauntPoint { point = point };
         }

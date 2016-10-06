@@ -71,7 +71,7 @@
     <Compile Include="JobGiver_Relax.cs" />
     <Compile Include="Job_PetitionAncestors.cs" />
     <Compile Include="LordJob_HauntColony.cs" />
-    <Compile Include="LordToil_HauntPoint.cs" />
+    <Compile Include="LordToil_Relax.cs" />
     <Compile Include="LordToil_ReturnAnchor.cs" />
     <Compile Include="MapCondition_AncestralVisit.cs" />
     <Compile Include="MapCondition_LightningEnemies.cs" />
