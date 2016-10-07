@@ -44,7 +44,7 @@ namespace MTW_AncestorSpirits
 
         public void SubmitVisitSummary(AncestralVisitSummary summary)
         {
-            double sumApprovals = summary.approvalMap.Values.Sum();
+            double sumApprovals = summary.visitHistories.Sum(p => p.ApprovalDelta);
             this.UpdateHistory(sumApprovals);
         }
 

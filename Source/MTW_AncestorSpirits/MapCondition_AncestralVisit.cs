@@ -55,25 +55,22 @@ namespace MTW_AncestorSpirits
     class AncestralVisitSummary
     {
         public List<Pawn> visitors;
-        public Dictionary<Pawn, double> approvalMap;
+        public List<PawnVisitInfo> visitHistories;
 
-        public AncestralVisitSummary(List<Pawn> visitors, Dictionary<Pawn, double> approvalMap)
+        public AncestralVisitSummary(List<Pawn> visitors, Dictionary<int, PawnVisitInfo> visitInfoMap)
         {
             this.visitors = visitors;
-            this.approvalMap = approvalMap;
+            this.visitHistories = visitInfoMap.Values.ToList();
         }
     }
 
     class MapCondition_AncestralVisit : MapCondition
     {
-        private List<Pawn> visitors;
-        private Dictionary<Pawn, double> approvalMap;
+        private List<Pawn> visitors = new List<Pawn>();
+        private Dictionary<int, PawnVisitInfo> visitInfoMap = new Dictionary<int, PawnVisitInfo>();
 
         public override void Init()
         {
-            this.visitors = new List<Pawn>();
-            this.approvalMap = new Dictionary<Pawn, double>();
-
             var spawnController = Find.Map.GetComponent<MapComponent_AncestorTicker>();
             for (int i = 0; i < AncestorConstants.ANCESTORS_PER_VISIT; i++)
             {
@@ -81,7 +78,7 @@ namespace MTW_AncestorSpirits
                 if (spawned != null)
                 {
                     this.visitors.Add(spawned);
-                    this.approvalMap.Add(spawned, 0.0);
+                    this.visitInfoMap.Add(spawned.thingIDNumber, new PawnVisitInfo(spawned));
                 }
             }
 
@@ -98,17 +95,17 @@ namespace MTW_AncestorSpirits
             double curMoodPercent = p.needs.mood.CurInstantLevelPercentage - AncestorConstants.APP_NEG_CUTOFF;
             if (curMoodPercent > 0)
             {
-                this.approvalMap[p] += curMoodPercent * AncestorConstants.APP_MULT_GAIN_PER_SEASON;
+                this.visitInfoMap[p.thingIDNumber].AddApproval(curMoodPercent * AncestorConstants.APP_MULT_GAIN_PER_SEASON);
             }
             else
             {
-                this.approvalMap[p] += curMoodPercent * AncestorConstants.APP_MULT_LOSS_PER_SEASON;
+                this.visitInfoMap[p.thingIDNumber].AddApproval(curMoodPercent * AncestorConstants.APP_MULT_LOSS_PER_SEASON);
             }
         }
 
         private void SubmitApprovalChanges()
         {
-            var summary = new AncestralVisitSummary(this.visitors, this.approvalMap);
+            var summary = new AncestralVisitSummary(this.visitors, this.visitInfoMap);
             Find.Map.GetComponent<MapComponent_AncestorTicker>().Notify_VisitEnded(summary);
         }
 
@@ -138,9 +135,9 @@ namespace MTW_AncestorSpirits
                 StringBuilder builder = new StringBuilder(base.TooltipString);
                 builder.AppendLine();
                 builder.AppendLine("Ancestors:");
-                foreach (var entry in this.approvalMap)
+                foreach (var entry in this.visitInfoMap.Values)
                 {
-                    builder.AppendLine(entry.Key + ": " + entry.Value);
+                    builder.AppendLine(entry.PawnString + " feels " + entry.MoodSummary);
                 }
                 return builder.ToString();
             }
