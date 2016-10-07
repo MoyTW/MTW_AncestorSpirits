@@ -9,6 +9,49 @@ using System.Text;
 
 namespace MTW_AncestorSpirits
 {
+    class PawnVisitInfo : IExposable
+    {
+        // TODO: Add noteworthy thoughts/reactions here.
+        private string pawnString;
+        private double approvalDelta;
+
+        public string PawnString { get { return this.pawnString; } }
+        public double ApprovalDelta { get { return this.approvalDelta; } }
+        public string MoodSummary
+        {
+            get
+            {
+                if (this.approvalDelta > 0)
+                {
+                    return "Positive! :)";
+                }
+                else
+                {
+                    return "Negative. :(";
+                }
+            }
+        }
+
+        public PawnVisitInfo() { }
+
+        public PawnVisitInfo(Pawn p)
+        {
+            this.pawnString = p.ToString();
+            this.approvalDelta = 0;
+        }
+
+        public void AddApproval(double delta)
+        {
+            this.approvalDelta += delta;
+        }
+
+        public virtual void ExposeData()
+        {
+            Scribe_Values.LookValue<string>(ref this.pawnString, "pawnString");
+            Scribe_Values.LookValue<double>(ref this.approvalDelta, "approvalDelta");
+        }
+    }
+
     class AncestralVisitSummary
     {
         public List<Pawn> visitors;
