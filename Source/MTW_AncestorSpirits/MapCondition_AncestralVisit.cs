@@ -142,5 +142,12 @@ namespace MTW_AncestorSpirits
                 return builder.ToString();
             }
         }
+
+        public override void ExposeData()
+        {
+            base.ExposeData();
+            Scribe_Collections.LookList<Pawn>(ref this.visitors, "visitors", LookMode.MapReference, new object[0]);
+            Scribe_Collections.LookDictionary<int, PawnVisitInfo>(ref this.visitInfoMap, "visitInfoMap", LookMode.Value, LookMode.Deep);
+        }
     }
 }
