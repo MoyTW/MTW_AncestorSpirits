@@ -48,6 +48,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AncestorUtils.cs" />
+    <Compile Include="AncestorVisitScheduler.cs" />
     <Compile Include="ApprovalTracker.cs" />
     <Compile Include="Building_Brazier.cs" />
     <Compile Include="Building_Shrine.cs" />
