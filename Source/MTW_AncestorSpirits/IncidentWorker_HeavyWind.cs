@@ -15,7 +15,7 @@ namespace MTW_AncestorSpirits
             Find.WeatherManager.TransitionTo(weatherDef);
 
             // Set the duration using reflection
-            int weatherDuration = Mathf.RoundToInt(this.def.durationDays.RandomInRange * GenDate.TicksPerDay);
+            int weatherDuration = AncestorUtils.DaysToTicks(this.def.durationDays.RandomInRange);
             var decider = Find.Storyteller.weatherDecider;
             typeof(WeatherDecider)
                 .GetField("curWeatherDuration", BindingFlags.Instance | BindingFlags.NonPublic)

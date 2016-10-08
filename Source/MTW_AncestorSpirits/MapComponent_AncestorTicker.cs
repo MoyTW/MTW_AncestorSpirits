@@ -55,23 +55,18 @@ namespace MTW_AncestorSpirits
          * the ticker to a new value, and no delta-triggered events may fire until the next scheduled event.
          * */
 
-        public const double EVENT_TIMER_DAYS_BEFORE_FIRST = 7.0;
-        public const int EVENT_TIMER_TICKS_BEFORE_FIRST = (int)(EVENT_TIMER_DAYS_BEFORE_FIRST * GenDate.TicksPerDay);
+        public static readonly int EVENT_TIMER_TICKS_BEFORE_FIRST = AncestorUtils.DaysToTicks(7);
+        public static readonly int EVENT_TIMER_TICKS_BETWEEN = AncestorUtils.DaysToTicks(7);
 
-        public const double EVENT_TIMER_DAYS_BETWEEN = 7.0;
-        public const int EVENT_TIMER_TICKS_BETWEEN = (int)(EVENT_TIMER_DAYS_BETWEEN * GenDate.TicksPerDay);
-        public const double EVENT_TIMER_HOURS_PLUS_MINUS = 48.0;
-        public const int EVENT_TIMER_TICKS_PLUS_MINUS = (int)(EVENT_TIMER_HOURS_PLUS_MINUS * GenDate.TicksPerHour);
+        public static readonly int EVENT_TIMER_TICKS_PLUS_MINUS = AncestorUtils.HoursToTicks(48);
 
         public const double EVENT_TRIGGER_GAIN_SEASON_DELTA = 5.0;
         public const double EVENT_TRIGGER_GAIN_INTERVAL_DELTA = EVENT_TRIGGER_GAIN_SEASON_DELTA / INTERVALS_PER_SEASON;
         public const double EVENT_TRIGGER_LOSS_SEASON_DELTA = -6.0; // TODO: Consistency between pos/negatives here
         public const double EVENT_TRIGGER_LOSS_INTERVAL_DELTA = EVENT_TRIGGER_LOSS_SEASON_DELTA / INTERVALS_PER_SEASON;
 
-        public const double EVENT_TIMER_MIN_OMEN_HOURS = 1.0;
-        public const int EVENT_TIMER_MIN_OMEN_TICKS = (int)(EVENT_TIMER_MIN_OMEN_HOURS * GenDate.TicksPerHour);
-        public const double EVENT_TIMER_MAX_OMEN_HOURS = 6.0;
-        public const int EVENT_TIMER_MAX_OMEN_TICKS = (int)(EVENT_TIMER_MAX_OMEN_HOURS * GenDate.TicksPerHour);
+        public static readonly int EVENT_TIMER_MIN_OMEN_TICKS = AncestorUtils.HoursToTicks(1);
+        public static readonly int EVENT_TIMER_MAX_OMEN_TICKS = AncestorUtils.HoursToTicks(6);
 
         /* Magic & Petitions
          * The petition base success chance is listed here. The min multiplier is how much less you can spent to

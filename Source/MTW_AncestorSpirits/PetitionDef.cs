@@ -39,7 +39,7 @@ namespace MTW_AncestorSpirits
         {
             get
             {
-                return (int)(this.petitionHours * GenDate.TicksPerHour);
+                return AncestorUtils.HoursToTicks(this.petitionHours);
             }
         }
 
