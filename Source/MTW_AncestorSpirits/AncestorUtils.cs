@@ -1,4 +1,5 @@
-﻿using RimWorld;
+﻿using Verse;
+using RimWorld;
 using UnityEngine;
 
 using System;
@@ -18,6 +19,15 @@ namespace MTW_AncestorSpirits
         public static int HoursToTicks(float hours)
         {
             return Mathf.RoundToInt(hours * GenDate.TicksPerHour);
+        }
+
+        public static long EstStartOfSeasonAt(long ticks)
+        {
+            var currentDayTicks = (int)(GenDate.CurrentDayPercent * GenDate.TicksPerDay);
+            var dayOfSeason = GenDate.DayOfSeasonZeroBasedAt(ticks);
+            var currentSeasonDayTicks = DaysToTicks(dayOfSeason);
+
+            return ticks - currentDayTicks - currentSeasonDayTicks;
         }
     }
 }
