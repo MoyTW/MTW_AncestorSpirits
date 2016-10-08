@@ -72,6 +72,7 @@ namespace MTW_AncestorSpirits
                 {
                     visitSchedule.Add(newItinerary);
                 }
+                attempts++;
             }
 
             return visitSchedule;
