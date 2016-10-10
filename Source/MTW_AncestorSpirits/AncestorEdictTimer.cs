@@ -24,6 +24,9 @@ namespace MTW_AncestorSpirits
     // Does ScribeRef allow you to just scribe it as a...uh, ref?
     internal class Event : IExposable
     {
+        public static readonly IntRange OmenTicksRange =
+            new IntRange(AncestorUtils.HoursToTicks(1), AncestorUtils.HoursToTicks(6));
+
         private int ttl;
         private int omenTicks;
         private EventType type;
@@ -35,15 +38,13 @@ namespace MTW_AncestorSpirits
         public bool Finalized { get { return this.finalized; } }
         public bool Completed { get { return this.completed; } }
 
-        public Event() : this((int)AncestorConstants.EVENT_TIMER_TICKS_BETWEEN, EventType.undecided, EventCause.timer)
+        public Event() : this(AncestorEdictTimer.TicksBetween, EventType.undecided, EventCause.timer)
         {
         }
 
         public Event(int ttl, EventType type, EventCause cause)
         {
-            var rand = new Random(); // I mean, not great, but we're not gonna generate Events very much.
-            this.omenTicks = rand.Next(AncestorConstants.EVENT_TIMER_MIN_OMEN_TICKS,
-                AncestorConstants.EVENT_TIMER_MAX_OMEN_TICKS);
+            this.omenTicks = OmenTicksRange.RandomInRange;
 
             this.ttl = Math.Max(ttl, this.omenTicks);
             this.type = type;
@@ -116,8 +117,8 @@ namespace MTW_AncestorSpirits
 
         public void ExposeData()
         {
-            Scribe_Values.LookValue<int>(ref this.ttl, "ttl", (int)AncestorConstants.EVENT_TIMER_TICKS_BETWEEN);
-            Scribe_Values.LookValue<int>(ref this.omenTicks, "omenTicks", AncestorConstants.EVENT_TIMER_MIN_OMEN_TICKS);
+            Scribe_Values.LookValue<int>(ref this.ttl, "ttl", AncestorEdictTimer.TicksBetween);
+            Scribe_Values.LookValue<int>(ref this.omenTicks, "omenTicks", OmenTicksRange.min);
             Scribe_Values.LookValue<EventType>(ref this.type, "type", EventType.undecided);
             Scribe_Values.LookValue<EventCause>(ref this.cause, "cause", EventCause.timer);
             Scribe_Values.LookValue<bool>(ref this.finalized, "finalized", false);
@@ -129,6 +130,12 @@ namespace MTW_AncestorSpirits
     class AncestorEdictTimer : IExposable
     {
         #region Vars & Accessors
+
+        public static readonly int TicksBeforeFirst = AncestorUtils.DaysToTicks(7);
+        public static readonly int TicksBetween = AncestorUtils.DaysToTicks(7);
+        public static readonly int TicksPlusMinus = AncestorUtils.HoursToTicks(48);
+        public static readonly float TriggerPositiveEdictThreshold = AncestorUtils.SeasonValueToIntervalValue(5.0f);
+        public static readonly double TriggerNegativeEdictThreshold = AncestorUtils.SeasonValueToIntervalValue(-6.0f);
 
         private Event nextEvent = null;
         private Event prevEvent = null;
@@ -161,7 +168,7 @@ namespace MTW_AncestorSpirits
 
         public AncestorEdictTimer()
         {
-            int timeToFirst = (int)AncestorConstants.EVENT_TIMER_TICKS_BEFORE_FIRST + this.GenTimerTicks();
+            int timeToFirst = TicksBeforeFirst + this.GenTimerTicks();
             this.nextEvent = new Event(timeToFirst, EventType.undecided, EventCause.timer);
         }
 
@@ -170,8 +177,7 @@ namespace MTW_AncestorSpirits
         private int GenTimerTicks()
         {
             var multiplier = (this.Random.NextDouble() - 0.5) * 2;
-            return (int)(multiplier * AncestorConstants.EVENT_TIMER_TICKS_PLUS_MINUS) +
-                AncestorConstants.EVENT_TIMER_TICKS_BETWEEN;
+            return (int)(multiplier * TicksPlusMinus) + TicksBetween;
         }
 
         private Event GenTimerEvent()
@@ -201,12 +207,12 @@ namespace MTW_AncestorSpirits
             {
                 return;
             }
-            else if (approval.IntervalDelta > AncestorConstants.EVENT_TRIGGER_GAIN_INTERVAL_DELTA &&
+            else if (approval.IntervalDelta > TriggerPositiveEdictThreshold &&
                 this.CanScheduleDelta)
             {
                 this.nextEvent = this.GenDeltaEvent(EventType.positive);
             }
-            else if (approval.IntervalDelta < AncestorConstants.EVENT_TRIGGER_LOSS_INTERVAL_DELTA &&
+            else if (approval.IntervalDelta < TriggerNegativeEdictThreshold &&
                 this.CanScheduleDelta)
             {
                 this.nextEvent = this.GenDeltaEvent(EventType.negative);

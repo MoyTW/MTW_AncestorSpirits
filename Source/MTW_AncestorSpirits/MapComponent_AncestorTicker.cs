@@ -38,28 +38,6 @@ namespace MTW_AncestorSpirits
         public static readonly float APP_MOD_NO_SHRINES_INTERVAL = AncestorUtils.SeasonValueToIntervalValue(-8.0f);
         public static readonly float APP_MOD_MANY_SHRINES_INTERVAL = AncestorUtils.SeasonValueToIntervalValue(-4.0f);
 
-        /* Events Triggers
-         * There are two conditions for an event trigger - time, or deltas
-         * 
-         * Once an initial time period has passed, the game becomes eligible for events. An event is scheduled with a 
-         * TTL ticker, and when the timer ticks down it will fire. Then, the process resets.
-         * 
-         * Alternatively, if there's a delta within an hour which exceeds the maximum allowed delta, an event will fire
-         * "soon". The upper/lower bound for this time is set by MIN_OMEN_HOURS/MAX_OMEN_HOURS. This will also reset 
-         * the ticker to a new value, and no delta-triggered events may fire until the next scheduled event.
-         * */
-
-        public static readonly int EVENT_TIMER_TICKS_BEFORE_FIRST = AncestorUtils.DaysToTicks(7);
-        public static readonly int EVENT_TIMER_TICKS_BETWEEN = AncestorUtils.DaysToTicks(7);
-
-        public static readonly int EVENT_TIMER_TICKS_PLUS_MINUS = AncestorUtils.HoursToTicks(48);
-
-        public static readonly float EVENT_TRIGGER_GAIN_INTERVAL_DELTA = AncestorUtils.SeasonValueToIntervalValue(5.0f);
-        public static readonly double EVENT_TRIGGER_LOSS_INTERVAL_DELTA = AncestorUtils.SeasonValueToIntervalValue(-6.0f);
-
-        public static readonly int EVENT_TIMER_MIN_OMEN_TICKS = AncestorUtils.HoursToTicks(1);
-        public static readonly int EVENT_TIMER_MAX_OMEN_TICKS = AncestorUtils.HoursToTicks(6);
-
         /* Magic & Petitions
          * The petition base success chance is listed here. The min multiplier is how much less you can spent to
          * achieve the base success chance, and how much you have to overspend to achieve 100%. Success is linear from
