@@ -13,9 +13,6 @@ namespace MTW_AncestorSpirits
 {
     public static class AncestorConstants
     {
-        public const int TICKS_PER_INTERVAL = GenDate.TicksPerHour / 10;
-        public const double INTERVALS_PER_SEASON = (double)GenDate.TicksPerSeason / (double)TICKS_PER_INTERVAL;
-
         public const int MIN_ANCESTORS = 10;
 
         public const int ANCESTORS_PER_VISIT = 3;
@@ -30,19 +27,16 @@ namespace MTW_AncestorSpirits
          * Negative/Positive gains are capped at MAX_APP/LOSS_PER_ANCESTOR_PER_SEASON. The multiplier is computed from
          * the cutoff, the number of intervals per season, and the max gain/loss.
          *  */
-        public const double APP_NEG_CUTOFF = 0.4;
+        public const float APP_NEG_CUTOFF = 0.4f;
 
-        public const double MAX_APP_GAIN_PER_ANCESTOR_PER_SEASON = 2.0;
-        public const double APP_MULT_GAIN_PER_SEASON = (MAX_APP_GAIN_PER_ANCESTOR_PER_SEASON / (1.0 - APP_NEG_CUTOFF)) / INTERVALS_PER_SEASON;
+        public const float MAX_APP_GAIN_PER_ANCESTOR_PER_SEASON = 2.0f;
+        public static readonly float APP_MULT_GAIN_PER_SEASON = AncestorUtils.SeasonValueToIntervalValue(MAX_APP_GAIN_PER_ANCESTOR_PER_SEASON / (1.0f - APP_NEG_CUTOFF));
 
-        public const double MAX_APP_LOSS_PER_ANCESTOR_PER_SEASON = 1.0;
-        public const double APP_MULT_LOSS_PER_SEASON = (MAX_APP_LOSS_PER_ANCESTOR_PER_SEASON / APP_NEG_CUTOFF) / INTERVALS_PER_SEASON;
+        public const float MAX_APP_LOSS_PER_ANCESTOR_PER_SEASON = 1.0f;
+        public static readonly float APP_MULT_LOSS_PER_SEASON = AncestorUtils.SeasonValueToIntervalValue(MAX_APP_LOSS_PER_ANCESTOR_PER_SEASON / APP_NEG_CUTOFF);
 
-        public const double APP_MOD_NO_SHRINES_PER_SEASON = -8.0;
-        public const double APP_MOD_NO_SHRINES_INTERVAL = APP_MOD_NO_SHRINES_PER_SEASON / INTERVALS_PER_SEASON;
-
-        public const double APP_MOD_MANY_SHRINES_PER_SEASON = -4.0;
-        public const double APP_MOD_MANY_SHRINES_INTERVAL = APP_MOD_MANY_SHRINES_PER_SEASON / INTERVALS_PER_SEASON;
+        public static readonly float APP_MOD_NO_SHRINES_INTERVAL = AncestorUtils.SeasonValueToIntervalValue(-8.0f);
+        public static readonly float APP_MOD_MANY_SHRINES_INTERVAL = AncestorUtils.SeasonValueToIntervalValue(-4.0f);
 
         /* Events Triggers
          * There are two conditions for an event trigger - time, or deltas
@@ -60,10 +54,8 @@ namespace MTW_AncestorSpirits
 
         public static readonly int EVENT_TIMER_TICKS_PLUS_MINUS = AncestorUtils.HoursToTicks(48);
 
-        public const double EVENT_TRIGGER_GAIN_SEASON_DELTA = 5.0;
-        public const double EVENT_TRIGGER_GAIN_INTERVAL_DELTA = EVENT_TRIGGER_GAIN_SEASON_DELTA / INTERVALS_PER_SEASON;
-        public const double EVENT_TRIGGER_LOSS_SEASON_DELTA = -6.0; // TODO: Consistency between pos/negatives here
-        public const double EVENT_TRIGGER_LOSS_INTERVAL_DELTA = EVENT_TRIGGER_LOSS_SEASON_DELTA / INTERVALS_PER_SEASON;
+        public static readonly float EVENT_TRIGGER_GAIN_INTERVAL_DELTA = AncestorUtils.SeasonValueToIntervalValue(5.0f);
+        public static readonly double EVENT_TRIGGER_LOSS_INTERVAL_DELTA = AncestorUtils.SeasonValueToIntervalValue(-6.0f);
 
         public static readonly int EVENT_TIMER_MIN_OMEN_TICKS = AncestorUtils.HoursToTicks(1);
         public static readonly int EVENT_TIMER_MAX_OMEN_TICKS = AncestorUtils.HoursToTicks(6);
@@ -271,7 +263,7 @@ namespace MTW_AncestorSpirits
         public override void MapComponentTick()
         {
             // No Rare version of MapComponentTick, so this will do.
-            if (!(Find.TickManager.TicksGame % AncestorConstants.TICKS_PER_INTERVAL == 0)) { return; }
+            if (!(Find.TickManager.TicksGame % AncestorUtils.TicksPerInterval == 0)) { return; }
             if (!this.initialized) { this.Initialize(); }
 
             foreach (Pawn visitor in this.despawnBuffer)

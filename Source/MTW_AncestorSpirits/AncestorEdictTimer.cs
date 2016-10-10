@@ -100,7 +100,8 @@ namespace MTW_AncestorSpirits
 
         public void UpdateEvent(ApprovalTracker approval)
         {
-            this.ttl -= AncestorConstants.TICKS_PER_INTERVAL;
+            // TODO: Uh!? You always call it on interval, and only on interval?
+            this.ttl -= AncestorUtils.TicksPerInterval;
 
             if (!this.Finalized && this.ttl < this.omenTicks)
             {

@@ -11,6 +11,14 @@ namespace MTW_AncestorSpirits
 {
     public static class AncestorUtils
     {
+        public const int TicksPerInterval = GenDate.TicksPerHour / 10;
+        public const int IntervalsPerSeason = GenDate.TicksPerSeason / TicksPerInterval;
+
+        public static float SeasonValueToIntervalValue(float seasonValue)
+        {
+            return seasonValue / IntervalsPerSeason;
+        }
+
         public static int DaysToTicks(float days)
         {
             return Mathf.RoundToInt(days * GenDate.TicksPerDay);
