@@ -90,17 +90,10 @@ namespace MTW_AncestorSpirits
             this.duration = 999999999;
         }
 
-        private void PawnApprovalTick(Pawn p)
+        private void PawnApprovalTickInterval(Pawn p)
         {
-            double curMoodPercent = p.needs.mood.CurInstantLevelPercentage - AncestorConstants.APP_NEG_CUTOFF;
-            if (curMoodPercent > 0)
-            {
-                this.visitInfoMap[p.thingIDNumber].AddApproval(curMoodPercent * AncestorConstants.APP_MULT_GAIN_PER_SEASON);
-            }
-            else
-            {
-                this.visitInfoMap[p.thingIDNumber].AddApproval(curMoodPercent * AncestorConstants.APP_MULT_LOSS_PER_SEASON);
-            }
+            float moodDelta = ApprovalTracker.PawnApprovalForInterval(p.needs.mood.CurInstantLevelPercentage);
+            this.visitInfoMap[p.thingIDNumber].AddApproval(moodDelta);
         }
 
         private void SubmitApprovalChanges()
@@ -111,6 +104,7 @@ namespace MTW_AncestorSpirits
 
         public override void MapConditionTick()
         {
+            if (!AncestorUtils.IsIntervalTick()) { return; }
             // Remove despawned pawns and early exit if all pawns removed
             this.visitors = visitors.Where(p => p.Spawned).ToList();
             if (this.visitors.Count == 0)
@@ -122,7 +116,7 @@ namespace MTW_AncestorSpirits
             {
                 foreach (Pawn p in this.visitors)
                 {
-                    this.PawnApprovalTick(p);
+                    this.PawnApprovalTickInterval(p);
                 }
             }
         }

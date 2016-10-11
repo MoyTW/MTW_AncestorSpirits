@@ -21,23 +21,6 @@ namespace MTW_AncestorSpirits
 
         public const int APPROVAL_HISTORY_HOURS = 24 * 7;
 
-        /* Approval System
-         * Cutoff is the percentage approval at which they switch from negative to positive.
-         *
-         * Negative/Positive gains are capped at MAX_APP/LOSS_PER_ANCESTOR_PER_SEASON. The multiplier is computed from
-         * the cutoff, the number of intervals per season, and the max gain/loss.
-         *  */
-        public const float APP_NEG_CUTOFF = 0.4f;
-
-        public const float MAX_APP_GAIN_PER_ANCESTOR_PER_SEASON = 2.0f;
-        public static readonly float APP_MULT_GAIN_PER_SEASON = AncestorUtils.SeasonValueToIntervalValue(MAX_APP_GAIN_PER_ANCESTOR_PER_SEASON / (1.0f - APP_NEG_CUTOFF));
-
-        public const float MAX_APP_LOSS_PER_ANCESTOR_PER_SEASON = 1.0f;
-        public static readonly float APP_MULT_LOSS_PER_SEASON = AncestorUtils.SeasonValueToIntervalValue(MAX_APP_LOSS_PER_ANCESTOR_PER_SEASON / APP_NEG_CUTOFF);
-
-        public static readonly float APP_MOD_NO_SHRINES_INTERVAL = AncestorUtils.SeasonValueToIntervalValue(-8.0f);
-        public static readonly float APP_MOD_MANY_SHRINES_INTERVAL = AncestorUtils.SeasonValueToIntervalValue(-4.0f);
-
         /* Magic & Petitions
          * The petition base success chance is listed here. The min multiplier is how much less you can spent to
          * achieve the base success chance, and how much you have to overspend to achieve 100%. Success is linear from

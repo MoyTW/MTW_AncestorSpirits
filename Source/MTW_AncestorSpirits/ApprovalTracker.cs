@@ -10,6 +10,19 @@ namespace MTW_AncestorSpirits
 {
     class ApprovalTracker : IExposable
     {
+        // Mood-based constants
+        public const float PercentMoodForPositive = .4f;
+
+        public const float MaxGainPerDayPerAncestor = .5f;
+        public static readonly float PosIntervalMultiplier = AncestorUtils.DayValueToIntervalValue(MaxGainPerDayPerAncestor / (1.0f - PercentMoodForPositive));
+
+        public const float MaxLossPerDayPerAncestor = 1.0f;
+        public static readonly float NegIntervalMultiplier = AncestorUtils.DayValueToIntervalValue(MaxLossPerDayPerAncestor / PercentMoodForPositive);
+
+        // Shrine-based constants
+        public static readonly float NoShrinesLossPerInterval = AncestorUtils.SeasonValueToIntervalValue(-8.0f);
+        public static readonly float ManyShrinesLossPerInterval = AncestorUtils.SeasonValueToIntervalValue(-4.0f);
+
         private enum ShrineStatus
         {
             none = 0,
@@ -27,6 +40,7 @@ namespace MTW_AncestorSpirits
         private List<double> gaugeDeltaHour = new List<double>();
         private List<double> gaugeDeltaDay = new List<double>();
 
+        // TODO: Store magic in own class!
         int currentMagic;
 
         public double IntervalDelta { get { return this.intervalDelta; } }
@@ -42,18 +56,30 @@ namespace MTW_AncestorSpirits
             this.currentMagic -= magic;
         }
 
-        public void SubmitVisitSummary(AncestralVisitSummary summary)
-        {
-            double sumApprovals = summary.visitHistories.Sum(p => p.ApprovalDelta);
-            this.UpdateHistory(sumApprovals);
-        }
-
         public ApprovalTracker()
         {
             this.currentMagic = AncestorConstants.MAGIC_START;
             this.hourOfDay = GenDate.HourOfDay;
             this.dayOfMonth = GenDate.DayOfMonth;
             this.season = GenDate.CurrentSeason;
+        }
+
+        public void SubmitVisitSummary(AncestralVisitSummary summary)
+        {
+            double sumApprovals = summary.visitHistories.Sum(p => p.ApprovalDelta);
+            this.UpdateHistory(sumApprovals);
+        }
+
+        public static float PawnApprovalForInterval(float moodPercent)
+        {
+            if (moodPercent > PercentMoodForPositive)
+            {
+                return moodPercent * PosIntervalMultiplier;
+            }
+            else
+            {
+                return moodPercent * NegIntervalMultiplier;
+            }
         }
 
         private double CalcShrineApproval(MapComponent_AncestorTicker ancestorDriver)
@@ -67,7 +93,7 @@ namespace MTW_AncestorSpirits
                     Find.LetterStack.ReceiveLetter("No Shrines!", "Your Ancestors are displeased that you have no " +
                         "shrines! You will lose approval with them until you build a shrine.", LetterType.BadNonUrgent);
                 }
-                return AncestorConstants.APP_MOD_NO_SHRINES_INTERVAL;
+                return NoShrinesLossPerInterval;
             }
             else if (ancestorDriver.NumSpawners > 1)
             {
@@ -79,7 +105,7 @@ namespace MTW_AncestorSpirits
                         "too many shrines! You should have one shrine, and one shrine only! You will lose approval with " +
                         "them until you demolish the extras.", LetterType.BadNonUrgent);
                 }
-                return AncestorConstants.APP_MOD_MANY_SHRINES_INTERVAL;
+                return ManyShrinesLossPerInterval;
             }
             else
             {
