@@ -241,7 +241,7 @@ namespace MTW_AncestorSpirits
         public override void MapComponentTick()
         {
             // No Rare version of MapComponentTick, so this will do.
-            if (!(Find.TickManager.TicksGame % AncestorUtils.TicksPerInterval == 0)) { return; }
+            if (!AncestorUtils.IsIntervalTick()) { return; }
             if (!this.initialized) { this.Initialize(); }
 
             foreach (Pawn visitor in this.despawnBuffer)
