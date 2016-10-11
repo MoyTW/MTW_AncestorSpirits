@@ -311,8 +311,8 @@ namespace MTW_AncestorSpirits
                 LordMaker.MakeNewLord(this.AncestorFaction, lordJob, this.AncestorsVisiting);
             }
 
-            this.approval.UpdateApproval(this);
-            this.timer.UpdateTimer(this.approval);
+            this.approval.ApprovalTrackerTickInterval(this);
+            this.timer.EdictTimerTickInterval(this.approval);
         }
 
         public override void ExposeData()

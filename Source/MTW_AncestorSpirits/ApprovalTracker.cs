@@ -204,7 +204,7 @@ namespace MTW_AncestorSpirits
             this.TryUpdateHour();
         }
 
-        public void UpdateApproval(MapComponent_AncestorTicker ancestorDriver)
+        public void ApprovalTrackerTickInterval(MapComponent_AncestorTicker ancestorDriver)
         {
             double approvalDelta = 0;
             approvalDelta += this.CalcPawnApproval(ancestorDriver);

@@ -186,7 +186,7 @@ namespace MTW_AncestorSpirits
 
         #endregion
 
-        public void UpdateTimer(ApprovalTracker approval)
+        public void EdictTimerTickInterval(ApprovalTracker approval)
         {
             double intervalDelta = approval.IntervalDelta;
             this.nextEvent.UpdateEvent(approval);
