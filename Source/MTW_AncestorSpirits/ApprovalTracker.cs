@@ -14,10 +14,10 @@ namespace MTW_AncestorSpirits
         public const float PercentMoodForPositive = .4f;
 
         public const float MaxGainPerDayPerAncestor = .5f;
-        public static readonly float PosIntervalMultiplier = AncestorUtils.DayValueToIntervalValue(MaxGainPerDayPerAncestor / (1.0f - PercentMoodForPositive));
+        public static readonly float PosIntervalMultiplier = AncestorUtils.DayValueToIntervalValue(MaxGainPerDayPerAncestor);
 
-        public const float MaxLossPerDayPerAncestor = 1.0f;
-        public static readonly float NegIntervalMultiplier = AncestorUtils.DayValueToIntervalValue(MaxLossPerDayPerAncestor / PercentMoodForPositive);
+        public const float MaxLossPerDayPerAncestor = -1.0f;
+        public static readonly float NegIntervalMultiplier = AncestorUtils.DayValueToIntervalValue(MaxLossPerDayPerAncestor);
 
         // Shrine-based constants
         public static readonly float NoShrinesLossPerInterval = AncestorUtils.SeasonValueToIntervalValue(-8.0f);
@@ -74,11 +74,11 @@ namespace MTW_AncestorSpirits
         {
             if (moodPercent > PercentMoodForPositive)
             {
-                return moodPercent * PosIntervalMultiplier;
+                return ((moodPercent - PercentMoodForPositive) / (1 - PercentMoodForPositive)) * PosIntervalMultiplier;
             }
             else
             {
-                return moodPercent * NegIntervalMultiplier;
+                return (1f - (moodPercent / PercentMoodForPositive)) * NegIntervalMultiplier;
             }
         }
 
