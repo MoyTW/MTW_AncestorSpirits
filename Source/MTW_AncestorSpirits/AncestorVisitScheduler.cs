@@ -14,6 +14,7 @@ namespace MTW_AncestorSpirits
         public long StartTick;
         public int DurationTicks;
         public long EndTick { get { return this.StartTick + this.DurationTicks; } }
+        public float VisitorDays { get { return this.NumVisitors * this.DurationTicks / GenDate.TicksPerDay; } }
 
         public VisitItinerary(int numVisitors, long startTick, int durationTicks)
         {
@@ -42,6 +43,35 @@ namespace MTW_AncestorSpirits
         }
     }
 
+    public class VisitScheduleForSeason : IExposable
+    {
+        private List<VisitItinerary> itineraries = new List<VisitItinerary>();
+
+        public float SeasonVisitorDays { get { return this.itineraries.Sum(i => i.VisitorDays); } }
+
+        public VisitScheduleForSeason(List<VisitItinerary> itineraries)
+        {
+            this.itineraries = itineraries;
+        }
+
+        public virtual void ExposeData()
+        {
+            Scribe_Collections.LookList<VisitItinerary>(ref this.itineraries, "itineraries", LookMode.Deep, new object[0]);
+        }
+
+        public override string ToString()
+        {
+            StringBuilder builder = new StringBuilder();
+
+            foreach (var itinerary in this.itineraries)
+            {
+                builder.AppendLine(itinerary.ToString());
+            }
+
+            return builder.ToString();
+        }
+    }
+
     public static class AncestorVisitScheduler
     {
         private static readonly IntRange numVisitorsRange = new IntRange(AncestorConstants.ANCESTORS_PER_VISIT, AncestorConstants.ANCESTORS_PER_VISIT);
@@ -66,7 +96,7 @@ namespace MTW_AncestorSpirits
 
         #endregion
 
-        public static List<VisitItinerary> BuildSeasonSchedule(long seasonStartTick)
+        public static VisitScheduleForSeason BuildSeasonSchedule(long seasonStartTick)
         {
             int numVisits = numVisitsRange.RandomInRange;
 
@@ -86,7 +116,7 @@ namespace MTW_AncestorSpirits
                 attempts++;
             }
 
-            return visitSchedule;
+            return new VisitScheduleForSeason(visitSchedule);
         }
 
         private static string EstApproval(float moodPercent)
