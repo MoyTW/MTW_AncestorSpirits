@@ -47,8 +47,8 @@ namespace MTW_AncestorSpirits
         private static readonly IntRange numVisitorsRange = new IntRange(AncestorConstants.ANCESTORS_PER_VISIT, AncestorConstants.ANCESTORS_PER_VISIT);
         private static readonly IntRange numVisitsRange = new IntRange(2, 4);
 
-        private static readonly IntRange visitDurationRangeTicks = new IntRange(AncestorUtils.DaysToTicks(2.5f),
-            AncestorUtils.DaysToTicks(3.5f));
+        private static readonly IntRange visitDurationRangeTicks = new IntRange(AncestorUtils.DaysToTicks(1.75f),
+            AncestorUtils.DaysToTicks(2.25f));
         private static readonly int bufferSeasonEnd = AncestorUtils.HoursToTicks(12f);
         private static readonly int bufferBetweenVisits = AncestorUtils.HoursToTicks(6f);
 
