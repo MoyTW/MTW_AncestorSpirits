@@ -55,6 +55,17 @@ namespace MTW_AncestorSpirits
         private static readonly IntRange startTickRangeRel =
             new IntRange(0, GenDate.TicksPerSeason - visitDurationRangeTicks.max - bufferSeasonEnd);
 
+        #region Estimation vars
+
+        private static readonly float maxVisitorDaysPerSeason = numVisitorsRange.max * numVisitsRange.max *
+            (visitDurationRangeTicks.max / GenDate.TicksPerDay);
+        private static readonly float minVisitorDaysPerSeason = numVisitorsRange.min * numVisitsRange.min *
+            (visitDurationRangeTicks.min / GenDate.TicksPerDay);
+        private static readonly float avgVisitorDaysPerSeason = numVisitorsRange.Average * numVisitsRange.Average *
+            (visitDurationRangeTicks.Average / GenDate.TicksPerDay);
+
+        #endregion
+
         public static List<VisitItinerary> BuildSeasonSchedule(long seasonStartTick)
         {
             int numVisits = numVisitsRange.RandomInRange;
@@ -78,27 +89,36 @@ namespace MTW_AncestorSpirits
             return visitSchedule;
         }
 
+        private static string EstApproval(float moodPercent)
+        {
+            List<float> MinMaxAvg = new List<float>();
+            var approvalForInterval = ApprovalTracker.PawnApprovalForInterval(moodPercent);
+            return String.Format("{0,6:###.##} | {1,6:###.##} | {2,6:###.##}",
+                minVisitorDaysPerSeason * AncestorUtils.IntervalsPerDay * approvalForInterval,
+                avgVisitorDaysPerSeason * AncestorUtils.IntervalsPerDay * approvalForInterval,
+                maxVisitorDaysPerSeason * AncestorUtils.IntervalsPerDay * approvalForInterval);
+        }
+
         public static string EstApprovalValues
         {
             get
             {
                 StringBuilder builder = new StringBuilder();
 
-                var maxVisitorDaysPerSeason = numVisitorsRange.max * numVisitsRange.max *
-                    (visitDurationRangeTicks.max / GenDate.TicksPerDay);
-                var minVisitorDaysPerSeason = numVisitorsRange.min * numVisitsRange.min *
-                    (visitDurationRangeTicks.min / GenDate.TicksPerDay);
-                var avgVisitorDaysPerSeason = numVisitorsRange.Average * numVisitsRange.Average *
-                    (visitDurationRangeTicks.Average / GenDate.TicksPerDay);
-
                 var maxGainPerSeason = maxVisitorDaysPerSeason * ApprovalTracker.MaxGainPerDayPerAncestor;
                 var maxLossPerSeason = maxVisitorDaysPerSeason * ApprovalTracker.MaxLossPerDayPerAncestor;
 
-                return builder.AppendFormat("Visitor min, max, avg days per season: ({0}, {1}), avg={2}",
-                    maxVisitorDaysPerSeason, minVisitorDaysPerSeason, avgVisitorDaysPerSeason)
+                builder.AppendFormat("Visitor min, avg, max days per season: ({0}, {1}, {2})",
+                    minVisitorDaysPerSeason, avgVisitorDaysPerSeason, maxVisitorDaysPerSeason)
                     .AppendLine()
                     .AppendFormat("Max gain: {0}, max loss: {1}", maxGainPerSeason, maxLossPerSeason)
-                    .ToString();
+                    .AppendLine();
+
+                foreach (var moodPercent in new List<float> { 1f, .9f, .8f, .7f, .6f, .5f, .4f, .3f, .2f, .1f, 0f })
+                {
+                    builder.AppendLine(EstApproval(moodPercent));
+                }
+                return builder.ToString();
             }
         }
     }
