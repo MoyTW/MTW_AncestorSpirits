@@ -100,6 +100,8 @@ namespace MTW_AncestorSpirits
             {
                 this.unspawnedAncestors.Add(this.GenAncestor());
             }
+            this.visitSchedule = AncestorVisitScheduler.BuildSeasonScheduleForCurrentSeason();
+            this.visitSchedule.DisabledAlreadyPassedVisits();
             this.approval = new ApprovalTracker();
             this.timer = new AncestorEdictTimer();
             this.initialized = true;
