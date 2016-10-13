@@ -62,25 +62,49 @@ namespace MTW_AncestorSpirits
 
     public class VisitScheduleForSeason : IExposable
     {
-        private List<VisitItinerary> itineraries = new List<VisitItinerary>();
+        private long seasonStartTick;
+        private List<VisitItinerary> allItineraries = new List<VisitItinerary>();
+        private List<VisitItinerary> remainingItineraries = new List<VisitItinerary>();
 
-        public float SeasonVisitorDays { get { return this.itineraries.Sum(i => i.VisitorDays); } }
+        public long SeasonStartTick { get { return this.seasonStartTick; } }
+        public Season SeasonScheduledFor { get { return GenDate.SeasonAt(this.SeasonStartTick); } }
+        public bool IsScheduledForCurrentSeason { get { return this.SeasonScheduledFor == GenDate.CurrentSeason; } }
+        public VisitItinerary NextItinerary { get { return this.remainingItineraries.First(); } }
+        public float SeasonVisitorDays { get { return this.allItineraries.Sum(i => i.VisitorDays); } }
 
-        public VisitScheduleForSeason(List<VisitItinerary> itineraries)
+        public VisitScheduleForSeason(long seasonStartTick, List<VisitItinerary> itineraries)
         {
-            this.itineraries = itineraries;
+            this.seasonStartTick = seasonStartTick;
+            this.allItineraries = itineraries.OrderBy(i => i.StartTick).ToList();
+            this.remainingItineraries = this.allItineraries;
+        }
+
+        private void FireNextItinerary()
+        {
+            this.NextItinerary.FireVisit();
+            this.remainingItineraries.Remove(this.NextItinerary);
+        }
+
+        public void VisitScheduleTickInterval()
+        {
+            if (Find.TickManager.TicksGame > this.NextItinerary.StartTick)
+            {
+                this.FireNextItinerary();
+            }
         }
 
         public virtual void ExposeData()
         {
-            Scribe_Collections.LookList<VisitItinerary>(ref this.itineraries, "itineraries", LookMode.Deep, new object[0]);
+            Scribe_Values.LookValue<long>(ref this.seasonStartTick, "SeasonStartTick");
+            Scribe_Collections.LookList<VisitItinerary>(ref this.allItineraries, "allItineraries", LookMode.Deep, new object[0]);
+            Scribe_Collections.LookList<VisitItinerary>(ref this.remainingItineraries, "remainingItineraries", LookMode.Deep, new object[0]);
         }
 
         public override string ToString()
         {
             StringBuilder builder = new StringBuilder();
 
-            foreach (var itinerary in this.itineraries)
+            foreach (var itinerary in this.allItineraries)
             {
                 builder.AppendLine(itinerary.ToString());
             }
