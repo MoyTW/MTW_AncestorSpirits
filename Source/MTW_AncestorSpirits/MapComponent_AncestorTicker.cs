@@ -44,7 +44,7 @@ namespace MTW_AncestorSpirits
         private List<Pawn> despawnBuffer = new List<Pawn>();
         private List<Building> spawners = new List<Building>();
         private ApprovalTracker approval = null;
-        private AncestorEdictTimer timer = null;
+        private AncestorMemoTimer timer = null;
         private VisitScheduleForSeason visitSchedule = null;
 
         private int numAncestorsToVisit = 3;
@@ -103,7 +103,7 @@ namespace MTW_AncestorSpirits
             this.visitSchedule = AncestorVisitScheduler.BuildSeasonScheduleForCurrentSeason();
             this.visitSchedule.DisabledAlreadyPassedVisits();
             this.approval = new ApprovalTracker();
-            this.timer = new AncestorEdictTimer();
+            this.timer = new AncestorMemoTimer();
             this.initialized = true;
         }
 
@@ -250,7 +250,7 @@ namespace MTW_AncestorSpirits
 
             this.visitSchedule.VisitScheduleTickInterval();
             this.approval.ApprovalTrackerTickInterval(this);
-            this.timer.EdictTimerTickInterval(this.approval);
+            this.timer.AncestorMemoTimerTickInterval(this.approval);
         }
 
         public override void ExposeData()
@@ -260,7 +260,7 @@ namespace MTW_AncestorSpirits
             Scribe_Values.LookValue<bool>(ref initialized, "initialized", false);
             Scribe_Values.LookValue<int>(ref numAncestorsToVisit, "numAncestorsToVisit", 3);
             Scribe_Deep.LookDeep<ApprovalTracker>(ref this.approval, "approval", new object[0]);
-            Scribe_Deep.LookDeep<AncestorEdictTimer>(ref this.timer, "timer", new object[0]);
+            Scribe_Deep.LookDeep<AncestorMemoTimer>(ref this.timer, "timer", new object[0]);
             Scribe_Collections.LookList<Pawn>(ref this.unspawnedAncestors, "unspawnedAncestors", LookMode.Deep, new object[0]);
             Scribe_Collections.LookList<Building>(ref this.spawners, "spawners", LookMode.MapReference);
             // Probably there's a better way to do this!

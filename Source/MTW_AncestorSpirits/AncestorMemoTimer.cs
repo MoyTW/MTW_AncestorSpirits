@@ -8,41 +8,41 @@ using System.Text;
 
 namespace MTW_AncestorSpirits
 {
-    internal enum EventType
+    internal enum MemoType
     {
         positive = 0,
         negative,
         undecided
     }
 
-    internal enum EventCause
+    internal enum MemoCause
     {
         delta = 0,
         timer
     }
 
     // Does ScribeRef allow you to just scribe it as a...uh, ref?
-    internal class Event : IExposable
+    internal class AncestorMemo : IExposable
     {
         public static readonly IntRange OmenTicksRange =
             new IntRange(AncestorUtils.HoursToTicks(1), AncestorUtils.HoursToTicks(6));
 
         private int ttl;
         private int omenTicks;
-        private EventType type;
-        private EventCause cause;
+        private MemoType type;
+        private MemoCause cause;
         private bool finalized = false;
         private bool completed = false;
 
-        public EventCause Cause { get { return this.cause; } }
+        public MemoCause Cause { get { return this.cause; } }
         public bool Finalized { get { return this.finalized; } }
         public bool Completed { get { return this.completed; } }
 
-        public Event() : this(AncestorEdictTimer.TicksBetween, EventType.undecided, EventCause.timer)
+        public AncestorMemo() : this(AncestorMemoTimer.TicksBetween, MemoType.undecided, MemoCause.timer)
         {
         }
 
-        public Event(int ttl, EventType type, EventCause cause)
+        public AncestorMemo(int ttl, MemoType type, MemoCause cause)
         {
             this.omenTicks = OmenTicksRange.RandomInRange;
 
@@ -61,20 +61,20 @@ namespace MTW_AncestorSpirits
 
         private void FinalizeAndSendLetter(ApprovalTracker approval)
         {
-            if (this.type == EventType.undecided)
+            if (this.type == MemoType.undecided)
             {
                 var hourHistoryDelta = approval.HourHistoryDelta();
                 if (hourHistoryDelta >= 0.0)
                 {
-                    this.type = EventType.positive;
+                    this.type = MemoType.positive;
                 }
                 else
                 {
-                    this.type = EventType.negative;
+                    this.type = MemoType.negative;
                 }
             }
 
-            if (this.type == EventType.positive)
+            if (this.type == MemoType.positive)
             {
                 Find.LetterStack.ReceiveLetter("Good Omen!", "One of your colonists has spotted a propitious omen! " +
                     " Surely the Ancestors are smiling on you.", LetterType.Good);
@@ -87,9 +87,9 @@ namespace MTW_AncestorSpirits
             this.finalized = true;
         }
 
-        private void FireEvent(ApprovalTracker approval)
+        private void FireAncestorMemo(ApprovalTracker approval)
         {
-            if (this.type == EventType.positive)
+            if (this.type == MemoType.positive)
             {
                 this.TryForceIncident("ResourcePodCrash");
             }
@@ -99,7 +99,7 @@ namespace MTW_AncestorSpirits
             }
         }
 
-        public void UpdateEvent(ApprovalTracker approval)
+        public void AncestorMemoTickInterval(ApprovalTracker approval)
         {
             // TODO: Uh!? You always call it on interval, and only on interval?
             this.ttl -= AncestorUtils.TicksPerInterval;
@@ -110,24 +110,24 @@ namespace MTW_AncestorSpirits
             }
             else if (this.ttl <= 0)
             {
-                this.FireEvent(approval);
+                this.FireAncestorMemo(approval);
                 this.completed = true;
             }
         }
 
         public void ExposeData()
         {
-            Scribe_Values.LookValue<int>(ref this.ttl, "ttl", AncestorEdictTimer.TicksBetween);
+            Scribe_Values.LookValue<int>(ref this.ttl, "ttl", AncestorMemoTimer.TicksBetween);
             Scribe_Values.LookValue<int>(ref this.omenTicks, "omenTicks", OmenTicksRange.min);
-            Scribe_Values.LookValue<EventType>(ref this.type, "type", EventType.undecided);
-            Scribe_Values.LookValue<EventCause>(ref this.cause, "cause", EventCause.timer);
+            Scribe_Values.LookValue<MemoType>(ref this.type, "type", MemoType.undecided);
+            Scribe_Values.LookValue<MemoCause>(ref this.cause, "cause", MemoCause.timer);
             Scribe_Values.LookValue<bool>(ref this.finalized, "finalized", false);
             Scribe_Values.LookValue<bool>(ref this.completed, "completed", false);
         }
     }
 
 
-    class AncestorEdictTimer : IExposable
+    class AncestorMemoTimer : IExposable
     {
         #region Vars & Accessors
 
@@ -137,8 +137,8 @@ namespace MTW_AncestorSpirits
         public static readonly float TriggerPositiveEdictThreshold = AncestorUtils.SeasonValueToIntervalValue(5.0f);
         public static readonly double TriggerNegativeEdictThreshold = AncestorUtils.SeasonValueToIntervalValue(-6.0f);
 
-        private Event nextEvent = null;
-        private Event prevEvent = null;
+        private AncestorMemo nextEvent = null;
+        private AncestorMemo prevEvent = null;
         private Random _random = null;
 
 
@@ -158,18 +158,18 @@ namespace MTW_AncestorSpirits
         {
             get
             {
-                return (this.nextEvent.Cause != EventCause.delta &&
+                return (this.nextEvent.Cause != MemoCause.delta &&
                     this.prevEvent != null &&
-                    this.prevEvent.Cause != EventCause.delta);
+                    this.prevEvent.Cause != MemoCause.delta);
             }
         }
 
         #endregion
 
-        public AncestorEdictTimer()
+        public AncestorMemoTimer()
         {
             int timeToFirst = TicksBeforeFirst + this.GenTimerTicks();
-            this.nextEvent = new Event(timeToFirst, EventType.undecided, EventCause.timer);
+            this.nextEvent = new AncestorMemo(timeToFirst, MemoType.undecided, MemoCause.timer);
         }
 
         #region Event Generation
@@ -180,23 +180,23 @@ namespace MTW_AncestorSpirits
             return (int)(multiplier * TicksPlusMinus) + TicksBetween;
         }
 
-        private Event GenTimerEvent()
+        private AncestorMemo GenTimerEvent()
         {
-            return new Event(this.GenTimerTicks(), EventType.undecided, EventCause.timer);
+            return new AncestorMemo(this.GenTimerTicks(), MemoType.undecided, MemoCause.timer);
         }
 
-        private Event GenDeltaEvent(EventType type)
+        private AncestorMemo GenDeltaEvent(MemoType type)
         {
             // TODO: Passing in -1 here is kind of silly!
-            return new Event(-1, type, EventCause.delta); // -1 causes it to finalize immediately
+            return new AncestorMemo(-1, type, MemoCause.delta); // -1 causes it to finalize immediately
         }
 
         #endregion
 
-        public void EdictTimerTickInterval(ApprovalTracker approval)
+        public void AncestorMemoTimerTickInterval(ApprovalTracker approval)
         {
             double intervalDelta = approval.IntervalDelta;
-            this.nextEvent.UpdateEvent(approval);
+            this.nextEvent.AncestorMemoTickInterval(approval);
 
             if (this.nextEvent.Completed)
             {
@@ -210,19 +210,19 @@ namespace MTW_AncestorSpirits
             else if (approval.IntervalDelta > TriggerPositiveEdictThreshold &&
                 this.CanScheduleDelta)
             {
-                this.nextEvent = this.GenDeltaEvent(EventType.positive);
+                this.nextEvent = this.GenDeltaEvent(MemoType.positive);
             }
             else if (approval.IntervalDelta < TriggerNegativeEdictThreshold &&
                 this.CanScheduleDelta)
             {
-                this.nextEvent = this.GenDeltaEvent(EventType.negative);
+                this.nextEvent = this.GenDeltaEvent(MemoType.negative);
             }
         }
 
         public void ExposeData()
         {
-            Scribe_Deep.LookDeep<Event>(ref this.nextEvent, "nextEvent", new object[0]);
-            Scribe_Deep.LookDeep<Event>(ref this.prevEvent, "prevEvent", new object[0]);
+            Scribe_Deep.LookDeep<AncestorMemo>(ref this.nextEvent, "nextEvent", new object[0]);
+            Scribe_Deep.LookDeep<AncestorMemo>(ref this.prevEvent, "prevEvent", new object[0]);
         }
     }
 }
