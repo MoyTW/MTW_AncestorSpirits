@@ -10,17 +10,24 @@ namespace MTW_AncestorSpirits
 {
     public class VisitItinerary : IExposable
     {
-        public int NumVisitors;
-        public long StartTick;
-        public int DurationTicks;
+        private bool hasFired;
+        private int numVisitors;
+        private long startTick;
+        private int durationTicks;
+
+        public bool HasFired { get { return this.hasFired; } }
+        public int NumVisitors { get { return this.numVisitors; } }
+        public long StartTick { get { return this.startTick; } }
+        public int DurationTicks { get { return this.durationTicks; } }
         public long EndTick { get { return this.StartTick + this.DurationTicks; } }
         public float VisitorDays { get { return this.NumVisitors * this.DurationTicks / GenDate.TicksPerDay; } }
 
         public VisitItinerary(int numVisitors, long startTick, int durationTicks)
         {
-            this.NumVisitors = numVisitors;
-            this.StartTick = startTick;
-            this.DurationTicks = durationTicks;
+            this.hasFired = false;
+            this.numVisitors = numVisitors;
+            this.startTick = startTick;
+            this.durationTicks = durationTicks;
         }
 
         public bool Overlaps(VisitItinerary otherItinerary, int bufferBetweenVisits)
@@ -29,11 +36,21 @@ namespace MTW_AncestorSpirits
                 (this.EndTick + bufferBetweenVisits) >= otherItinerary.StartTick;
         }
 
+        public void FireVisit()
+        {
+            var visitConditionDef = DefDatabase<MapConditionDef>.GetNamed("MTW_AncestralVisit");
+            MapCondition cond = MapConditionMaker.MakeCondition(visitConditionDef, this.DurationTicks, 0);
+            Find.MapConditionManager.RegisterCondition(cond);
+
+            this.hasFired = true;
+        }
+
         public virtual void ExposeData()
         {
-            Scribe_Values.LookValue<int>(ref this.NumVisitors, "NumVisitors");
-            Scribe_Values.LookValue<long>(ref this.StartTick, "StartTick");
-            Scribe_Values.LookValue<int>(ref this.DurationTicks, "DurationTicks");
+            Scribe_Values.LookValue<bool>(ref this.hasFired, "hasFired");
+            Scribe_Values.LookValue<int>(ref this.numVisitors, "NumVisitors");
+            Scribe_Values.LookValue<long>(ref this.startTick, "StartTick");
+            Scribe_Values.LookValue<int>(ref this.durationTicks, "DurationTicks");
         }
 
         public override string ToString()
