@@ -45,6 +45,7 @@ namespace MTW_AncestorSpirits
         private List<Building> spawners = new List<Building>();
         private ApprovalTracker approval = null;
         private AncestorEdictTimer timer = null;
+        private VisitScheduleForSeason visitSchedule = null;
 
         private int numAncestorsToVisit = 3;
 
@@ -240,14 +241,12 @@ namespace MTW_AncestorSpirits
                 }
             }
 
-            else if (this.AncestorsVisiting.Count() < numAncestorsToVisit && this.AncestorsVisiting.Count() == 0)
+            if (!this.visitSchedule.IsScheduledForCurrentSeason)
             {
-                var incidentDef = DefDatabase<IncidentDef>.GetNamed("MTW_AncestralVisit");
-                var incidentParams = new IncidentParms();
-                incidentParams.forced = true;
-                incidentDef.Worker.TryExecute(incidentParams);
+                this.visitSchedule = AncestorVisitScheduler.BuildSeasonScheduleForCurrentSeason();
             }
 
+            this.visitSchedule.VisitScheduleTickInterval();
             this.approval.ApprovalTrackerTickInterval(this);
             this.timer.EdictTimerTickInterval(this.approval);
         }
@@ -262,6 +261,13 @@ namespace MTW_AncestorSpirits
             Scribe_Deep.LookDeep<AncestorEdictTimer>(ref this.timer, "timer", new object[0]);
             Scribe_Collections.LookList<Pawn>(ref this.unspawnedAncestors, "unspawnedAncestors", LookMode.Deep, new object[0]);
             Scribe_Collections.LookList<Building>(ref this.spawners, "spawners", LookMode.MapReference);
+            // Probably there's a better way to do this!
+            if (this.visitSchedule == null)
+            {
+                var seasonStart = AncestorUtils.EstStartOfSeasonAt(Find.TickManager.TicksGame);
+                this.visitSchedule = AncestorVisitScheduler.BuildSeasonSchedule(seasonStart);
+            }
+            Scribe_Deep.LookDeep<VisitScheduleForSeason>(ref this.visitSchedule, "visitSchedule", new object[0]);
         }
 
         #endregion
