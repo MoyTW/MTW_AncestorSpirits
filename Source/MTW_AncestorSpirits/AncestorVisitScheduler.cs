@@ -22,6 +22,9 @@ namespace MTW_AncestorSpirits
         public long EndTick { get { return this.StartTick + this.DurationTicks; } }
         public float VisitorDays { get { return this.NumVisitors * this.DurationTicks / GenDate.TicksPerDay; } }
 
+        // Required for IExposable
+        public VisitItinerary() { }
+
         public VisitItinerary(int numVisitors, long startTick, int durationTicks)
         {
             this.hasFired = false;
@@ -62,19 +65,21 @@ namespace MTW_AncestorSpirits
 
     public class VisitScheduleForSeason : IExposable
     {
-        private long seasonStartTick;
+        private Season seasonScheduledFor;
         private List<VisitItinerary> allItineraries = new List<VisitItinerary>();
         private List<VisitItinerary> remainingItineraries = new List<VisitItinerary>();
 
-        public long SeasonStartTick { get { return this.seasonStartTick; } }
-        public Season SeasonScheduledFor { get { return GenDate.SeasonAt(this.SeasonStartTick); } }
+        public Season SeasonScheduledFor { get { return this.seasonScheduledFor; } }
         public bool IsScheduledForCurrentSeason { get { return this.SeasonScheduledFor == GenDate.CurrentSeason; } }
-        public VisitItinerary NextItinerary { get { return this.remainingItineraries.First(); } }
+        public VisitItinerary NextItinerary { get { return this.remainingItineraries.FirstOrDefault(); } }
         public float SeasonVisitorDays { get { return this.allItineraries.Sum(i => i.VisitorDays); } }
 
-        public VisitScheduleForSeason(long seasonStartTick, List<VisitItinerary> itineraries)
+        public VisitScheduleForSeason() : this(Season.Undefined, new List<VisitItinerary>())
+        { }
+
+        public VisitScheduleForSeason(Season seasonScheduledFor, List<VisitItinerary> itineraries)
         {
-            this.seasonStartTick = seasonStartTick;
+            this.seasonScheduledFor = seasonScheduledFor;
             this.allItineraries = itineraries.OrderBy(i => i.StartTick).ToList();
             this.remainingItineraries = this.allItineraries;
         }
@@ -87,7 +92,7 @@ namespace MTW_AncestorSpirits
 
         public void VisitScheduleTickInterval()
         {
-            if (Find.TickManager.TicksGame > this.NextItinerary.StartTick)
+            if (Find.TickManager.TicksAbs > this.NextItinerary.StartTick)
             {
                 this.FireNextItinerary();
             }
@@ -95,7 +100,7 @@ namespace MTW_AncestorSpirits
 
         public virtual void ExposeData()
         {
-            Scribe_Values.LookValue<long>(ref this.seasonStartTick, "SeasonStartTick");
+            Scribe_Values.LookValue<Season>(ref this.seasonScheduledFor, "seasonScheduledFor");
             Scribe_Collections.LookList<VisitItinerary>(ref this.allItineraries, "allItineraries", LookMode.Deep, new object[0]);
             Scribe_Collections.LookList<VisitItinerary>(ref this.remainingItineraries, "remainingItineraries", LookMode.Deep, new object[0]);
         }
@@ -157,7 +162,13 @@ namespace MTW_AncestorSpirits
                 attempts++;
             }
 
-            return new VisitScheduleForSeason(visitSchedule);
+            return new VisitScheduleForSeason(GenDate.SeasonAt(seasonStartTick), visitSchedule);
+        }
+
+        public static VisitScheduleForSeason BuildSeasonScheduleForCurrentSeason()
+        {
+            long seasonStartTicks = AncestorUtils.EstStartOfSeasonAt(Find.TickManager.TicksAbs);
+            return BuildSeasonSchedule(seasonStartTicks);
         }
 
         private static string EstApproval(float moodPercent)
