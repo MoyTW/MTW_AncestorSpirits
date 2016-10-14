@@ -14,9 +14,11 @@ namespace MTW_AncestorSpirits
         // TODO: Add noteworthy thoughts/reactions here.
         private string pawnString;
         private double approvalDelta;
+        private bool wasForciblyReturned = false;
 
         public string PawnString { get { return this.pawnString; } }
         public double ApprovalDelta { get { return this.approvalDelta; } }
+        public bool WasForciblyReturned { get { return this.wasForciblyReturned; } }
         public string MoodSummary
         {
             get
@@ -45,10 +47,18 @@ namespace MTW_AncestorSpirits
             this.approvalDelta += delta;
         }
 
+        public void Notify_AnchorDestroyed(Pawn p)
+        {
+            this.wasForciblyReturned = true;
+            this.AddApproval(ApprovalTracker.PawnApprovalForAnchorDestruction());
+        }
+
         public virtual void ExposeData()
         {
+
             Scribe_Values.LookValue<string>(ref this.pawnString, "pawnString");
             Scribe_Values.LookValue<double>(ref this.approvalDelta, "approvalDelta");
+            Scribe_Values.LookValue<bool>(ref this.wasForciblyReturned, "wasForciblyReturned");
         }
     }
 
@@ -61,6 +71,16 @@ namespace MTW_AncestorSpirits
         {
             this.visitors = visitors;
             this.visitHistories = visitInfoMap.Values.ToList();
+        }
+
+        public override string ToString()
+        {
+            StringBuilder builder = new StringBuilder();
+            foreach (var info in this.visitHistories)
+            {
+                builder.AppendFormat("[{0} - {1}] ", info.PawnString, info.ApprovalDelta);
+            }
+            return builder.ToString();
         }
     }
 
@@ -114,11 +134,16 @@ namespace MTW_AncestorSpirits
             {
                 foreach (Pawn p in this.visitors)
                 {
-                    this.visitInfoMap[p.thingIDNumber].AddApproval(ApprovalTracker.PawnApprovalForAnchorDestruction());
-                    ancestorTicker.Notify_ShouldDespawn(p);
+                    var pawnVisitInfo = this.visitInfoMap[p.thingIDNumber];
+                    if (!pawnVisitInfo.WasForciblyReturned)
+                    {
+                        pawnVisitInfo.Notify_AnchorDestroyed(p);
+                        ancestorTicker.Notify_ShouldDespawn(p);
+                    }
                 }
             }
-            else if (this.visitors.Count == 0)
+
+            if (this.visitors.Count == 0)
             {
                 this.duration = 0;
                 this.SubmitApprovalChanges();
