@@ -105,9 +105,20 @@ namespace MTW_AncestorSpirits
         public override void MapConditionTick()
         {
             if (!AncestorUtils.IsIntervalTick()) { return; }
-            // Remove despawned pawns and early exit if all pawns removed
+
+            // Remove despawned visitors
             this.visitors = visitors.Where(p => p.Spawned).ToList();
-            if (this.visitors.Count == 0)
+
+            var ancestorTicker = Find.Map.GetComponent<MapComponent_AncestorTicker>();
+            if (ancestorTicker.CurrentSpawner == null)
+            {
+                foreach (Pawn p in this.visitors)
+                {
+                    this.visitInfoMap[p.thingIDNumber].AddApproval(ApprovalTracker.PawnApprovalForAnchorDestruction());
+                    ancestorTicker.Notify_ShouldDespawn(p);
+                }
+            }
+            else if (this.visitors.Count == 0)
             {
                 this.duration = 0;
                 this.SubmitApprovalChanges();

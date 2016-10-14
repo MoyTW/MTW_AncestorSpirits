@@ -19,6 +19,8 @@ namespace MTW_AncestorSpirits
         public const float MaxLossPerDayPerAncestor = -1.0f;
         public static readonly float NegIntervalMultiplier = AncestorUtils.DayValueToIntervalValue(MaxLossPerDayPerAncestor);
 
+        public const float MaxLossAnchorDestroyed = -4;
+
         // Shrine-based constants
         public static readonly float NoShrinesLossPerInterval = AncestorUtils.SeasonValueToIntervalValue(-8.0f);
         public static readonly float ManyShrinesLossPerInterval = AncestorUtils.SeasonValueToIntervalValue(-4.0f);
@@ -68,6 +70,12 @@ namespace MTW_AncestorSpirits
         {
             double sumApprovals = summary.visitHistories.Sum(p => p.ApprovalDelta);
             this.UpdateHistory(sumApprovals);
+        }
+
+        // TODO: Scale the approval loss depending on other factors?
+        public static float PawnApprovalForAnchorDestruction()
+        {
+            return MaxLossAnchorDestroyed;
         }
 
         public static float PawnApprovalForInterval(float moodPercent)

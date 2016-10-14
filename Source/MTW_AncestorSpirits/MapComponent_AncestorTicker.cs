@@ -235,14 +235,6 @@ namespace MTW_AncestorSpirits
                 this.DespawnVisitor(visitor);
             }
 
-            if (this.CurrentSpawner == null)
-            {
-                foreach (Pawn visitor in this.AncestorsVisiting)
-                {
-                    this.DespawnVisitor(visitor);
-                }
-            }
-
             if (!this.visitSchedule.IsScheduledForCurrentSeason)
             {
                 this.visitSchedule = AncestorVisitScheduler.BuildSeasonScheduleForCurrentSeason();
