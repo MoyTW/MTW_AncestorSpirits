@@ -11,31 +11,31 @@ namespace MTW_AncestorSpirits
     public class VisitItinerary : IExposable
     {
         private int numVisitors;
-        private long startTick;
+        private long startTickAbs;
         private int durationTicks;
 
         public bool HasFired;
         public int NumVisitors { get { return this.numVisitors; } }
-        public long StartTick { get { return this.startTick; } }
+        public long StartTickAbs { get { return this.startTickAbs; } }
         public int DurationTicks { get { return this.durationTicks; } }
-        public long EndTick { get { return this.StartTick + this.DurationTicks; } }
+        public long EndTickAbs { get { return this.StartTickAbs + this.DurationTicks; } }
         public float VisitorDays { get { return this.NumVisitors * this.DurationTicks / GenDate.TicksPerDay; } }
 
         // Required for IExposable
         public VisitItinerary() { }
 
-        public VisitItinerary(int numVisitors, long startTick, int durationTicks)
+        public VisitItinerary(int numVisitors, long startTickAbs, int durationTicks)
         {
             this.HasFired = false;
             this.numVisitors = numVisitors;
-            this.startTick = startTick;
+            this.startTickAbs = startTickAbs;
             this.durationTicks = durationTicks;
         }
 
         public bool Overlaps(VisitItinerary otherItinerary, int bufferBetweenVisits)
         {
-            return this.StartTick <= (otherItinerary.EndTick + bufferBetweenVisits) &&
-                (this.EndTick + bufferBetweenVisits) >= otherItinerary.StartTick;
+            return this.StartTickAbs <= (otherItinerary.EndTickAbs + bufferBetweenVisits) &&
+                (this.EndTickAbs + bufferBetweenVisits) >= otherItinerary.StartTickAbs;
         }
 
         public void FireVisit()
@@ -51,14 +51,14 @@ namespace MTW_AncestorSpirits
         {
             Scribe_Values.LookValue<bool>(ref this.HasFired, "HasFired");
             Scribe_Values.LookValue<int>(ref this.numVisitors, "NumVisitors");
-            Scribe_Values.LookValue<long>(ref this.startTick, "StartTick");
+            Scribe_Values.LookValue<long>(ref this.startTickAbs, "StartTickAbs");
             Scribe_Values.LookValue<int>(ref this.durationTicks, "DurationTicks");
         }
 
         public override string ToString()
         {
             return String.Format("{0} ancestors from {1} to {2} - fired={3}", this.NumVisitors,
-                GenDate.DateReadoutStringAt((int)this.StartTick), GenDate.DateReadoutStringAt((int)this.EndTick),
+                GenDate.DateReadoutStringAt((int)this.StartTickAbs), GenDate.DateReadoutStringAt((int)this.EndTickAbs),
                 this.HasFired);
         }
     }
@@ -84,7 +84,7 @@ namespace MTW_AncestorSpirits
         public VisitScheduleForSeason(Season seasonScheduledFor, List<VisitItinerary> itineraries)
         {
             this.seasonScheduledFor = seasonScheduledFor;
-            this.allItineraries = itineraries.OrderBy(i => i.StartTick).ToList();
+            this.allItineraries = itineraries.OrderBy(i => i.StartTickAbs).ToList();
         }
 
         private void FireNextItinerary()
@@ -97,14 +97,14 @@ namespace MTW_AncestorSpirits
             long ticksAbs = Find.TickManager.TicksAbs;
             foreach (var itinerary in this.allItineraries)
             {
-                if (itinerary.StartTick < ticksAbs)
+                if (itinerary.StartTickAbs < ticksAbs)
                     itinerary.HasFired = true;
             }
         }
 
         public void VisitScheduleTickInterval()
         {
-            if (this.NextItinerary != null && Find.TickManager.TicksAbs > this.NextItinerary.StartTick)
+            if (this.NextItinerary != null && Find.TickManager.TicksAbs > this.NextItinerary.StartTickAbs)
             {
                 this.FireNextItinerary();
             }
