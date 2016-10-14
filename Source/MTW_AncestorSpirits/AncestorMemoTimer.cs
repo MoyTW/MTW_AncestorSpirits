@@ -131,8 +131,9 @@ namespace MTW_AncestorSpirits
         public static readonly int TicksBeforeFirst = AncestorUtils.DaysToTicks(7);
         public static readonly int TicksBetween = AncestorUtils.DaysToTicks(7);
         public static readonly int TicksPlusMinus = AncestorUtils.HoursToTicks(48);
-        public static readonly float TriggerPositiveEdictThreshold = AncestorUtils.SeasonValueToIntervalValue(5.0f);
-        public static readonly double TriggerNegativeEdictThreshold = AncestorUtils.SeasonValueToIntervalValue(-6.0f);
+        // These values are mostly arbitrary! Currently they're 2x the expected gain/loss per day per ancestor.
+        public static readonly float TriggerPositiveMemoThreshold = AncestorUtils.SeasonValueToIntervalValue(1.0f);
+        public static readonly double TriggerNegativeMemoThreshold = AncestorUtils.SeasonValueToIntervalValue(-2.0f);
 
         private AncestorMemo nextEvent = null;
         private AncestorMemo prevEvent = null;
@@ -155,7 +156,8 @@ namespace MTW_AncestorSpirits
         {
             get
             {
-                return (this.nextEvent.Cause != MemoCause.delta &&
+                return (!this.nextEvent.Finalized &&
+                    this.nextEvent.Cause != MemoCause.delta &&
                     this.prevEvent != null &&
                     this.prevEvent.Cause != MemoCause.delta);
             }
@@ -204,12 +206,12 @@ namespace MTW_AncestorSpirits
             {
                 return;
             }
-            else if (approval.IntervalDelta > TriggerPositiveEdictThreshold &&
+            else if (approval.IntervalDelta > TriggerPositiveMemoThreshold &&
                 this.CanScheduleDelta)
             {
                 this.nextEvent = this.GenDeltaEvent(MemoType.positive);
             }
-            else if (approval.IntervalDelta < TriggerNegativeEdictThreshold &&
+            else if (approval.IntervalDelta < TriggerNegativeMemoThreshold &&
                 this.CanScheduleDelta)
             {
                 this.nextEvent = this.GenDeltaEvent(MemoType.negative);
