@@ -89,18 +89,19 @@ This mod is current very much a work-in-progress! It can be applied to in-progre
 + DONE Ancestral Fury: Lightning strikes your foes
 
 ## Hospitality-style visits
-+ Ancestors spawn for "visits" instead of constantly
-+ Visit times semi-random; normalized to give same approval+/- over time
-+ Approval overhaul
-  + Approval tracked on a per-visit basis
-  + Approval changes submitted when Ancestors conclude visit
-  + Delta events (gifts/punishments) occur only on conclusion of visit
-  + Magic still granted on
++ DONE Ancestors spawn for "visits" instead of constantly
++ DONE Visit times semi-random; normalized to give same approval+/- over time
++ DONE Approval overhaul
+  + DONE Approval tracked on a per-visit basis
+  + DONE Approval changes submitted when Ancestors conclude visit
+  + DONE Delta events (gifts/punishments) occur only on conclusion of visit
+  + DONE Magic still granted on season change
 + Interruptions
   + Ancestors vanish (huge approval hit) if shrine destroyed while visiting
   + Ancestors will get super mad if they can't return to their anchor
 + Behaviours
   + Ancestors will occasionally walk outside of colony
+  + Berserk Ancestors don't throw exceptions for no attack action
 
 ## Spritual Ancestors
 + Ancestors are colored differently or transparent or something distinct
