@@ -56,7 +56,7 @@
     <Compile Include="Detouring\GenAI.cs" />
     <Compile Include="Detouring\Job.cs" />
     <Compile Include="Detouring\Pawn_NeedsTracker.cs" />
-    <Compile Include="AncestorEdictTimer.cs" />
+    <Compile Include="AncestorMemoTimer.cs" />
     <Compile Include="IncidentWorker_CleanseSkies.cs" />
     <Compile Include="IncidentWorker_FoggyRain.cs" />
     <Compile Include="IncidentWorker_HelpCureSickness.cs" />

@@ -24,11 +24,11 @@ namespace MTW_AncestorSpirits
     // Does ScribeRef allow you to just scribe it as a...uh, ref?
     internal class AncestorMemo : IExposable
     {
-        public static readonly IntRange OmenTicksRange =
+        public static readonly IntRange PostOmenDelayRange =
             new IntRange(AncestorUtils.HoursToTicks(1), AncestorUtils.HoursToTicks(6));
 
-        private int ttl;
-        private int omenTicks;
+        private int memoFireTick;
+        private int omenFireTick;
         private MemoType type;
         private MemoCause cause;
         private bool finalized = false;
@@ -44,9 +44,9 @@ namespace MTW_AncestorSpirits
 
         public AncestorMemo(int ttl, MemoType type, MemoCause cause)
         {
-            this.omenTicks = OmenTicksRange.RandomInRange;
+            this.omenFireTick = Find.TickManager.TicksGame + ttl;
 
-            this.ttl = Math.Max(ttl, this.omenTicks);
+            this.memoFireTick = omenFireTick + PostOmenDelayRange.RandomInRange;
             this.type = type;
             this.cause = cause;
         }
@@ -101,14 +101,11 @@ namespace MTW_AncestorSpirits
 
         public void AncestorMemoTickInterval(ApprovalTracker approval)
         {
-            // TODO: Uh!? You always call it on interval, and only on interval?
-            this.ttl -= AncestorUtils.TicksPerInterval;
-
-            if (!this.Finalized && this.ttl < this.omenTicks)
+            if (!this.Finalized && this.omenFireTick <= Find.TickManager.TicksGame)
             {
                 this.FinalizeAndSendLetter(approval);
             }
-            else if (this.ttl <= 0)
+            else if (this.memoFireTick <= Find.TickManager.TicksGame)
             {
                 this.FireAncestorMemo(approval);
                 this.completed = true;
@@ -117,8 +114,8 @@ namespace MTW_AncestorSpirits
 
         public void ExposeData()
         {
-            Scribe_Values.LookValue<int>(ref this.ttl, "ttl", AncestorMemoTimer.TicksBetween);
-            Scribe_Values.LookValue<int>(ref this.omenTicks, "omenTicks", OmenTicksRange.min);
+            Scribe_Values.LookValue<int>(ref this.memoFireTick, "ttl", AncestorMemoTimer.TicksBetween);
+            Scribe_Values.LookValue<int>(ref this.omenFireTick, "omenTicks", PostOmenDelayRange.min);
             Scribe_Values.LookValue<MemoType>(ref this.type, "type", MemoType.undecided);
             Scribe_Values.LookValue<MemoCause>(ref this.cause, "cause", MemoCause.timer);
             Scribe_Values.LookValue<bool>(ref this.finalized, "finalized", false);
