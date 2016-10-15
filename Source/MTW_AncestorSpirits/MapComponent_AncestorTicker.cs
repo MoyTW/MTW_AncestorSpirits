@@ -210,9 +210,20 @@ namespace MTW_AncestorSpirits
         }
 
         // Kinda messy. Should work out how you want state of visitors to be handled.
-        public void Notify_ShouldDespawn(Pawn ancestor)
+        public void Notify_ShouldDespawn(Pawn ancestor, AncestorLeftCondition reason)
         {
-            this.DespawnVisitor(ancestor);
+            if (ancestor != null)
+            {
+                ancestor.GetLord().Notify_PawnLost(ancestor, PawnLostCondition.Vanished);
+                ancestor.DeSpawn();
+                this.unspawnedAncestors.Add(ancestor);
+
+                if (reason == AncestorLeftCondition.AnchorDestroyed)
+                {
+                    var condition = Find.MapConditionManager.GetActiveCondition<MapCondition_AncestralVisit>();
+                    condition.Notify_DespawnedForAnchorDestruction(ancestor);
+                }
+            }
         }
 
         public void Notify_VisitEnded(AncestralVisitSummary summary)

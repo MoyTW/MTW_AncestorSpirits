@@ -48,6 +48,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AncestorLeftCondition.cs" />
     <Compile Include="AncestorUtils.cs" />
     <Compile Include="AncestorVisitScheduler.cs" />
     <Compile Include="ApprovalTracker.cs" />

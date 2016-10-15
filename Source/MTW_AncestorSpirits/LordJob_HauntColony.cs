@@ -65,7 +65,7 @@ namespace MTW_AncestorSpirits
             var pawns = this.lord.ownedPawns.ToList();
             for (int i = pawns.Count - 1; i >= 0; i--)
             {
-                ancestorTicker.Notify_ShouldDespawn(pawns[i]);
+                ancestorTicker.Notify_ShouldDespawn(pawns[i], AncestorLeftCondition.AnchorDestroyed);
             }
         }
 

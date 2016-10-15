@@ -104,6 +104,13 @@ namespace MTW_AncestorSpirits
             this.duration = 999999999;
         }
 
+        public void Notify_DespawnedForAnchorDestruction(Pawn ancestor)
+        {
+            var loss = ApprovalTracker.PawnApprovalForAnchorDestruction();
+            Log.Message(ancestor.Name + " returned due to Anchor destruction! Lost: " + loss);
+            this.visitInfoMap[ancestor.thingIDNumber].AddApproval(loss);
+        }
+
         private void PawnApprovalTickInterval(Pawn p)
         {
             float moodDelta = ApprovalTracker.PawnApprovalForInterval(p.needs.mood.CurInstantLevelPercentage);
