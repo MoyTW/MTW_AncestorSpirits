@@ -9,6 +9,7 @@ namespace MTW_AncestorSpirits
     {
         Undefined,
         AnchorDestroyed,
+        AnchorBlocked,
         LeftVoluntarily
     }
 }

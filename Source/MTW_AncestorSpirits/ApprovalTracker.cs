@@ -20,6 +20,7 @@ namespace MTW_AncestorSpirits
         public static readonly float NegIntervalMultiplier = AncestorUtils.DayValueToIntervalValue(MaxLossPerDayPerAncestor);
 
         public const float MaxLossAnchorDestroyed = -4;
+        public const float MaxLossAnchorBlocked = -3;
 
         // Shrine-based constants
         public static readonly float NoShrinesLossPerInterval = AncestorUtils.SeasonValueToIntervalValue(-8.0f);
@@ -77,6 +78,11 @@ namespace MTW_AncestorSpirits
         public static float PawnApprovalForAnchorDestruction()
         {
             return MaxLossAnchorDestroyed;
+        }
+
+        public static float PawnApprovalForAnchorBlocked()
+        {
+            return MaxLossAnchorBlocked;
         }
 
         public static float PawnApprovalForInterval(float moodPercent)

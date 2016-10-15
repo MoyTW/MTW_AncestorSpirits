@@ -223,6 +223,11 @@ namespace MTW_AncestorSpirits
                     var condition = Find.MapConditionManager.GetActiveCondition<MapCondition_AncestralVisit>();
                     condition.Notify_DespawnedForAnchorDestruction(ancestor);
                 }
+                else if (reason == AncestorLeftCondition.AnchorBlocked)
+                {
+                    var condition = Find.MapConditionManager.GetActiveCondition<MapCondition_AncestralVisit>();
+                    condition.Notify_DespawnedForAnchorBlocked(ancestor);
+                }
             }
         }
 

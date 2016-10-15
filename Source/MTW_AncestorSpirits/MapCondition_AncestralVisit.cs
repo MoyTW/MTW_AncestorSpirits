@@ -111,6 +111,13 @@ namespace MTW_AncestorSpirits
             this.visitInfoMap[ancestor.thingIDNumber].AddApproval(loss);
         }
 
+        public void Notify_DespawnedForAnchorBlocked(Pawn ancestor)
+        {
+            var loss = ApprovalTracker.PawnApprovalForAnchorBlocked();
+            Log.Message(ancestor.Name + " returned due to Anchor blocked on exit! Lost: " + loss);
+            this.visitInfoMap[ancestor.thingIDNumber].AddApproval(loss);
+        }
+
         private void PawnApprovalTickInterval(Pawn p)
         {
             float moodDelta = ApprovalTracker.PawnApprovalForInterval(p.needs.mood.CurInstantLevelPercentage);
