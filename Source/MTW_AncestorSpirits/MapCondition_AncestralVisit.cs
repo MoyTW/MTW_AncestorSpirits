@@ -47,12 +47,6 @@ namespace MTW_AncestorSpirits
             this.approvalDelta += delta;
         }
 
-        public void Notify_AnchorDestroyed(Pawn p)
-        {
-            this.wasForciblyReturned = true;
-            this.AddApproval(ApprovalTracker.PawnApprovalForAnchorDestruction());
-        }
-
         public virtual void ExposeData()
         {
 
@@ -128,20 +122,6 @@ namespace MTW_AncestorSpirits
 
             // Remove despawned visitors
             this.visitors = visitors.Where(p => p.Spawned).ToList();
-
-            var ancestorTicker = Find.Map.GetComponent<MapComponent_AncestorTicker>();
-            if (ancestorTicker.CurrentSpawner == null)
-            {
-                foreach (Pawn p in this.visitors)
-                {
-                    var pawnVisitInfo = this.visitInfoMap[p.thingIDNumber];
-                    if (!pawnVisitInfo.WasForciblyReturned)
-                    {
-                        pawnVisitInfo.Notify_AnchorDestroyed(p);
-                        ancestorTicker.Notify_ShouldDespawn(p);
-                    }
-                }
-            }
 
             if (this.visitors.Count == 0)
             {

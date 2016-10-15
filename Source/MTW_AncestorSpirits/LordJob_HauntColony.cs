@@ -59,18 +59,43 @@ namespace MTW_AncestorSpirits
             Scribe_Values.LookValue(ref this.duration, "duration");
         }
 
+        private void DespawnAllPawnsAndTerminate()
+        {
+            var ancestorTicker = Find.Map.GetComponent<MapComponent_AncestorTicker>();
+            var pawns = this.lord.ownedPawns.ToList();
+            for (int i = pawns.Count - 1; i >= 0; i--)
+            {
+                ancestorTicker.Notify_ShouldDespawn(pawns[i]);
+            }
+        }
+
         public override StateGraph CreateGraph()
         {
             StateGraph graph = new StateGraph();
             var hauntPointToil = new LordToil_Relax();
             graph.StartingToil = hauntPointToil;
 
+            // Return to Anchor
             LordToil returnAnchorToil = new LordToil_ReturnAnchor();
             graph.lordToils.Add(returnAnchorToil);
             Transition t1 = new Transition(hauntPointToil, returnAnchorToil);
             t1.triggers.Add(new Trigger_TicksPassed(this.duration));
             t1.preActions.Add(new TransitionAction_Message("Your Ancestors are leaving!"));
             graph.transitions.Add(t1);
+
+            // Link ALL nodes to Exit if Anchor Destroyed
+            LordToil endToil = new LordToil_End();
+            graph.lordToils.Add(endToil);
+            var ancestorTicker = Find.Map.GetComponent<MapComponent_AncestorTicker>();
+            foreach (var toil in graph.lordToils.Where(t => t != endToil))
+            {
+                Transition endTransition = new Transition(toil, endToil);
+                endTransition.triggers.Add(new Trigger_TickCondition(() => ancestorTicker.CurrentSpawner == null));
+                endTransition.preActions.Add(new TransitionAction_Message(
+                    "The Anchor has been destroyed! Your Ancestors will be torn from the mortal plane! They won't forget this!"));
+                endTransition.preActions.Add(new TransitionAction_Custom(this.DespawnAllPawnsAndTerminate));
+                graph.transitions.Add(endTransition);
+            }
 
             return graph;
             /* wowee thar's a doozy
