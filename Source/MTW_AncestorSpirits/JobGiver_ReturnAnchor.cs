@@ -34,6 +34,7 @@ namespace MTW_AncestorSpirits
                 var ticker = Find.Map.GetComponent<MapComponent_AncestorTicker>();
                 ticker.Notify_ShouldDespawn(pawn, AncestorLeftCondition.AnchorBlocked);
             }
+            path.Dispose();
 
             Find.PawnDestinationManager.ReserveDestinationFor(pawn, anchorCell);
             return new Job(DefDatabase<JobDef>.GetNamed("MTW_ReturnAnchor"), spawner);

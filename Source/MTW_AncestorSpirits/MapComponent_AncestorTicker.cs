@@ -214,9 +214,7 @@ namespace MTW_AncestorSpirits
         {
             if (ancestor != null)
             {
-                ancestor.GetLord().Notify_PawnLost(ancestor, PawnLostCondition.Vanished);
-                ancestor.DeSpawn();
-                this.unspawnedAncestors.Add(ancestor);
+                this.despawnBuffer.Add(ancestor);
 
                 if (reason == AncestorLeftCondition.AnchorDestroyed)
                 {
@@ -246,9 +244,9 @@ namespace MTW_AncestorSpirits
             if (!AncestorUtils.IsIntervalTick()) { return; }
             if (!this.initialized) { this.Initialize(); }
 
-            foreach (Pawn visitor in this.despawnBuffer)
+            for (int i = this.despawnBuffer.Count - 1; i >= 0; i--)
             {
-                this.DespawnVisitor(visitor);
+                this.DespawnVisitor(this.despawnBuffer[i]);
             }
 
             if (!this.visitSchedule.IsScheduledForCurrentSeason)

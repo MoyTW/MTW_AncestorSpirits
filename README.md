@@ -96,9 +96,9 @@ This mod is current very much a work-in-progress! It can be applied to in-progre
   + DONE Approval changes submitted when Ancestors conclude visit
   + DONE Delta events (gifts/punishments) occur only on conclusion of visit
   + DONE Magic still granted on season change
-+ Interruptions
-  + Ancestors vanish (huge approval hit) if shrine destroyed while visiting
-  + Ancestors will get super mad if they can't return to their anchor
++ DONE Interruptions
+  + DONE Ancestors vanish (huge approval hit) if shrine destroyed while visiting
+  + DONE Ancestors will get super mad if they can't return to their anchor
 + Behaviours
   + Ancestors will occasionally walk outside of colony
   + Berserk Ancestors don't throw exceptions for no attack action
