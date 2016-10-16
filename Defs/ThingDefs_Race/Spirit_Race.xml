@@ -52,8 +52,8 @@
     </statBases>
     <verbs></verbs>
     <race>
-      <thinkTreeMain>Humanlike</thinkTreeMain>
-      <thinkTreeConstant>HumanlikeConstant</thinkTreeConstant>
+      <thinkTreeMain>MTW_Ancestor</thinkTreeMain>
+      <thinkTreeConstant>MTW_AncestorConstant</thinkTreeConstant>
       <intelligence>Humanlike</intelligence>
       <lifeExpectancy>9999</lifeExpectancy>
       <leatherCommonalityFactor>0</leatherCommonalityFactor>      

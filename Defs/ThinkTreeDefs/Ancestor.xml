@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ThinkTrees>
+
+	<ThinkTreeDef>
+		<defName>MTW_Ancestor</defName>
+		<thinkRoot Class="ThinkNode_Priority">
+			<subNodes>
+        <!-- If we HAVE to keep lying down... (should never happen) -->
+				<li Class="ThinkNode_ConditionalMustKeepLyingDown">
+					<subNodes>
+            <!-- Get joy -->
+            <li Class="JobGiver_GetJoyInBed" />
+            
+            <!-- Keep lying down -->
+            <li Class="JobGiver_KeepLyingDown" />
+          </subNodes>
+        </li>
+      
+        <!-- These should never happen! -->
+        <li Class="ThinkNode_Subtree">
+          <treeDef>Downed</treeDef>
+        </li>
+				<li Class="ThinkNode_Subtree">
+					<treeDef>BurningResponse</treeDef>
+				</li>
+        
+        <!-- Critical breaks -->
+				<li Class="ThinkNode_Subtree">
+					<treeDef>MentalStateCritical</treeDef>
+				</li>
+        
+        <!-- Non-critical breaks -->
+        <li Class="ThinkNode_Subtree">
+          <treeDef>MentalStateNonCritical</treeDef>
+        </li>
+        
+        <!-- React to close melee threat -->
+				<li Class="JobGiver_ReactToCloseMeleeThreat" />
+        
+				<!-- Lord directives (high priority) -->
+        <li Class="ThinkNode_JoinVoluntarilyJoinableLord">
+          <dutyHook>HighPriority</dutyHook>
+          <subNodes>
+            <li Class="ThinkNode_Subtree">
+              <treeDef>LordDuty</treeDef>
+            </li>
+          </subNodes>
+        </li>
+
+        <!-- Behavior from traits -->
+        <!-- <li Class="ThinkNode_TraitBehaviors" /> -->
+        
+        <li Class="JobGiver_WanderAnywhere">
+          <maxDanger>Deadly</maxDanger>
+        </li>
+
+        <li Class="JobGiver_IdleError" />
+			</subNodes>
+		</thinkRoot>
+	</ThinkTreeDef>
+  
+	<ThinkTreeDef>
+		<defName>MTW_AncestorConstant</defName>
+		<thinkRoot Class="ThinkNode_Priority">
+			<subNodes>
+				<li Class="ThinkNode_ConditionalCanDoConstantThinkTreeJobNow">
+					<subNodes>
+            <!-- Flee explosion -->
+            <li Class="JobGiver_FleeExplosion" />
+        
+            <!-- Hostility response -->
+            <li Class="JobGiver_ConfigurableHostilityResponse" />
+            
+            <!-- Lord directives -->
+            <li Class="ThinkNode_Subtree">
+              <treeDef>LordDutyConstant</treeDef>
+            </li>
+					</subNodes>
+				</li>
+			</subNodes>
+		</thinkRoot>
+	</ThinkTreeDef>
+  
+</ThinkTrees>
