@@ -70,6 +70,7 @@
     <Compile Include="JobDriver_PetitionAncestors.cs" />
     <Compile Include="JobDriver_ReturnAnchor.cs" />
     <Compile Include="JobGiver_InspectColony.cs" />
+    <Compile Include="JobGiver_InspectOutsideOfColony.cs" />
     <Compile Include="JobGiver_ReturnAnchor.cs" />
     <Compile Include="JobGiver_Relax.cs" />
     <Compile Include="Job_PetitionAncestors.cs" />

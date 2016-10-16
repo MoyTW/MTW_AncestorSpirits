@@ -100,7 +100,7 @@ This mod is current very much a work-in-progress! It can be applied to in-progre
   + DONE Ancestors vanish (huge approval hit) if shrine destroyed while visiting
   + DONE Ancestors will get super mad if they can't return to their anchor
 + Behaviours
-  + Ancestors will occasionally walk outside of colony
+  + DONE Ancestors will occasionally walk outside of colony
   + Berserk Ancestors don't throw exceptions for no attack action
 
 ## Spritual Ancestors

@@ -13,7 +13,7 @@ namespace MTW_AncestorSpirits
     {
         public override float GetPriority(Pawn pawn)
         {
-            return 1f;
+            return Rand.Range(.95f, 1.05f);
         }
     }
 }

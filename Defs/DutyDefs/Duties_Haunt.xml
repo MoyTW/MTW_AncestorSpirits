@@ -11,6 +11,7 @@
           <subNodes>
             <li Class="MTW_AncestorSpirits.JobGiver_Relax"/>
             <li Class="MTW_AncestorSpirits.JobGiver_InspectColony"/>
+            <li Class="MTW_AncestorSpirits.JobGiver_InspectOutsideOfColony"/>
           </subNodes>
         </li>
       </subNodes>
