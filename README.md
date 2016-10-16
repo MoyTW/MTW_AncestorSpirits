@@ -88,7 +88,7 @@ This mod is current very much a work-in-progress! It can be applied to in-progre
 + DONE Instant Healing: Your colonists are instantly healed
 + DONE Ancestral Fury: Lightning strikes your foes
 
-## Hospitality-style visits
+## DONE Hospitality-style visits
 + DONE Ancestors spawn for "visits" instead of constantly
 + DONE Visit times semi-random; normalized to give same approval+/- over time
 + DONE Approval overhaul
@@ -99,9 +99,9 @@ This mod is current very much a work-in-progress! It can be applied to in-progre
 + DONE Interruptions
   + DONE Ancestors vanish (huge approval hit) if shrine destroyed while visiting
   + DONE Ancestors will get super mad if they can't return to their anchor
-+ Behaviours
++ DONE Behaviours
   + DONE Ancestors will occasionally walk outside of colony
-  + Berserk Ancestors don't throw exceptions for no attack action
+  + DONE Berserk Ancestors don't throw exceptions for no attack action)
 
 ## Spritual Ancestors
 + Ancestors are colored differently or transparent or something distinct
@@ -122,18 +122,25 @@ This mod is current very much a work-in-progress! It can be applied to in-progre
 ## Hospitality Compatibility
 
 # This Stuff Would Be Awesome, But Are Not In Scope Right Now
-+ Ancestor Actions
-  - Ancestors will hunt down and compliment/insult colonists
-  - Ensure Ancestors never do romantic actions?
-  - Ancestors will occasionally wander outside the colony
-+ Offerings
-  - Altar at which you can offer things to your Ancestors to boost Approval
-  - Requests from Ancestors that you have to fulfill, or lose Approval
-  - Specific Ancestors having likes/dislikes in terms of offerings
-+ Ancestor Events
-  - Ancestral visit: many Ancestors manifest for a period of time
-  - Quiet dead: Ancestors leave your colony for a period of time
-+ GODLARP
+## Mental Breaks
++ Major: Insult Spree
++ Major: Leave In Anger
++ Minor: Harass colonist
++ Minor: Targeted Insult
+
+## Behaviours
++ Ancestors will hunt down and compliment/insult colonists
+
+## Offerings
++ Altar at which you can offer things to your Ancestors to boost Approval
++ Requests from Ancestors that you have to fulfill, or lose Approval
++ Specific Ancestors having likes/dislikes in terms of offerings
+
+## Ancestor Events
++ Ancestral visit: many Ancestors manifest for a period of time
++ Quiet dead: Ancestors leave your colony for a period of time
+
+## GODLARP
 
 # Your Code Sucks
 + Stop checking against the literal string "Spirit" to see if you can Do X

@@ -25,14 +25,18 @@
 				</li>
         
         <!-- Critical breaks -->
+        <!-- TODO: Add in breaks!
 				<li Class="ThinkNode_Subtree">
 					<treeDef>MentalStateCritical</treeDef>
 				</li>
+        -->
         
         <!-- Non-critical breaks -->
+        <!-- TODO: Add in breaks!
         <li Class="ThinkNode_Subtree">
           <treeDef>MentalStateNonCritical</treeDef>
         </li>
+        -->
         
         <!-- React to close melee threat -->
 				<li Class="JobGiver_ReactToCloseMeleeThreat" />
