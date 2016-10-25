@@ -89,14 +89,12 @@ namespace MTW_AncestorSpirits
 
         private void FireAncestorMemo(ApprovalTracker approval)
         {
-            if (this.type == MemoType.positive)
-            {
-                this.TryForceIncident("ResourcePodCrash");
-            }
-            else
-            {
-                this.TryForceIncident("Flashstorm");
-            }
+            AncestorMemoDef memoDef;
+            DefDatabase<AncestorMemoDef>.AllDefsListForReading.Where(d => d.memoType == this.type).TryRandomElement(out memoDef);
+
+            var incidentParams = new IncidentParms();
+            incidentParams.forced = true;
+            memoDef.Worker.TryExecute(incidentParams);
         }
 
         public void AncestorMemoTickInterval(ApprovalTracker approval)
