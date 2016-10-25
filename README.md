@@ -103,14 +103,6 @@ This mod is current very much a work-in-progress! It can be applied to in-progre
   + DONE Ancestors will occasionally walk outside of colony
   + DONE Berserk Ancestors don't throw exceptions for no attack action)
 
-## Spritual Ancestors
-+ Ancestors are colored differently or transparent or something distinct
-+ Ancestors don't have nudist/clothing-based thoughts
-
-## Beginner Affordances
-+ Don't start timer on Shrines until after a certain time period has passed
-+ Possibly add in a tutorial message?
-
 ## Blessings/Punishments
 + Add blessings/punishments instead of cargo pods/flashstorm
 + Create Defs for Blessings/Punishments
@@ -118,6 +110,14 @@ This mod is current very much a work-in-progress! It can be applied to in-progre
   + Blight
   + Sickness (various)
   + Lightning strike
+
+## Spritual Ancestors
++ Ancestors are colored differently or transparent or something distinct
++ Ancestors don't have nudist/clothing-based thoughts
+
+## Beginner Affordances
++ Don't start timer on Shrines until after a certain time period has passed
++ Possibly add in a tutorial message?
 
 ## Hospitality Compatibility
 
