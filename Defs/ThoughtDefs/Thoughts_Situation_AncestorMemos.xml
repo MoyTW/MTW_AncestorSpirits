@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Thoughts>
+  
+  <ThoughtDef>
+    <defName>MTW_Bedeviled</defName>
+    <durationDays>4.5</durationDays>
+    <stages>
+      <li>
+        <label>bedeviled by ancestors</label>
+        <description>What did I do to deserve this punishment?</description>
+        <baseMoodEffect>-9</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>MTW_Disquieted</defName>
+    <durationDays>4.5</durationDays>
+    <stages>
+      <li>
+        <label>disquieted</label>
+        <description>Something is strange, but I can't put my finger on it.</description>
+        <baseMoodEffect>-3</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>MTW_Heartened</defName>
+    <durationDays>4.5</durationDays>
+    <stages>
+      <li>
+        <label>heartened</label>
+        <description>There's a reassuring feeling in the air.</description>
+        <baseMoodEffect>3</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>MTW_Encouraged</defName>
+    <durationDays>4.5</durationDays>
+    <stages>
+      <li>
+        <label>encouraged by ancestors</label>
+        <description>Our Ancestors have blessed me! I'm honored!</description>
+        <baseMoodEffect>3</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+</Thoughts>
