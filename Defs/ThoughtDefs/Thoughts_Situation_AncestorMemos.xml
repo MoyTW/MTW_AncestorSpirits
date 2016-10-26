@@ -8,7 +8,7 @@
       <li>
         <label>bedeviled by ancestors</label>
         <description>What did I do to deserve this punishment?</description>
-        <baseMoodEffect>-9</baseMoodEffect>
+        <baseMoodEffect>-15</baseMoodEffect>
       </li>
     </stages>
   </ThoughtDef>
@@ -44,7 +44,7 @@
       <li>
         <label>encouraged by ancestors</label>
         <description>Our Ancestors have blessed me! I'm honored!</description>
-        <baseMoodEffect>3</baseMoodEffect>
+        <baseMoodEffect>9</baseMoodEffect>
       </li>
     </stages>
   </ThoughtDef>

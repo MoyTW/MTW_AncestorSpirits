@@ -2,31 +2,47 @@
 <Defs>
 
   <MTW_AncestorSpirits.AncestorMemoDef>
-  <!--
-    <defName>MTW_MemoDisease</defName>
-    <label>plague</label>
-    <workerClass>IncidentWorker_Disease</workerClass>
-    <category>Disease</category>
-	  <diseaseIncident>Plague</diseaseIncident>
-    <diseaseVictimFractionRange>
-      <min>0.2</min>
-      <max>0.5</max>
-    </diseaseVictimFractionRange>-->
-    
-        <defName>MTW_PetitionLightningEnemies</defName>
-    <label>smite attackers</label>
-    <workerClass>IncidentWorker_MakeMapCondition</workerClass>
-    <mapCondition>MTW_LightningEnemies</mapCondition>
-    <letterLabel>Smite Attackers</letterLabel>
-    <letterText>Your Ancestors have heard your propitiations! They will call down lightning on your enemies!</letterText>
-    <letterType>Good</letterType>
-    <!-- Duration is ~30/45 minutes -->
-    <durationDays>
-      <min>0.02083</min>
-      <max>0.03125</max>
-    </durationDays>
-    
+    <defName>MTW_Disquiet</defName>
+    <label>disquiet</label>
+    <workerClass>MTW_AncestorSpirits.MemoWorker_GiveThoughtToAllColonists</workerClass>
+    <thoughtDef>MTW_Disquieted</thoughtDef>
+    <letterLabel>Ancestors Displeased</letterLabel>
+    <letterText>Your Ancestors are unhappy. An undefinable malaise settles over your colonists.</letterText>
+    <letterType>BadNonUrgent</letterType>
     <memoType>negative</memoType>
+  </MTW_AncestorSpirits.AncestorMemoDef>
+
+  <MTW_AncestorSpirits.AncestorMemoDef>
+    <defName>MTW_Bedevil</defName>
+    <label>bedevil</label>
+    <workerClass>MTW_AncestorSpirits.MemoWorker_GiveThoughtToOneColonist</workerClass>
+    <thoughtDef>MTW_Bedeviled</thoughtDef>
+    <letterLabel>Ancestors Displeased</letterLabel>
+    <letterText>Your Ancestors are unhappy. They have chosen to bedvil {0} as an example to the rest of your colony.</letterText>
+    <letterType>BadNonUrgent</letterType>
+    <memoType>negative</memoType>
+  </MTW_AncestorSpirits.AncestorMemoDef>
+
+  <MTW_AncestorSpirits.AncestorMemoDef>
+    <defName>MTW_Hearten</defName>
+    <label>hearten</label>
+    <workerClass>MTW_AncestorSpirits.MemoWorker_GiveThoughtToAllColonists</workerClass>
+    <thoughtDef>MTW_Heartened</thoughtDef>
+    <letterLabel>Ancestors Displeased</letterLabel>
+    <letterText>Your Ancestors are pleased. You colonists can feel this, and will step easier in the coming days.</letterText>
+    <letterType>Good</letterType>
+    <memoType>positive</memoType>
+  </MTW_AncestorSpirits.AncestorMemoDef>
+
+  <MTW_AncestorSpirits.AncestorMemoDef>
+    <defName>MTW_Encourage</defName>
+    <label>encourage</label>
+    <workerClass>MTW_AncestorSpirits.MemoWorker_GiveThoughtToOneColonist</workerClass>
+    <thoughtDef>MTW_Encouraged</thoughtDef>
+    <letterLabel>Ancestors Displeased</letterLabel>
+    <letterText>Your Ancestors are pleased. They have chosen to encourage {0} as an example to the rest of your colony.</letterText>
+    <letterType>Good</letterType>
+    <memoType>positive</memoType>
   </MTW_AncestorSpirits.AncestorMemoDef>
 
 </Defs>
