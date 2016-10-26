@@ -22,6 +22,8 @@ namespace MTW_AncestorSpirits
                 p.needs.mood.thoughts.memories.TryGainMemoryThought(thought);
             }
 
+            Find.LetterStack.ReceiveLetter(this.def.letterLabel, this.def.letterText, this.def.letterType);
+
             return true;
         }
     }

@@ -91,6 +91,11 @@ namespace MTW_AncestorSpirits
         {
             AncestorMemoDef memoDef;
             DefDatabase<AncestorMemoDef>.AllDefsListForReading.Where(d => d.memoType == this.type).TryRandomElement(out memoDef);
+            if (memoDef == null)
+            {
+                Log.Message("Could not fire memo, due to memoDef being null!");
+                return;
+            }
 
             var incidentParams = new IncidentParms();
             incidentParams.forced = true;

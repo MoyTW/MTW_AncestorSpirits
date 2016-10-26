@@ -22,9 +22,16 @@ namespace MTW_AncestorSpirits
                 var thoughtDef = DefDatabase<ThoughtDef>.GetNamed(memoDef.thoughtDef);
                 var thought = (Thought_Memory)ThoughtMaker.MakeThought(thoughtDef);
                 target.needs.mood.thoughts.memories.TryGainMemoryThought(thought);
-            }
 
-            return true;
+                var letterText = String.Format(this.def.letterText, target.LabelShort);
+                Find.LetterStack.ReceiveLetter(this.def.letterLabel, letterText, this.def.letterType);
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
