@@ -16,6 +16,7 @@ namespace MTW_AncestorSpirits
         public override bool TryExecute(IncidentParms parms)
         {
             var colonistsOutside = Find.MapPawns.FreeColonistsSpawned
+                .Where(p => !p.RaceProps.Animal)
                 .Where(p => !p.Position.Roofed() && !p.Downed)
                 .ToList();
             if (colonistsOutside.Count == 0) { return false; }
