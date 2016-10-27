@@ -47,12 +47,23 @@
   </MTW_AncestorSpirits.AncestorMemoDef>
 
   <!-- Crops and Animals -->
-    <MTW_AncestorSpirits.AncestorMemoDef>
+  <MTW_AncestorSpirits.AncestorMemoDef>
     <defName>MTW_SingleCropBlight</defName>
     <label>single crop blight</label>
     <workerClass>MTW_AncestorSpirits.MemoWorker_SingleCropBlight</workerClass>
     <letterLabel>Ancestral Curse</letterLabel>
     <letterText>Your Ancestors are displeased. As a demonstration of their displeasure, they have chosen to blight your {0} crop.</letterText>
+    <letterType>BadNonUrgent</letterType>
+    <memoType>negative</memoType>
+  </MTW_AncestorSpirits.AncestorMemoDef>
+
+  <!-- Weather -->
+  <MTW_AncestorSpirits.AncestorMemoDef>
+    <defName>MTW_SinglePawnLightning</defName>
+    <label>single colonist blight</label>
+    <workerClass>MTW_AncestorSpirits.MemoWorker_SinglePawnLightning</workerClass>
+    <letterLabel>Ancestral Rebuke</letterLabel>
+    <letterText>Your Ancestors are not impressed with your actions. Heed this small demonstration of their power.</letterText>
     <letterType>BadNonUrgent</letterType>
     <memoType>negative</memoType>
   </MTW_AncestorSpirits.AncestorMemoDef>
