@@ -59,9 +59,9 @@
 
   <!-- Weather -->
   <MTW_AncestorSpirits.AncestorMemoDef>
-    <defName>MTW_SinglePawnLightning</defName>
+    <defName>MTW_SingleColonistLightning</defName>
     <label>single colonist blight</label>
-    <workerClass>MTW_AncestorSpirits.MemoWorker_SinglePawnLightning</workerClass>
+    <workerClass>MTW_AncestorSpirits.MemoWorker_SingleColonistLightning</workerClass>
     <letterLabel>Ancestral Rebuke</letterLabel>
     <letterText>Your Ancestors are not impressed with your actions. Heed this small demonstration of their power.</letterText>
     <letterType>BadNonUrgent</letterType>

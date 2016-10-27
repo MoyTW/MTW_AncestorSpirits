@@ -9,7 +9,7 @@ using System.Text;
 
 namespace MTW_AncestorSpirits
 {
-    class MemoWorker_SinglePawnLightning : IncidentWorker
+    class MemoWorker_SingleColonistLightning : IncidentWorker
     {
         private static readonly IntRange radiusRange = new IntRange(1, 2);
 
@@ -48,7 +48,7 @@ namespace MTW_AncestorSpirits
                     fireAttempts++;
                 }
             }
-            
+
             if (hasFired)
             {
                 Find.LetterStack.ReceiveLetter(this.def.letterLabel, this.def.letterText, this.def.letterType);

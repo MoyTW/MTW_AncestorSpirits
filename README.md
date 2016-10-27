@@ -111,7 +111,7 @@ This mod is current very much a work-in-progress! It can be applied to in-progre
   + DONE Large mood penalty for single
   + DONE Minor blight
   + Single-pawn sickness
-  + Single-pawn lightning strike
+  + DONE Single-pawn lightning strike
 + Blessings/Punishments
   + DONE Small mood bonus for all
   + DONE Large mood bonus for single
