@@ -90,8 +90,14 @@ namespace MTW_AncestorSpirits
         private void FireAncestorMemo(ApprovalTracker approval)
         {
             var appropriateMemoDefs = new List<AncestorMemoDef>(DefDatabase<AncestorMemoDef>.AllDefsListForReading.Where(d => d.memoType == this.type));
+            if (appropriateMemoDefs.Count == 0)
+            {
+                Log.Error("No valid Memo Defs of type " + this.type + "!");
+                return;
+            }
 
-            while (appropriateMemoDefs.Count > 0)
+            bool hasFired = false;
+            while (!hasFired && appropriateMemoDefs.Count > 0)
             {
                 AncestorMemoDef memoDef = appropriateMemoDefs.RandomElement();
                 appropriateMemoDefs.Remove(memoDef);
@@ -100,8 +106,13 @@ namespace MTW_AncestorSpirits
                 incidentParams.forced = true;
                 if (memoDef.Worker.TryExecute(incidentParams))
                 {
-                    break;
+                    hasFired = true;
                 }
+            }
+
+            if (!hasFired)
+            {
+                Log.Error("Despite valid Memo Defs existing for type " + this.type + " no memo fired!");
             }
         }
 
