@@ -104,24 +104,35 @@ This mod is current very much a work-in-progress! It can be applied to in-progre
   + DONE Berserk Ancestors don't throw exceptions for no attack action)
 
 ## Blessings/Punishments
-+ Add blessings/punishments instead of cargo pods/flashstorm
-+ Create Defs for Blessings/Punishments
++ DONE Add blessings/punishments instead of cargo pods/flashstorm
++ DONE Create Defs structure for Blessings/Punishments
 + Punishments
-  + Blight
-  + Sickness (various)
-  + Lightning strike
-
-## Spritual Ancestors
-+ Ancestors are colored differently or transparent or something distinct
-+ Ancestors don't have nudist/clothing-based thoughts
+  + DONE Small mood penalty for all
+  + DONE Large mood penalty for single
+  + Minor blight
+  + Single-pawn sickness
+  + Single-pawn lightning strike
++ Blessings/Punishments
+  + DONE Small mood bonus for all
+  + DONE Large mood bonus for single
+  + Minor crop blessing
+  + Pregnant (expensive) animal (if easily implementable)
+  + Single-pawn healing
 
 ## Beginner Affordances
 + Don't start timer on Shrines until after a certain time period has passed
 + Possibly add in a tutorial message?
 
+## Misc Pre-Release Stuff
++ Ancestors don't have nudist/clothing-based thoughts
+
 ## Hospitality Compatibility
 
 # This Stuff Would Be Awesome, But Are Not In Scope Right Now
+## Visuals
++ Ancestors are colored differently or transparent or something distinct
++ Ancestors have (invincible, non-spawnable) clothes
+
 ## Mental Breaks
 + Major: Insult Spree
 + Major: Leave In Anger
