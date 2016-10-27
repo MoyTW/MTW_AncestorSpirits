@@ -48,6 +48,16 @@
 
   <!-- Crops and Animals -->
   <MTW_AncestorSpirits.AncestorMemoDef>
+    <defName>MTW_PregnantAnimal</defName>
+    <label>pregnant animal</label>
+    <workerClass>MTW_AncestorSpirits.MemoWorker_PregnantAnimal</workerClass>
+    <letterLabel>Ancestral Blessing</letterLabel>
+    <letterText>Your Ancestors are pleased. As a demonstration of their benificnece, they have gifted {0} the {1} with a baby!</letterText>
+    <letterType>Good</letterType>
+    <memoType>positive</memoType>
+  </MTW_AncestorSpirits.AncestorMemoDef>
+
+  <MTW_AncestorSpirits.AncestorMemoDef>
     <defName>MTW_SingleCropBlight</defName>
     <label>single crop blight</label>
     <workerClass>MTW_AncestorSpirits.MemoWorker_SingleCropBlight</workerClass>

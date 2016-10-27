@@ -116,7 +116,7 @@ This mod is current very much a work-in-progress! It can be applied to in-progre
   + DONE Small mood bonus for all
   + DONE Large mood bonus for single
   + Minor crop blessing
-  + Pregnant (expensive) animal (if easily implementable)
+  + DONE Pregnant (expensive) animal (if easily implementable)
   + Single-pawn healing
 
 ## Beginner Affordances

@@ -83,6 +83,7 @@
     <Compile Include="MapCondition_CropsBlessed.cs" />
     <Compile Include="MemoWorker_GiveThoughtToAllColonists.cs" />
     <Compile Include="MemoWorker_GiveThoughtToOneColonist.cs" />
+    <Compile Include="MemoWorker_PregnantAnimal.cs" />
     <Compile Include="MemoWorker_SingleCropBlight.cs" />
     <Compile Include="MemoWorker_SingleColonistLightning.cs" />
     <Compile Include="PetitionDef.cs" />
