@@ -89,17 +89,31 @@ namespace MTW_AncestorSpirits
 
         private void FireAncestorMemo(ApprovalTracker approval)
         {
-            AncestorMemoDef memoDef;
-            DefDatabase<AncestorMemoDef>.AllDefsListForReading.Where(d => d.memoType == this.type).TryRandomElement(out memoDef);
-            if (memoDef == null)
-            {
-                Log.Message("Could not fire memo, due to memoDef being null!");
-                return;
-            }
+            bool hasFired = false;
+            int fireAttempts = 0;
 
-            var incidentParams = new IncidentParms();
-            incidentParams.forced = true;
-            memoDef.Worker.TryExecute(incidentParams);
+            // Instead of 10 times could do an iteration over all defs. Huh, actually...that'd work.
+            while (!hasFired && fireAttempts < 10)
+            {
+                AncestorMemoDef memoDef;
+                DefDatabase<AncestorMemoDef>.AllDefsListForReading.Where(d => d.memoType == this.type).TryRandomElement(out memoDef);
+                if (memoDef == null)
+                {
+                    Log.Message("Could not fire memo, due to memoDef being null!");
+                    return;
+                }
+
+                var incidentParams = new IncidentParms();
+                incidentParams.forced = true;
+                if (memoDef.Worker.TryExecute(incidentParams))
+                {
+                    hasFired = true;
+                }
+                else
+                {
+                    fireAttempts++;
+                }
+            }
         }
 
         public void AncestorMemoTickInterval(ApprovalTracker approval)
