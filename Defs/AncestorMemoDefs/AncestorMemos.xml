@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
+  <!-- Thought-based blessings/punishments -->
   <MTW_AncestorSpirits.AncestorMemoDef>
     <defName>MTW_Disquiet</defName>
     <label>disquiet</label>
@@ -28,7 +29,7 @@
     <label>hearten</label>
     <workerClass>MTW_AncestorSpirits.MemoWorker_GiveThoughtToAllColonists</workerClass>
     <thoughtDef>MTW_Heartened</thoughtDef>
-    <letterLabel>Ancestors Displeased</letterLabel>
+    <letterLabel>Ancestors Pleased</letterLabel>
     <letterText>Your Ancestors are pleased. You colonists can feel this, and will step easier in the coming days.</letterText>
     <letterType>Good</letterType>
     <memoType>positive</memoType>
@@ -39,10 +40,21 @@
     <label>encourage</label>
     <workerClass>MTW_AncestorSpirits.MemoWorker_GiveThoughtToOneColonist</workerClass>
     <thoughtDef>MTW_Encouraged</thoughtDef>
-    <letterLabel>Ancestors Displeased</letterLabel>
+    <letterLabel>Ancestors Pleased</letterLabel>
     <letterText>Your Ancestors are pleased. They have chosen to encourage {0} as an example to the rest of your colony.</letterText>
     <letterType>Good</letterType>
     <memoType>positive</memoType>
+  </MTW_AncestorSpirits.AncestorMemoDef>
+
+  <!-- Crops and Animals -->
+    <MTW_AncestorSpirits.AncestorMemoDef>
+    <defName>MTW_SingleCropBlight</defName>
+    <label>single crop blight</label>
+    <workerClass>MTW_AncestorSpirits.MemoWorker_SingleCropBlight</workerClass>
+    <letterLabel>Ancestral Curse</letterLabel>
+    <letterText>Your Ancestors are displeased. As a demonstration of their displeasure, they have chosen to blight your {0} crop.</letterText>
+    <letterType>BadNonUrgent</letterType>
+    <memoType>negative</memoType>
   </MTW_AncestorSpirits.AncestorMemoDef>
 
 </Defs>

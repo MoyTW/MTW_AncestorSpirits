@@ -83,6 +83,7 @@
     <Compile Include="MapCondition_CropsBlessed.cs" />
     <Compile Include="MemoWorker_GiveThoughtToAllColonists.cs" />
     <Compile Include="MemoWorker_GiveThoughtToOneColonist.cs" />
+    <Compile Include="MemoWorker_SingleCropBlight.cs" />
     <Compile Include="PetitionDef.cs" />
     <Compile Include="Injectors\MapComponentInjector.cs" />
     <Compile Include="MapComponent_AncestorTicker.cs" />
