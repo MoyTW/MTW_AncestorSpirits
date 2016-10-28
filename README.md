@@ -116,9 +116,9 @@ This mod is current very much a work-in-progress! It can be applied to in-progre
   + DONE Large mood bonus for single
   + DONE Pregnant (expensive) animal (if easily implementable)
 
-## Beginner Affordances
-+ Don't start timer on Shrines until after a certain time period has passed
-+ Possibly add in a tutorial message?
+## DONE Beginner Affordances
++ DONE Don't start timer on Shrines until after a certain time period has passed
++ DONE Possibly add in a tutorial message?
 
 ## Misc Pre-Release Stuff
 + Ancestors don't have nudist/clothing-based thoughts

@@ -23,6 +23,7 @@ namespace MTW_AncestorSpirits
         public const float MaxLossAnchorBlocked = -3;
 
         // Shrine-based constants
+        public static readonly int ShrineLossDelayTicks = AncestorUtils.DaysToTicks(7f);
         public static readonly float NoShrinesLossPerInterval = AncestorUtils.SeasonValueToIntervalValue(-8.0f);
         public static readonly float ManyShrinesLossPerInterval = AncestorUtils.SeasonValueToIntervalValue(-4.0f);
 
@@ -234,7 +235,11 @@ namespace MTW_AncestorSpirits
         public void ApprovalTrackerTickInterval(MapComponent_AncestorTicker ancestorDriver)
         {
             double approvalDelta = 0;
-            approvalDelta += this.CalcShrineApproval(ancestorDriver);
+
+            if (Find.TickManager.TicksGame > ShrineLossDelayTicks)
+            {
+                approvalDelta += this.CalcShrineApproval(ancestorDriver);
+            }
 
             this.UpdateHistory(approvalDelta);
 
