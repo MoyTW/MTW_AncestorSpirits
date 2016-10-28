@@ -121,7 +121,9 @@ This mod is current very much a work-in-progress! It can be applied to in-progre
 + DONE Possibly add in a tutorial message?
 
 ## Misc Pre-Release Stuff
-+ Ancestors don't have nudist/clothing-based thoughts
++ DONE Ancestors don't have nudist/clothing-based thoughts
++ Weird ThinkTree exception on visits
++ Clean up logging
 
 ## Hospitality Compatibility
 

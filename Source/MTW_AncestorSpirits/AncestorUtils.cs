@@ -48,5 +48,10 @@ namespace MTW_AncestorSpirits
 
             return ticks - currentDayTicks - currentSeasonDayTicks;
         }
+
+        public static bool IsAncestor(Pawn p)
+        {
+            return p.def.defName == "Spirit";
+        }
     }
 }
