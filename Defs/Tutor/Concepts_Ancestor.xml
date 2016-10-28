@@ -25,4 +25,12 @@
     <helpText>In order to Petition your Ancestors, you will need to spend magic.\n\nThe amount of magic spent is equal to the number of attached and lit Braziers. Make sure you check before you start the Petition!\n\nYou can spend between double and half the listed magic price. The chance of success at half magic is slightly over half, and at double they will for sure grant your petition. Vary your spend depending on urgency, but overall you will probably have better long-term results by using less on more attempts.\n\nDon't worry about angering them with failed attempts - as long as you don't go insultingly low they won't mind.</helpText>
   </ConceptDef>
 
+  <ConceptDef>
+    <defName>MTW_AncestorVisit</defName>
+    <label>About Ancestral Visits</label>
+    <priority>50</priority>
+    <needsOpportunity>true</needsOpportunity>
+    <helpText>Every so often, your Ancestors will drop in to visit!\n\nThey don't need to eat or sleep, but they do get bored sometimes. Mostly they're here just to see the sights! Ugliness and disorder will anger them, but beautiful and rich surroundings will please them.\n\nWhen your Ancestors return to their Anchor, they will pass judgement on your village. If they're pleased, they will grant you more magic when the season turns. If they're not, you may even lose magic. If they're incredibly displeased you may suffer a curse, so ensure that this does not happen!</helpText>
+  </ConceptDef>
+
 </Defs>

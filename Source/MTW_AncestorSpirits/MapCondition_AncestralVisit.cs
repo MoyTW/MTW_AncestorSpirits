@@ -85,6 +85,9 @@ namespace MTW_AncestorSpirits
 
         public override void Init()
         {
+            var introDef = DefDatabase<ConceptDef>.GetNamed("MTW_AncestorVisit");
+            LessonAutoActivator.TeachOpportunity(introDef, OpportunityType.Important);
+
             var spawnController = Find.Map.GetComponent<MapComponent_AncestorTicker>();
             for (int i = 0; i < AncestorConstants.ANCESTORS_PER_VISIT; i++)
             {
