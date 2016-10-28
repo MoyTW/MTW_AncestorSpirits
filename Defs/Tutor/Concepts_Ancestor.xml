@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <ConceptDef>
+    <defName>MTW_AncestorShrineIntro</defName>
+    <label>Your Ancestors would like a word!</label>
+    <priority>50</priority>
+    <needsOpportunity>true</needsOpportunity>
+    <helpText>Welcome to the King of Rimworld Pass mod!\n\nThis mod adds Ancestral Spirits, who will visit your colony from time to time and can be petitioned for blessings. Beware angering them, or they can also call down some very unpleasent punishments.\n\nConstruct a Shrine Room, preferably with lavish and luxurious deocrations, and your Ancestors will drop in for a visit! Take care not to dally, or they'll grow cross with your lack of respect.</helpText>
+  </ConceptDef>
+
+  <ConceptDef>
+    <defName>MTW_AncestorShrineBuilt</defName>
+    <label>About the Shrine</label>
+    <priority>50</priority>
+    <needsOpportunity>true</needsOpportunity>
+    <helpText>The Shrine is your Ancestors' Anchor, from which they'll manifest to visit your colony and see how their descendants are getting on.\n\nYou should have one and only one Shrine in the colony, or your Ancestors will be very displeased!\n\nYou can check your current Magic count by selecting the Shrine, and can petition your Ancestors by selecting a pawn and right-clicking on it. A list of possible petitions will come up. To successfully petition your Ancestors you will have to attach Braziers to the Shrine, as well as have the required Magic.</helpText>
+  </ConceptDef>
+
+  <ConceptDef>
+    <defName>MTW_AncestorBrazierBuilt</defName>
+    <label>About Braziers and Petitions</label>
+    <priority>50</priority>
+    <needsOpportunity>true</needsOpportunity>
+    <helpText>In order to Petition your Ancestors, you will need to spend magic.\n\nThe amount of magic spent is equal to the number of attached and lit Braziers. Make sure you check before you start the Petition!\n\nYou can spend between double and half the listed magic price. The chance of success at half magic is slightly over half, and at double they will for sure grant your petition. Vary your spend depending on urgency, but overall you will probably have better long-term results by using less on more attempts.\n\nDon't worry about angering them with failed attempts - as long as you don't go insultingly low they won't mind.</helpText>
+  </ConceptDef>
+
+</Defs>

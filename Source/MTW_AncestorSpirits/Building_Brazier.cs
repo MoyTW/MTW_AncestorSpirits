@@ -39,6 +39,9 @@ namespace MTW_AncestorSpirits
 
         public override void SpawnSetup()
         {
+            var introDef = DefDatabase<ConceptDef>.GetNamed("MTW_AncestorBrazierBuilt");
+            LessonAutoActivator.TeachOpportunity(introDef, OpportunityType.Important);
+
             base.SpawnSetup();
             this.flickableComp = base.GetComp<CompFlickable>();
         }

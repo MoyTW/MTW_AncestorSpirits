@@ -30,6 +30,9 @@ namespace MTW_AncestorSpirits
 
         public override void SpawnSetup()
         {
+            var introDef = DefDatabase<ConceptDef>.GetNamed("MTW_AncestorShrineBuilt");
+            LessonAutoActivator.TeachOpportunity(introDef, OpportunityType.Important);
+
             base.SpawnSetup();
             this.facilitiesComp = base.GetComp<CompAffectedByFacilities>();
         }

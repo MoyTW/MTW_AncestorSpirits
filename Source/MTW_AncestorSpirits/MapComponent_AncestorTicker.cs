@@ -96,6 +96,9 @@ namespace MTW_AncestorSpirits
 
         private void Initialize()
         {
+            var introDef = DefDatabase<ConceptDef>.GetNamed("MTW_AncestorShrineIntro");
+            LessonAutoActivator.TeachOpportunity(introDef, OpportunityType.Important);
+
             while (this.unspawnedAncestors.Count() < AncestorConstants.MIN_ANCESTORS)
             {
                 this.unspawnedAncestors.Add(this.GenAncestor());
