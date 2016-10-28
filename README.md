@@ -122,7 +122,7 @@ This mod is current very much a work-in-progress! It can be applied to in-progre
 
 ## Misc Pre-Release Stuff
 + DONE Ancestors don't have nudist/clothing-based thoughts
-+ Weird ThinkTree exception on visits
++ DONE Weird ThinkTree exception on visits
 + Clean up logging
 
 ## Hospitality Compatibility

@@ -76,8 +76,14 @@
             <li Class="JobGiver_ConfigurableHostilityResponse" />
             
             <!-- Lord directives -->
-            <li Class="ThinkNode_Subtree">
-              <treeDef>LordDutyConstant</treeDef>
+            <li Class="ThinkNode_Priority">
+              <subNodes>
+                <li Class="ThinkNode_ConditionalHasLord">
+                  <subNodes>
+                    <li Class="ThinkNode_DutyConstant" />
+                  </subNodes>
+                </li>
+              </subNodes>
             </li>
 					</subNodes>
 				</li>
