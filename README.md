@@ -103,21 +103,18 @@ This mod is current very much a work-in-progress! It can be applied to in-progre
   + DONE Ancestors will occasionally walk outside of colony
   + DONE Berserk Ancestors don't throw exceptions for no attack action)
 
-## Blessings/Punishments
+## DONE Variable Blessings/Punishments
 + DONE Add blessings/punishments instead of cargo pods/flashstorm
 + DONE Create Defs structure for Blessings/Punishments
-+ Punishments
++ DONE Punishments
   + DONE Small mood penalty for all
   + DONE Large mood penalty for single
   + DONE Minor blight
-  + Single-pawn sickness
   + DONE Single-pawn lightning strike
-+ Blessings/Punishments
++ DONE Blessings
   + DONE Small mood bonus for all
   + DONE Large mood bonus for single
-  + Minor crop blessing
   + DONE Pregnant (expensive) animal (if easily implementable)
-  + Single-pawn healing
 
 ## Beginner Affordances
 + Don't start timer on Shrines until after a certain time period has passed
@@ -141,6 +138,13 @@ This mod is current very much a work-in-progress! It can be applied to in-progre
 
 ## Behaviours
 + Ancestors will hunt down and compliment/insult colonists
+
+## More Blessings 1
+  + Minor crop blessing
+  + Single-pawn healing
+
+## More Punishments 1
+  + Single-pawn sickness
 
 ## Offerings
 + Altar at which you can offer things to your Ancestors to boost Approval
