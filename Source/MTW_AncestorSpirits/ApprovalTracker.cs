@@ -70,9 +70,18 @@ namespace MTW_AncestorSpirits
 
         public void SubmitVisitSummary(AncestralVisitSummary summary)
         {
-            Log.Message("Summary: " + summary.ToString());
             double sumApprovals = summary.visitHistories.Sum(p => p.ApprovalDelta);
             this.UpdateHistory(sumApprovals);
+            if (sumApprovals > 0)
+            {
+                Messages.Message("Your Ancestors have concluded their visit. They were pleased.",
+                    MessageSound.Negative);
+            }
+            else
+            {
+                Messages.Message("Your Ancestors have concluded their visit. They were not impressed.",
+                    MessageSound.Negative);
+            }
         }
 
         // TODO: Scale the approval loss depending on other factors?
@@ -242,8 +251,6 @@ namespace MTW_AncestorSpirits
             }
 
             this.UpdateHistory(approvalDelta);
-
-            Log.Message("Approval: " + this.hourDeltaAcc.ToString());
         }
 
         public void ExposeData()

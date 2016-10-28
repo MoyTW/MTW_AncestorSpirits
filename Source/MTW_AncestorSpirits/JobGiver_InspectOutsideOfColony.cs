@@ -25,12 +25,11 @@ namespace MTW_AncestorSpirits
 
             if (justOutsideColony != null && Reachability.CanReach(pawn, justOutsideColony, PathEndMode.OnCell, Danger.Deadly))
             {
-                Log.Message("Inspecting outside at: " + justOutsideColony.ToString());
                 return new Job(JobDefOf.GotoWander, justOutsideColony);
             }
             else
             {
-                Log.Message("Cannot go outside! This should cause you Ancestors to be angered!");
+                // TODO: Ancestors angered if they cannot go outside
                 return null;
             }
         }

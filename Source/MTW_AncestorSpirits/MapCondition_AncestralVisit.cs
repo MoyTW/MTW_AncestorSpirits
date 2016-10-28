@@ -110,14 +110,12 @@ namespace MTW_AncestorSpirits
         public void Notify_DespawnedForAnchorDestruction(Pawn ancestor)
         {
             var loss = ApprovalTracker.PawnApprovalForAnchorDestruction();
-            Log.Message(ancestor.Name + " returned due to Anchor destruction! Lost: " + loss);
             this.visitInfoMap[ancestor.thingIDNumber].AddApproval(loss);
         }
 
         public void Notify_DespawnedForAnchorBlocked(Pawn ancestor)
         {
             var loss = ApprovalTracker.PawnApprovalForAnchorBlocked();
-            Log.Message(ancestor.Name + " returned due to Anchor blocked on exit! Lost: " + loss);
             this.visitInfoMap[ancestor.thingIDNumber].AddApproval(loss);
         }
 

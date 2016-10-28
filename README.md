@@ -120,10 +120,10 @@ This mod is current very much a work-in-progress! It can be applied to in-progre
 + DONE Don't start timer on Shrines until after a certain time period has passed
 + DONE Possibly add in a tutorial message?
 
-## Misc Pre-Release Stuff
+## DONE Misc Pre-Release Stuff
 + DONE Ancestors don't have nudist/clothing-based thoughts
 + DONE Weird ThinkTree exception on visits
-+ Clean up logging
++ DONE Clean up logging
 
 ## Hospitality Compatibility
 
@@ -140,6 +140,7 @@ This mod is current very much a work-in-progress! It can be applied to in-progre
 
 ## Behaviours
 + Ancestors will hunt down and compliment/insult colonists
++ Ancestors get angry if they can't go outside
 
 ## More Blessings 1
   + Minor crop blessing

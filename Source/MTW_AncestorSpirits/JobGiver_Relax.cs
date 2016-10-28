@@ -18,7 +18,7 @@ namespace MTW_AncestorSpirits
         {
             if (pawn.needs == null || pawn.needs.joy == null)
             {
-                Log.Message(pawn.NameStringShort + " needs no joy...");
+                Log.ErrorOnce(pawn.NameStringShort + " needs no joy...", 7392 + pawn.thingIDNumber);
                 return 0f;
             }
             float curLevel = pawn.needs.joy.CurLevel;
@@ -74,7 +74,7 @@ namespace MTW_AncestorSpirits
             List<JoyGiverDef> allDefsListForReading = DefDatabase<JoyGiverDef>.AllDefsListForReading;
             if (allDefsListForReading == null)
             {
-                Log.Message("AllDefsListForReading == null");
+                Log.ErrorOnce("AllDefsListForReading == null", 331093564);
                 return new List<JoyGiverDef>();
             }
             int i = 0;
