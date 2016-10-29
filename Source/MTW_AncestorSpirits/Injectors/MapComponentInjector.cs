@@ -1,16 +1,10 @@
-﻿using RimWorld;
-using Verse;
+﻿using Verse;
 using UnityEngine;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 
 
 namespace MTW_AncestorSpirits
-{   
+{
     // Copied from RT's Mad Skills    
     // This code is mostly borrowed from Pawn State Icons mod by Dan Sadler, which has open source and no license I could find, so...
     [StaticConstructorOnStartup]

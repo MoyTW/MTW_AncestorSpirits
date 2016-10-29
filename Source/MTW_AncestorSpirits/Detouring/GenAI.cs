@@ -1,11 +1,6 @@
 ﻿using RimWorld;
 using Verse;
 using Source = Verse.AI.GenAI;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Reflection;
 
 namespace MTW_AncestorSpirits.Detouring

@@ -1,11 +1,8 @@
-﻿using RimWorld;
-using Verse;
+﻿using Verse;
 
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Linq;
-using System.Text;
 
 namespace MTW_AncestorSpirits.Injectors
 {

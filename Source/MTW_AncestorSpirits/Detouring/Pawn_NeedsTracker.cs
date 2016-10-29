@@ -1,11 +1,7 @@
 ﻿using RimWorld;
 using Verse;
 using Source = RimWorld.Pawn_NeedsTracker;
-
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Reflection;
 
 namespace MTW_AncestorSpirits.Detouring

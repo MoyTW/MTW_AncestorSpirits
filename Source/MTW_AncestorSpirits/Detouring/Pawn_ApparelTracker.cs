@@ -1,11 +1,5 @@
-﻿using RimWorld;
-using Verse;
+﻿using Verse;
 using Source = RimWorld.Pawn_ApparelTracker;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Reflection;
 
 namespace MTW_AncestorSpirits.Detouring

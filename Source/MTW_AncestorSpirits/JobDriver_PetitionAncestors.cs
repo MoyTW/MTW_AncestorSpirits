@@ -1,11 +1,6 @@
-﻿using RimWorld;
-using Verse;
+﻿using Verse;
 using Verse.AI;
-
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace MTW_AncestorSpirits
 {
