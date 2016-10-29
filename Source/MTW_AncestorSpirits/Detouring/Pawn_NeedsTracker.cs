@@ -36,11 +36,11 @@ namespace MTW_AncestorSpirits.Detouring
                 return true;
             }
             */
-            if (nd == NeedDefOf.Rest && pawn.def.defName == "Spirit") // ADDED
+            if (nd == NeedDefOf.Rest && AncestorUtils.IsAncestor(pawn)) // ADDED
             {
                 return false;
             }
-            if ((nd == NeedDefOf.Joy || nd == defComfort || nd == defBeauty || nd == defSpace) && pawn.def.defName == "Spirit") // ADDED
+            if ((nd == NeedDefOf.Joy || nd == defComfort || nd == defBeauty || nd == defSpace) && AncestorUtils.IsAncestor(pawn)) // ADDED
             {
                 return true;
             }

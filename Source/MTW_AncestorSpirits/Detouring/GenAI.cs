@@ -15,7 +15,7 @@ namespace MTW_AncestorSpirits.Detouring
         [Detour(typeof(Source), bindingFlags = BindingFlags.Public | BindingFlags.Static)]
         public static bool CanBeArrested(this Pawn pawn)
         {
-            if (pawn.def.defName == "Spirit")
+            if (AncestorUtils.IsAncestor(pawn));
             {
                 return false;
             }

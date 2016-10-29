@@ -15,7 +15,7 @@ namespace MTW_AncestorSpirits
         protected override ThoughtState CurrentStateInternal(Pawn p)
         {
             // TODO: There's gotta be a better way of doin' this!
-            if (p.def.defName != "Spirit") { return ThoughtState.Inactive; }
+            if (!AncestorUtils.IsAncestor(p)) { return ThoughtState.Inactive; }
 
             var shrine = Find.Map.GetComponent<MapComponent_AncestorTicker>().CurrentSpawner;
             if (shrine == null) { return ThoughtState.Inactive; }
