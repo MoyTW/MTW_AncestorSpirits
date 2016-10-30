@@ -28,8 +28,8 @@ I'll make a more detailed writeup Sometime Later, when I iron out a lot of these
 
 This mod is current very much a work-in-progress! It can be applied to in-progress games, but don't use it on any saves you're not prepared to use.
 
-# Incompatibilities
-+ It is incompatible with the Hospitality mod. I intend to patch it to be compatible (see planned features section).
+# Compatibilities
++ This mod has a compatibility mod for Hospitality which can be found here: https://github.com/MoyTW/MTW_AncestorsHospitalityCompatibility
 
 # Planned Features
 
@@ -125,7 +125,7 @@ This mod is current very much a work-in-progress! It can be applied to in-progre
 + DONE Weird ThinkTree exception on visits
 + DONE Clean up logging
 
-## Hospitality Compatibility
+## DONE Hospitality Compatibility
 
 # This Stuff Would Be Awesome, But Are Not In Scope Right Now
 ## Visuals
