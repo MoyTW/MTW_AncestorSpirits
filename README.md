@@ -28,9 +28,22 @@ The Magic that you accumulate can be spent on Petitions. The amount of magic spe
 
 This mod is current very much a work-in-progress! It can be applied to in-progress games, but don't use it on any saves you're not prepared to use.
 
-# Compatibilities
+# Compatibility Information
 
-+ This mod has a compatibility mod for Hospitality which can be found here: https://github.com/MoyTW/MTW_AncestorsHospitalityCompatibility
+This mod should be safe to use with any mods which do not detour any of the same functions. The detours are listed below. If you discover an issue, please post in the thread here (https://ludeon.com/forums/index.php?topic=27186.0) so I can add it to the known conflicts.
+
+## Known Mod Conflicts
+
++ This mod conflicts with Hospitality. I've added a compatibility mod, which can be found here: https://github.com/MoyTW/MTW_AncestorsHospitalityCompatibility
+
+## Detours
+
+This mod detours the following functions, and will conflict with any mods that also detour them:
+
++ Verse.AI.GenAI.CanBeArrested
++ Verse.AI.Job.ExposeData
++ RimWorld.Pawn_ApparalTracker.get_PsychologicallyNude
++ RimWorld.Pawn_NeedsTracker.ShouldHaveNeed
 
 # Download
 
