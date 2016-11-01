@@ -1,165 +1,43 @@
 # Summary
 
-You Ancestors are watching you, and they are hard to impress. To ignore them would be foolish, though - they're the foundation of your tribal magic, and if they're displeased are more than capable of calling down storms, plagues, and divine punishments. If, on the other hand, you manage to honor and please your ancestors, they can gift you with Magic, which is the basis for all your Rituals - Rituals which can call rain or lightning, or heal sick or injured tribe members.
+![This Shrine is very fancy](https://github.com/MoyTW/MTW_AncestorSpirits/blob/master/About/Preview.png)
 
-Build a shrine room:
+You Ancestors are watching you, and they are hard to impress. To ignore them would be foolish, though - they're the foundation of your tribal magic, and if they're displeased are more than capable of calling down storms, plagues, and divine punishments. If, on the other hand, you manage to honor and please your ancestors, they can gift you with Magic, which is the basis for all your Petitions - Petitions which can call rain or lightning, or heal sick or injured tribe members.
 
-![It's a pretty dull room, this one is.](https://github.com/MoyTW/MTW_AncestorSpirits/blob/master/About/Images/ShrineRoom.jpg)
+![They aren't currently ghostly, but at some point, if I get around to it, they will be. I hate graphics-stuff though.](https://github.com/MoyTW/MTW_AncestorSpirits/blob/master/About/Images/RoomAndAncestorCard.jpg)
 
-Once you've established a Shrine, Ancestors will come visit:
+Every so often, your Ancestors will drop in to visit! They don't need to eat or sleep, but they do get bored sometimes. Mostly they're here just to see the sights! Ugliness and disorder will anger them, but beautiful and rich surroundings will please them. When your Ancestors return to their Anchor, they will pass judgement on your village. If they're pleased, they will grant you more magic when the season turns. If they're not, you may even lose magic. If they're incredibly displeased you may suffer a curse, so ensure that this does not happen!
 
-![I'll work on the naked thought. Also, they should be ghostly (see planned features).](https://github.com/MoyTW/MTW_AncestorSpirits/blob/master/About/Images/AncestorCard.jpg)
+![Some balance work needed.](https://github.com/MoyTW/MTW_AncestorSpirits/blob/master/About/Images/ChoosingPetitions.jpg)
 
-Ancestors are immune to basically everything, flames included! Samantha and Nanor are just fiiiine here (and if you find something that can kill them, tell me so I can fix that):
+The Magic that you accumulate can be spent on Petitions. The amount of magic spent is equal to the number of attached and lit Braziers (those are the buildings on the left/right of the Shrine). You can spend between double and half the listed magic price. The chance of success at half magic is slightly over half, and at double they will for sure grant your petition. Vary your spend depending on urgency, but overall you will probably have better long-term results by using less on more attempts.
 
-![Can tank a Doomsday rocket to the face and take no injures!](https://github.com/MoyTW/MTW_AncestorSpirits/blob/master/About/Images/AncestorFlames.jpg)
+# Current Petitions
 
-If the Ancestors are pleased, they'll give you Magic, which you can use for Rituals:
-
-![Some balance work needed.](https://github.com/MoyTW/MTW_AncestorSpirits/blob/master/About/Images/Petitions.jpg)
-
-The actual petitioning is pretty dull-looking at the moment though:
-
-![Maybe I should add a Petitioning skill? Maybe base it off Social? Probably just base it off Social.](https://github.com/MoyTW/MTW_AncestorSpirits/blob/master/About/Images/Petitioning.jpg)
-
-I'll make a more detailed writeup Sometime Later, when I iron out a lot of these issues and make it more friendly and full-featured and Officially Release It, but you can probably derive how most of it works from the features list.
++ smite attackers - call upon your Ancestors to destroy your attackers with lightning
++ beating rain - call upon your Ancestors to bring rain
++ howling wind - call upon your Ancestors to bring wind
++ sweltering heat - call upon your Ancestors to bring a heat wave
++ icy chill - call upon your Ancestors to bring a cold snap
++ help heal wounds - call upon your Ancestors to help your wounded warriors heal
++ help cure sickness - call upon your Ancestors to help banish sickness
++ bless crops - call upon your Ancestors to make your crops grow faster and survive ill conditions
++ cleanse the skies - call upon your Ancestors to blow away unnatural weather
 
 # Disclaimer
 
 This mod is current very much a work-in-progress! It can be applied to in-progress games, but don't use it on any saves you're not prepared to use.
 
 # Compatibilities
+
 + This mod has a compatibility mod for Hospitality which can be found here: https://github.com/MoyTW/MTW_AncestorsHospitalityCompatibility
 
-# Planned Features
+# Download
 
-## DONE Useless Ancestors
-+ DONE Ancestors will re-spawn if Shrine is destroyed
-+ DONE Ancestor pool is fixed
-+ DONE Ancestors have their own faction
-+ DONE Ancestors hang around the Shrine(s)
+See here: https://github.com/MoyTW/MTW_AncestorSpirits/releases/tag/v0.1b
 
-## DONE Picky Ancestors
-+ DONE Ancestors get very angry if you have two Shrines
-+ DONE Ancestors are very displeased if you have no Shrines
-+ DONE Approval score can increase or decrease
-+ DONE Semi-random events based on Approval level
-  + Flash Storm if Ancestors are angry
-  + Drop Pods (change this later) if Ancestors are pleased
-+ DONE Magic storage, based on Approval
-  + Magic is seasonal (KODP is the reference point here)
-  + Subtract from if the Ancestors are displeased
-  + Add to Magic if the Ancestors are pleased
+At some future point I may put it on Steam, but I don't feel it's nearly done enough for that.
 
-## DONE Magical Ancestors
-+ DONE Basic weather rituals (use Magic)
-  + Rain
-  + Wind
-+ DONE Advanced weather rituals (use Magic)
-  + Warmth (heat wave)
-  + Cold (cold snap)
-  + End Strange Weather (cancel map conditions, clear weather)
-
-## DONE Joyful Ancestors
-+ DONE Ancestors have a Joy need
-+ DONE Ancestors will use Joy objects
-+ DONE Ancestors will not get stuck in a Joy-object using loop!
-
-## DONE Homebound Ancestors
-+ DONE Shrine building creates a "Shrine Room"
-+ DONE Ancestors get a happy/sad thought for the Shrine Room
-+ DONE Ancestors will get a sad thought if there is no Shrine Room
-+ DONE Ancestors will periodically return to their Anchor
-
-## DONE Invincible Ancestors
-+ DONE Spirits are invulnerable to everything
-+ DONE Ancestors cannot be arrested
-+ DONE Ancestors will persist between despawns and saves
-+ DONE Ancestors cannot be simply walled-in
-
-# Bonus Planned Features
-## DONE Variable-magic rituals
-+ DONE Rituals now have a failure chance (Ancestors are indifferent)
-+ DONE Rituals can be overbid/underbid to influence failure chances
-+ DONE Control magic bid by lighting attached altar buildings
-
-## DONE More Petitions 1
-+ DONE Crop Growth: Your crops grow really fast
-+ DONE Instant Healing: Your colonists are instantly healed
-+ DONE Ancestral Fury: Lightning strikes your foes
-
-## DONE Hospitality-style visits
-+ DONE Ancestors spawn for "visits" instead of constantly
-+ DONE Visit times semi-random; normalized to give same approval+/- over time
-+ DONE Approval overhaul
-  + DONE Approval tracked on a per-visit basis
-  + DONE Approval changes submitted when Ancestors conclude visit
-  + DONE Delta events (gifts/punishments) occur only on conclusion of visit
-  + DONE Magic still granted on season change
-+ DONE Interruptions
-  + DONE Ancestors vanish (huge approval hit) if shrine destroyed while visiting
-  + DONE Ancestors will get super mad if they can't return to their anchor
-+ DONE Behaviours
-  + DONE Ancestors will occasionally walk outside of colony
-  + DONE Berserk Ancestors don't throw exceptions for no attack action)
-
-## DONE Variable Blessings/Punishments
-+ DONE Add blessings/punishments instead of cargo pods/flashstorm
-+ DONE Create Defs structure for Blessings/Punishments
-+ DONE Punishments
-  + DONE Small mood penalty for all
-  + DONE Large mood penalty for single
-  + DONE Minor blight
-  + DONE Single-pawn lightning strike
-+ DONE Blessings
-  + DONE Small mood bonus for all
-  + DONE Large mood bonus for single
-  + DONE Pregnant (expensive) animal (if easily implementable)
-
-## DONE Beginner Affordances
-+ DONE Don't start timer on Shrines until after a certain time period has passed
-+ DONE Possibly add in a tutorial message?
-
-## DONE Misc Pre-Release Stuff
-+ DONE Ancestors don't have nudist/clothing-based thoughts
-+ DONE Weird ThinkTree exception on visits
-+ DONE Clean up logging
-
-## DONE Hospitality Compatibility
-
-# This Stuff Would Be Awesome, But Are Not In Scope Right Now
-## Visuals
-+ Ancestors are colored differently or transparent or something distinct
-+ Ancestors have (invincible, non-spawnable) clothes
-
-## Mental Breaks
-+ Major: Insult Spree
-+ Major: Leave In Anger
-+ Minor: Harass colonist
-+ Minor: Targeted Insult
-
-## Behaviours
-+ Ancestors will hunt down and compliment/insult colonists
-+ Ancestors get angry if they can't go outside
-
-## More Blessings 1
-  + Minor crop blessing
-  + Single-pawn healing
-
-## More Punishments 1
-  + Single-pawn sickness
-
-## Offerings
-+ Altar at which you can offer things to your Ancestors to boost Approval
-+ Requests from Ancestors that you have to fulfill, or lose Approval
-+ Specific Ancestors having likes/dislikes in terms of offerings
-
-## Ancestor Events
-+ Ancestral visit: many Ancestors manifest for a period of time
-+ Quiet dead: Ancestors leave your colony for a period of time
-
-## GODLARP
-
-# Your Code Sucks
-+ Stop checking against the literal string "Spirit" to see if you can Do X
-+ DONE Use Reflection to set the private weather ticker insteaed of...what you do
+# Thanks To
++ Ratsys (examples and injection code)
++ Orion (examples and code from Hospitality)

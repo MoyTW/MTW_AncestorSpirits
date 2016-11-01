@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Conflicts with:
-  Hospitality - Load Hospitality BEFORE this mod and I *think* it will work properly. I tested only at a surface level!
--->
 <ModMetaData>
 	<name>MTW_AncestorSpirits</name>
 	<author>MoyTW</author>
 	<targetVersion>0.15.1284</targetVersion>
-	<description>Adds in ancestral spirits who hang around and do...nothing much, really. Special thanks to Orion and Ratsys (injection code)</description>
+	<description>Adds the sometimes grumpy spirits of your Ancestors!</description>
 </ModMetaData>
