@@ -28,15 +28,26 @@ The Magic that you accumulate can be spent on Petitions. The amount of magic spe
 
 This mod is current very much a work-in-progress! It can be applied to in-progress games, but don't use it on any saves you're not prepared to use.
 
-# Compatibility Information
+# Installation Information
+
+Basic installation:
+- If there is an existing version of this mod, delete the old version
+- Download and unzip into the RimWorld/Mods folder
+- Activate the mod and restart RimWorld
+
+## Adding to existing saves
+
+*This mod adds a hidden Ancestor Faction!* This means that if you attempt to add it to an ongoing game, you must also have Orion's Faction Discovery mod (forums https://ludeon.com/forums/index.php?topic=25159.0 or steam http://steamcommunity.com/sharedfiles/filedetails/?id=751841890) or this mod will throw an error when loaded. Starting a new game does not require the Faction Discovery mod and will work fine.
+
+## Compatibility
 
 This mod should be safe to use with any mods which do not detour any of the same functions. The detours are listed below. If you discover an issue, please post in the thread here (https://ludeon.com/forums/index.php?topic=27186.0) so I can add it to the known conflicts.
 
-## Known Mod Conflicts
+### Known Mod Conflicts
 
 + This mod conflicts with Hospitality. I've added a compatibility mod, which can be found here: https://github.com/MoyTW/MTW_AncestorsHospitalityCompatibility
 
-## Detours
+### Detours
 
 This mod detours the following functions, and will conflict with any mods that also detour them:
 
