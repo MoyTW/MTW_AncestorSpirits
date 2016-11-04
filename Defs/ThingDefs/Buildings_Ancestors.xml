@@ -46,10 +46,6 @@
       </li>
     </comps>
     <size>(2,2)</size>
-    <costList>
-      <Cloth>80</Cloth>
-      <WoodLog>30</WoodLog>
-    </costList>
     <designationCategory>Misc</designationCategory>
     <tickerType>Rare</tickerType>
     <staticSunShadowHeight>0.20</staticSunShadowHeight>
