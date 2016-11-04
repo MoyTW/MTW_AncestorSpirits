@@ -45,6 +45,13 @@ namespace MTW_AncestorSpirits
             Find.MapConditionManager.RegisterCondition(cond);
         }
 
+        private void FireVisitNoAnchorButNewColony()
+        {
+            Messages.Message("Your Ancestors wanted to visit, but you have no Shrine!", MessageSound.Standard);
+            Messages.Message("Still, you only recently resettled, so they are willing to forgive you - this time.", 
+                MessageSound.Silent);
+        }
+
         private void FireVisitImpossibleWithoutAnchor()
         {
             Messages.Message("Your Ancestors wanted to visit, but you have no Shrine! They are very displeased.",
@@ -57,6 +64,10 @@ namespace MTW_AncestorSpirits
             if (Find.Map.GetComponent<MapComponent_AncestorTicker>().CurrentSpawner != null)
             {
                 this.FireVisit();
+            }
+            else if (Find.TickManager.TicksGame < AncestorVisitScheduler.BufferGameStartTicks)
+            {
+                this.FireVisitNoAnchorButNewColony();
             }
             else
             {
@@ -150,6 +161,7 @@ namespace MTW_AncestorSpirits
 
     public static class AncestorVisitScheduler
     {
+        public static readonly int BufferGameStartTicks = AncestorUtils.DaysToTicks(7);
         private static readonly IntRange numVisitorsRange = new IntRange(AncestorConstants.ANCESTORS_PER_VISIT, AncestorConstants.ANCESTORS_PER_VISIT);
         private static readonly IntRange numVisitsRange = new IntRange(2, 4);
 
