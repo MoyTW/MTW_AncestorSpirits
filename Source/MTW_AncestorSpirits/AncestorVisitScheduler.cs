@@ -92,7 +92,7 @@ namespace MTW_AncestorSpirits
             this.NextItinerary.FireVisit();
         }
 
-        public void DisabledAlreadyPassedVisits()
+        public void DisableAlreadyPassedVisits()
         {
             long ticksAbs = Find.TickManager.TicksAbs;
             foreach (var itinerary in this.allItineraries)
