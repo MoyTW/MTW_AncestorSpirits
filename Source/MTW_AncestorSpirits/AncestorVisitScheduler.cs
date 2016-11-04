@@ -38,11 +38,30 @@ namespace MTW_AncestorSpirits
                 (this.EndTickAbs + bufferBetweenVisits) >= otherItinerary.StartTickAbs;
         }
 
-        public void FireVisit()
+        private void FireVisit()
         {
             var visitConditionDef = DefDatabase<MapConditionDef>.GetNamed("MTW_AncestralVisit");
             MapCondition cond = MapConditionMaker.MakeCondition(visitConditionDef, this.DurationTicks, 0);
             Find.MapConditionManager.RegisterCondition(cond);
+        }
+
+        private void FireVisitImpossibleWithoutAnchor()
+        {
+            Messages.Message("Your Ancestors wanted to visit, but you have no Shrine! They are very displeased.",
+                MessageSound.Negative);
+            Find.Map.GetComponent<MapComponent_AncestorTicker>().Notify_VisitImpossibleWithoutAnchor();
+        }
+
+        public void TryFireVisit()
+        {
+            if (Find.Map.GetComponent<MapComponent_AncestorTicker>().CurrentSpawner != null)
+            {
+                this.FireVisit();
+            }
+            else
+            {
+                this.FireVisitImpossibleWithoutAnchor();
+            }
 
             this.HasFired = true;
         }
@@ -89,7 +108,7 @@ namespace MTW_AncestorSpirits
 
         private void FireNextItinerary()
         {
-            this.NextItinerary.FireVisit();
+            this.NextItinerary.TryFireVisit();
         }
 
         public void DisableAlreadyPassedVisits()

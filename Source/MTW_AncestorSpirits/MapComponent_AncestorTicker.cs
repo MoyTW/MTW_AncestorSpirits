@@ -229,6 +229,11 @@ namespace MTW_AncestorSpirits
             }
         }
 
+        public void Notify_VisitImpossibleWithoutAnchor()
+        {
+            this.approval.SumbitVisitImpossibleWithoutAnchor();
+        }
+
         public void Notify_VisitEnded(AncestralVisitSummary summary)
         {
             this.approval.SubmitVisitSummary(summary);

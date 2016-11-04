@@ -9,7 +9,7 @@ namespace MTW_AncestorSpirits
 {
     class ApprovalTracker : IExposable
     {
-        // Mood-based constants
+        // Visit-related constants
         public const float PercentMoodForPositive = .4f;
 
         public const float MaxGainPerDayPerAncestor = .5f;
@@ -18,8 +18,9 @@ namespace MTW_AncestorSpirits
         public const float MaxLossPerDayPerAncestor = -1.0f;
         public static readonly float NegIntervalMultiplier = AncestorUtils.DayValueToIntervalValue(MaxLossPerDayPerAncestor);
 
-        public const float MaxLossAnchorDestroyed = -4;
-        public const float MaxLossAnchorBlocked = -3;
+        public const float MaxLossVisitWithoutAnchor = -2.0f;
+        public const float MaxLossAnchorDestroyed = -4.0f;
+        public const float MaxLossAnchorBlocked = -3.0f;
 
         // Shrine-based constants
         public static readonly int ShrineLossDelayTicks = AncestorUtils.DaysToTicks(7f);
@@ -65,6 +66,11 @@ namespace MTW_AncestorSpirits
             this.hourOfDay = GenDate.HourOfDay;
             this.dayOfMonth = GenDate.DayOfMonth;
             this.season = GenDate.CurrentSeason;
+        }
+
+        public void SumbitVisitImpossibleWithoutAnchor()
+        {
+            this.UpdateHistory(MaxLossVisitWithoutAnchor);
         }
 
         public void SubmitVisitSummary(AncestralVisitSummary summary)
