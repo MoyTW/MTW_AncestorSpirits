@@ -1,3 +1,20 @@
+# Changelog
+
+## v0.1a
+
++ Initial release
+
+## v0.1b
+
++ Update README & Preview.png
+
+## v0.1c
+
++ Update README with compatibility, install info
++ Fix NPE for visits with no anchors
++ Add 7-day grace period for No-Shrine visit penalties
++ Remove extra Cloth & Wood costs for Shrine
+
 # Planned Features
 
 ## DONE Useless Ancestors
