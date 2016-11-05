@@ -13,7 +13,7 @@ namespace MTW_AncestorSpirits
             // rooms into the "Shrine Room" - is that a desired behaviour?
 
             var shrine = Find.Map.GetComponent<MapComponent_AncestorTicker>().CurrentSpawner;
-            if (room.AllContainedThings.Contains<Thing>(shrine))
+            if (shrine != null && room.AllContainedThings.Contains<Thing>(shrine))
             {
                 return 9999.0f;
             }
