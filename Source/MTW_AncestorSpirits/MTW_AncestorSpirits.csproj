@@ -55,6 +55,8 @@
     <Compile Include="ApprovalTracker.cs" />
     <Compile Include="Building_Brazier.cs" />
     <Compile Include="Building_Shrine.cs" />
+    <Compile Include="CompSpiritGraphics.cs" />
+    <Compile Include="CompProperties_SpiritGraphics.cs" />
     <Compile Include="Detouring\GenAI.cs" />
     <Compile Include="Detouring\Job.cs" />
     <Compile Include="Detouring\Pawn_ApparelTracker.cs" />

@@ -112,9 +112,8 @@
 ## DONE Hospitality Compatibility
 
 # This Stuff Would Be Awesome, But Are Not In Scope Right Now
-## Visuals
-+ Ancestors are colored differently or transparent or something distinct
-+ Ancestors have (invincible, non-spawnable) clothes
+## DONE Visuals
++ DONE Ancestors are colored differently or transparent or something distinct
 
 ## Mental Breaks
 + Major: Insult Spree

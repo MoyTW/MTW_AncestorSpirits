@@ -51,6 +51,9 @@
       <MentalBreakThreshold>0.06</MentalBreakThreshold>
     </statBases>
     <verbs></verbs>
+    <comps>
+      <li Class="MTW_AncestorSpirits.CompProperties_SpiritGraphics"></li>
+    </comps>
     <race>
       <thinkTreeMain>MTW_Ancestor</thinkTreeMain>
       <thinkTreeConstant>MTW_AncestorConstant</thinkTreeConstant>
