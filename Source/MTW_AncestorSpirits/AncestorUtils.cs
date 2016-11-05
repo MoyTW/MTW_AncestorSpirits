@@ -6,6 +6,8 @@ namespace MTW_AncestorSpirits
 {
     public static class AncestorUtils
     {
+        public static readonly Color spiritColor = new Color(0.95f, 0.87f, 0.93f, .2f);
+
         public const int TicksPerInterval = GenDate.TicksPerHour / 10;
         public const int IntervalsPerDay = GenDate.TicksPerDay / TicksPerInterval;
         public const int IntervalsPerSeason = GenDate.TicksPerSeason / TicksPerInterval;
@@ -47,6 +49,34 @@ namespace MTW_AncestorSpirits
         public static bool IsAncestor(Pawn p)
         {
             return p.def.defName == "Spirit";
+        }
+
+        public static bool SetAncestorGraphics(Pawn pawn)
+        {
+            if (pawn.Drawer == null || pawn.Drawer.renderer == null || pawn.Drawer.renderer.graphics == null)
+            {
+                return false;
+            }
+
+            if (!pawn.Drawer.renderer.graphics.AllResolved)
+            {
+                pawn.Drawer.renderer.graphics.ResolveAllGraphics();
+            }
+
+            if (pawn.Drawer.renderer.graphics.headGraphic == null ||
+                pawn.Drawer.renderer.graphics.nakedGraphic == null ||
+                pawn.Drawer.renderer.graphics.headGraphic.path == null ||
+                pawn.Drawer.renderer.graphics.nakedGraphic.path == null)
+            {
+                return false;
+            }
+
+            Graphic nakedBodyGraphic = GraphicGetter_NakedHumanlike.GetNakedBodyGraphic(pawn.story.BodyType, ShaderDatabase.CutoutSkin, AncestorUtils.spiritColor);
+            Graphic headGraphic = GraphicDatabase.Get<Graphic_Multi>(pawn.story.HeadGraphicPath, ShaderDatabase.CutoutSkin, Vector2.one, AncestorUtils.spiritColor);
+            pawn.Drawer.renderer.graphics.headGraphic = headGraphic;
+            pawn.Drawer.renderer.graphics.nakedGraphic = nakedBodyGraphic;
+
+            return true;
         }
     }
 }
