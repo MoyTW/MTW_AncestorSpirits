@@ -15,10 +15,6 @@
       <ComfyTemperatureMax>9999</ComfyTemperatureMax>
       <Flammability>0.0</Flammability>
       <ToxicSensitivity>0.0</ToxicSensitivity>
-      <ArmorRating_Blunt>99999999.0</ArmorRating_Blunt>
-      <ArmorRating_Sharp>99999999.0</ArmorRating_Sharp>
-      <ArmorRating_Heat>99999999.0</ArmorRating_Heat>
-      <ArmorRating_Electric>99999999.0</ArmorRating_Electric>
     </statBases>
     <race>
       <foodType>None</foodType>
@@ -53,6 +49,7 @@
     <verbs></verbs>
     <comps>
       <li Class="MTW_AncestorSpirits.CompProperties_SpiritGraphics"></li>
+      <li Class="MTW_AncestorSpirits.CompProperties_ImmuneToDamage"></li>
     </comps>
     <race>
       <thinkTreeMain>MTW_Ancestor</thinkTreeMain>
