@@ -15,6 +15,12 @@
 + Add 7-day grace period for No-Shrine visit penalties
 + Remove extra Cloth & Wood costs for Shrine
 
+## v0.1d
+
++ Make Ancestors look ghostly
++ Make Ancestors completely immune to all forms of attack
++ Disable Ancestor reactions to melee attackers
+
 # Planned Features
 
 ## DONE Useless Ancestors
