@@ -38,8 +38,8 @@
         </li>
         -->
         
-        <!-- React to close melee threat -->
-				<li Class="JobGiver_ReactToCloseMeleeThreat" />
+        <!-- Fix this so Ancestors will insult attackers! -->
+				<!-- <li Class="JobGiver_ReactToCloseMeleeThreat" /> -->
         
 				<!-- Lord directives (high priority) -->
         <li Class="ThinkNode_JoinVoluntarilyJoinableLord">
