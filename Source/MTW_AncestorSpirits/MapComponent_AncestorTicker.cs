@@ -139,7 +139,11 @@ namespace MTW_AncestorSpirits
         {
             if (visitor != null)
             {
-                visitor.GetLord().Notify_PawnLost(visitor, PawnLostCondition.Vanished);
+                var lord = visitor.GetLord();
+                if (lord != null)
+                {
+                    lord.Notify_PawnLost(visitor, PawnLostCondition.Vanished);
+                }
                 visitor.DeSpawn();
                 if (this.despawnBuffer.Contains(visitor))
                 {
