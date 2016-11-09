@@ -36,7 +36,7 @@ namespace MTW_AncestorSpirits.Detouring
             {
                 return false;
             }
-            if ((nd == NeedDefOf.Joy || nd == defComfort || nd == defBeauty || nd == defSpace) && AncestorUtils.IsAncestor(pawn)) // ADDED
+            if ((nd == NeedDefOf.Joy || nd == defBeauty || nd == defSpace) && AncestorUtils.IsAncestor(pawn)) // ADDED
             {
                 return true;
             }
