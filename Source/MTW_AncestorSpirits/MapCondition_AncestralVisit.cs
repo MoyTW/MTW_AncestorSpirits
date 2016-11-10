@@ -12,32 +12,76 @@ namespace MTW_AncestorSpirits
         // TODO: Add noteworthy thoughts/reactions here.
         private string pawnString;
         private double approvalDelta;
+        private float estDurationDays;
         private bool wasForciblyReturned = false;
 
         public string PawnString { get { return this.pawnString; } }
         public double ApprovalDelta { get { return this.approvalDelta; } }
         public bool WasForciblyReturned { get { return this.wasForciblyReturned; } }
+        public float MaxGain { get { return ApprovalTracker.MaxGainPerDayPerAncestor * this.estDurationDays; } }
+        public float MaxLoss { get { return ApprovalTracker.MaxLossPerDayPerAncestor * this.estDurationDays; } }
+        // TODO: Bigods this is silly!
         public string MoodSummary
         {
             get
             {
-                if (this.approvalDelta > 0)
+                if (this.approvalDelta > .75f * this.MaxGain)
                 {
-                    return "Positive! :)";
+                    return "impossibly pleased";
                 }
-                else
+                else if (this.approvalDelta > .5f * this.MaxGain)
                 {
-                    return "Negative. :(";
+                    return "extremely pleased";
+                }
+                else if (this.approvalDelta > .25f * this.MaxGain)
+                {
+                    return "quite pleased";
+                }
+                else if (this.approvalDelta > .15f * this.MaxGain)
+                {
+                    return "moderately pleased";
+                }
+                else if (this.approvalDelta > .05f * this.MaxGain)
+                {
+                    return "somewhat pleased";
+                }
+                else if (this.approvalDelta > .05f * this.MaxLoss)
+                {
+                    return "mostly indifferent";
+                }
+                else if (this.approvalDelta > .15f * this.MaxLoss)
+                {
+                    return "somewhat displeased";
+                }
+                else if (this.approvalDelta > .25f * this.MaxLoss)
+                {
+                    return "moderately displeased";
+                }
+                else if (this.approvalDelta > .5f * this.MaxLoss)
+                {
+                    return "quite displeased";
+                }
+                else if (this.approvalDelta > .75f * this.MaxLoss)
+                {
+                    return "extremely displeased";
+                }
+                else if (this.approvalDelta > this.MaxLoss)
+                {
+                    return "impossibly displeased";
+                }
+                {
+                    return "unsure of how to feel";
                 }
             }
         }
 
         public PawnVisitInfo() { }
 
-        public PawnVisitInfo(Pawn p)
+        public PawnVisitInfo(Pawn p, float estDurationDays)
         {
             this.pawnString = p.ToString();
             this.approvalDelta = 0;
+            this.estDurationDays = estDurationDays;
         }
 
         public void AddApproval(double delta)
@@ -50,6 +94,7 @@ namespace MTW_AncestorSpirits
 
             Scribe_Values.LookValue<string>(ref this.pawnString, "pawnString");
             Scribe_Values.LookValue<double>(ref this.approvalDelta, "approvalDelta");
+            Scribe_Values.LookValue<float>(ref this.estDurationDays, "estDurationDays");
             Scribe_Values.LookValue<bool>(ref this.wasForciblyReturned, "wasForciblyReturned");
         }
     }
@@ -78,11 +123,16 @@ namespace MTW_AncestorSpirits
 
     class MapCondition_AncestralVisit : MapCondition
     {
+        private float estDurationDays;
         private List<Pawn> visitors = new List<Pawn>();
         private Dictionary<int, PawnVisitInfo> visitInfoMap = new Dictionary<int, PawnVisitInfo>();
 
         public override void Init()
         {
+            // Set duration to 1 less than "Permenant" because this will end when visitors despawned
+            this.estDurationDays = (float)this.duration / (float)GenDate.TicksPerDay;
+            this.duration = 999999999;
+
             var introDef = DefDatabase<ConceptDef>.GetNamed("MTW_AncestorVisit");
             LessonAutoActivator.TeachOpportunity(introDef, OpportunityType.Important);
 
@@ -93,16 +143,13 @@ namespace MTW_AncestorSpirits
                 if (spawned != null)
                 {
                     this.visitors.Add(spawned);
-                    this.visitInfoMap.Add(spawned.thingIDNumber, new PawnVisitInfo(spawned));
+                    this.visitInfoMap.Add(spawned.thingIDNumber, new PawnVisitInfo(spawned, this.estDurationDays));
                 }
             }
 
             var loiterPoint = spawnController.CurrentSpawner.Position;
             var lordJob = new LordJob_HauntColony(loiterPoint, this.duration);
             var lord = LordMaker.MakeNewLord(spawnController.AncestorFaction, lordJob, this.visitors);
-
-            // Set duration to 1 less than "Permenant" because this will end when visitors despawned
-            this.duration = 999999999;
         }
 
         public void Notify_DespawnedForAnchorDestruction(Pawn ancestor)
@@ -169,6 +216,7 @@ namespace MTW_AncestorSpirits
         public override void ExposeData()
         {
             base.ExposeData();
+            Scribe_Values.LookValue<float>(ref this.estDurationDays, "estDurationDays");
             Scribe_Collections.LookList<Pawn>(ref this.visitors, "visitors", LookMode.MapReference, new object[0]);
             Scribe_Collections.LookDictionary<int, PawnVisitInfo>(ref this.visitInfoMap, "visitInfoMap", LookMode.Value, LookMode.Deep);
         }
