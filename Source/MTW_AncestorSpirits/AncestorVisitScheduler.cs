@@ -136,7 +136,15 @@ namespace MTW_AncestorSpirits
         {
             if (this.NextItinerary != null && Find.TickManager.TicksAbs > this.NextItinerary.StartTickAbs)
             {
-                this.FireNextItinerary();
+                var activeVisit = Find.MapConditionManager.GetActiveCondition<MapCondition_AncestralVisit>();
+                if (activeVisit == null)
+                {
+                    this.FireNextItinerary();
+                }
+                else
+                {
+                    activeVisit.QueueForcedEnd();
+                }
             }
         }
 

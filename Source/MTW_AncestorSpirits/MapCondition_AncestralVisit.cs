@@ -123,6 +123,7 @@ namespace MTW_AncestorSpirits
 
     class MapCondition_AncestralVisit : MapCondition
     {
+        private bool forcedEnd = false;
         private float estDurationDays;
         private List<Pawn> visitors = new List<Pawn>();
         private Dictionary<int, PawnVisitInfo> visitInfoMap = new Dictionary<int, PawnVisitInfo>();
@@ -150,6 +151,19 @@ namespace MTW_AncestorSpirits
             var loiterPoint = spawnController.CurrentSpawner.Position;
             var lordJob = new LordJob_HauntColony(loiterPoint, this.duration);
             var lord = LordMaker.MakeNewLord(spawnController.AncestorFaction, lordJob, this.visitors);
+        }
+
+        public void QueueForcedEnd()
+        {
+            if (!this.forcedEnd)
+            {
+                var spawnController = Find.Map.GetComponent<MapComponent_AncestorTicker>();
+                foreach (var visitor in this.visitors.Where(p => p.Spawned))
+                {
+                    spawnController.Notify_ShouldDespawn(visitor, AncestorLeftCondition.LeftVoluntarily);
+                }
+                this.forcedEnd = true;
+            }
         }
 
         public void Notify_DespawnedForAnchorDestruction(Pawn ancestor)
@@ -216,6 +230,7 @@ namespace MTW_AncestorSpirits
         public override void ExposeData()
         {
             base.ExposeData();
+            Scribe_Values.LookValue<bool>(ref this.forcedEnd, "forcedEnd");
             Scribe_Values.LookValue<float>(ref this.estDurationDays, "estDurationDays");
             Scribe_Collections.LookList<Pawn>(ref this.visitors, "visitors", LookMode.MapReference, new object[0]);
             Scribe_Collections.LookDictionary<int, PawnVisitInfo>(ref this.visitInfoMap, "visitInfoMap", LookMode.Value, LookMode.Deep);
