@@ -217,6 +217,11 @@ namespace MTW_AncestorSpirits
                 {
                     this.PawnApprovalTickInterval(p);
                 }
+
+                if (this.EstRemainingDays < -1f)
+                {
+                    this.QueueForcedEnd();
+                }
             }
         }
 
