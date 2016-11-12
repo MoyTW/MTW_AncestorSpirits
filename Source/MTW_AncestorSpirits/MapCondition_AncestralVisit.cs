@@ -124,14 +124,23 @@ namespace MTW_AncestorSpirits
     class MapCondition_AncestralVisit : MapCondition
     {
         private bool forcedEnd = false;
-        private float estDurationDays;
+        private int originalDuration;
         private List<Pawn> visitors = new List<Pawn>();
         private Dictionary<int, PawnVisitInfo> visitInfoMap = new Dictionary<int, PawnVisitInfo>();
+
+        public float EstDurationDays { get { return (float)this.originalDuration / (float)GenDate.TicksPerDay; } }
+        public float EstRemainingDays
+        {
+            get
+            {
+                return (float)(this.originalDuration - this.TicksPassed) / (float)GenDate.TicksPerDay;
+            }
+        }
 
         public override void Init()
         {
             // Set duration to 1 less than "Permenant" because this will end when visitors despawned
-            this.estDurationDays = (float)this.duration / (float)GenDate.TicksPerDay;
+            this.originalDuration = this.duration;
             this.duration = 999999999;
 
             var introDef = DefDatabase<ConceptDef>.GetNamed("MTW_AncestorVisit");
@@ -144,7 +153,7 @@ namespace MTW_AncestorSpirits
                 if (spawned != null)
                 {
                     this.visitors.Add(spawned);
-                    this.visitInfoMap.Add(spawned.thingIDNumber, new PawnVisitInfo(spawned, this.estDurationDays));
+                    this.visitInfoMap.Add(spawned.thingIDNumber, new PawnVisitInfo(spawned, this.EstDurationDays));
                 }
             }
 
@@ -211,14 +220,55 @@ namespace MTW_AncestorSpirits
             }
         }
 
+        private string DurationString
+        {
+            get
+            {
+                if (this.EstRemainingDays > 7f)
+                {
+                    return "Your Ancestors intend to stay for more than a week.";
+                }
+                else if (this.EstRemainingDays > 3f)
+                {
+                    return "Your Ancestors intend to stay for more than a few days.";
+                }
+                else if (this.EstRemainingDays > 1f)
+                {
+                    return "Your Ancestors intend to leave within a few days.";
+                }
+                else if (this.EstRemainingDays > .416f)
+                {
+                    return "This is the last day of your Ancestors' visit.";
+                }
+                else if (this.EstRemainingDays > 0f)
+                {
+                    return "This is the last hour of your Ancestors' visit.";
+                }
+                else if (this.EstRemainingDays < .416f)
+                {
+                    return "Your Ancestors should have left already!";
+                }
+                else if (this.EstRemainingDays < 0f)
+                {
+                    return "Your Ancestors are leaving now.";
+                }
+                else
+                {
+                    return "Something's gone terribly wrong! Your Ancestors have no idea when to leave! Tell the dev!";
+                }
+            }
+        }
+
         public override string TooltipString
         {
             get
             {
-                // TODO: Use "Displeased" or "Pleased" or something other than numbers!
                 StringBuilder builder = new StringBuilder(base.TooltipString);
                 builder.AppendLine();
-                builder.AppendLine("Ancestors:");
+                builder.AppendLine();
+                builder.AppendLine(this.DurationString);
+                builder.AppendLine();
+                builder.AppendLine("Ancestor moods:");
                 foreach (var entry in this.visitInfoMap.Values)
                 {
                     builder.AppendLine(entry.PawnString + " feels " + entry.MoodSummary);
@@ -231,7 +281,7 @@ namespace MTW_AncestorSpirits
         {
             base.ExposeData();
             Scribe_Values.LookValue<bool>(ref this.forcedEnd, "forcedEnd");
-            Scribe_Values.LookValue<float>(ref this.estDurationDays, "estDurationDays");
+            Scribe_Values.LookValue<int>(ref this.originalDuration, "originalDuration");
             Scribe_Collections.LookList<Pawn>(ref this.visitors, "visitors", LookMode.MapReference, new object[0]);
             Scribe_Collections.LookDictionary<int, PawnVisitInfo>(ref this.visitInfoMap, "visitInfoMap", LookMode.Value, LookMode.Deep);
         }
