@@ -1,4 +1,5 @@
-﻿using Verse;
+﻿using System;
+using Verse;
 using UnityEngine;
 
 
@@ -19,6 +20,7 @@ namespace MTW_AncestorSpirits
 
         public void OnLevelWasLoaded(int level)
         {
+            Log.Message("Level was loaded; attempting to reinject!");
             reinjectNeeded = true;
             if (level >= 0)
             {
@@ -39,7 +41,7 @@ namespace MTW_AncestorSpirits
                 {
                     reinjectNeeded = false;
                     reinjectTime = 0;
-                    if (Find.Map != null && Find.Map.components != null)
+                    if (Current.Game != null && Find.Map != null && Find.Map.components != null)
                     {
                         if (Find.Map.components.FindAll(x => x.GetType().ToString() == mapComponentName).Count != 0)
                         {
