@@ -35,6 +35,7 @@ namespace MTW_AncestorSpirits
         private Random rand = new Random();
 
         private Faction _faction = null;
+        private bool hasAlertedNullFactionThisSession = false;
 
         private bool initialized = false;
         private List<Pawn> unspawnedAncestors = new List<Pawn>();
@@ -91,14 +92,37 @@ namespace MTW_AncestorSpirits
             return PawnGenerator.GeneratePawn(request);
         }
 
+        private void AlertNullFaction()
+        {
+            if (!this.hasAlertedNullFactionThisSession)
+            {
+                Find.LetterStack.ReceiveLetter("Ancestors Faction Error!",
+                    "There was an error loading the Ancestor faction!\n\nThis will normally occur if you have " +
+                    "loaded this mod into an existing game without also using Orion's \"Faction Discovery\" mod. If " +
+                    "you have not yet tried doing so, please download and load that mod and restart your game.\n\n" +
+                    "Starting a new game does not require the Faction Discovery mod.\n\nIf you are getting this " +
+                    "message on a new game, or you have already loaded the Faction Discovery mod, please provide a " +
+                    "bug report, including your save game and output_log.txt.",
+                    LetterType.BadUrgent);
+                this.hasAlertedNullFactionThisSession = true;
+            }
+        }
+
         private void Initialize()
         {
             var introDef = DefDatabase<ConceptDef>.GetNamed("MTW_AncestorShrineIntro");
             LessonAutoActivator.TeachOpportunity(introDef, OpportunityType.Important);
 
-            while (this.unspawnedAncestors.Count() < AncestorConstants.MIN_ANCESTORS)
+            if (this.AncestorFaction != null)
             {
-                this.unspawnedAncestors.Add(this.GenAncestor());
+                while (this.unspawnedAncestors.Count() < AncestorConstants.MIN_ANCESTORS)
+                {
+                    this.unspawnedAncestors.Add(this.GenAncestor());
+                }
+            }
+            else
+            {
+                this.AlertNullFaction();
             }
             this.visitSchedule = AncestorVisitScheduler.BuildSeasonScheduleForCurrentSeason();
             this.visitSchedule.DisableAlreadyPassedVisits();
@@ -109,7 +133,12 @@ namespace MTW_AncestorSpirits
 
         private Pawn PopOrGenUnspawnedPawn()
         {
-            if (!this.unspawnedAncestors.Any())
+            if (this.AncestorFaction == null)
+            {
+                this.AlertNullFaction();
+                return null;
+            }
+            else if (!this.unspawnedAncestors.Any())
             {
                 return this.GenAncestor();
             }
@@ -130,8 +159,9 @@ namespace MTW_AncestorSpirits
             if (pos == null) { return null; }
 
             var visitor = this.PopOrGenUnspawnedPawn();
-            GenSpawn.Spawn(visitor, pos);
+            if (visitor == null) { return null; }
 
+            GenSpawn.Spawn(visitor, pos);
             return visitor;
         }
 
