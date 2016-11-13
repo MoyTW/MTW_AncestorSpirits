@@ -21,6 +21,16 @@
 + Make Ancestors completely immune to all forms of attack
 + Disable Ancestor reactions to melee attackers
 
+## v0.1e
+
++ Fix Ancestors thinking they have no Shrine Room when they in fact do
++ Fill error that occurs when Ancestors despawn after Shrine destruction
++ Remove comfort from Ancestors
++ Improve feedback on the visit map condition popup to add estimated stay length
++ Improve feedback on the visit map condition popup to add mood descriptions
++ Add mechanisms to prevent Ancestors from overstaying their estimated time
++ Add warning if mod loaded to existing game without having Faction Discovery
+
 # Planned Features
 
 ## DONE Useless Ancestors
