@@ -131,7 +131,7 @@ namespace MTW_AncestorSpirits
             this.initialized = true;
         }
 
-        private Pawn PopOrGenUnspawnedPawn()
+        private Pawn TryPopOrGenUnspawnedPawn()
         {
             if (this.AncestorFaction == null)
             {
@@ -158,7 +158,7 @@ namespace MTW_AncestorSpirits
             GenAdj.TryFindRandomWalkableAdjacentCell8Way(this.CurrentSpawner, out pos);
             if (pos == null) { return null; }
 
-            var visitor = this.PopOrGenUnspawnedPawn();
+            var visitor = this.TryPopOrGenUnspawnedPawn();
             if (visitor == null) { return null; }
 
             GenSpawn.Spawn(visitor, pos);
