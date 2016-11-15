@@ -20,7 +20,7 @@ namespace MTW_AncestorSpirits
 
         public void OnLevelWasLoaded(int level)
         {
-            Log.Message("Level was loaded; attempting to reinject!");
+            Log.Message("MTW_AncestorSpirits: Level was loaded; attempting to reinject!");
             reinjectNeeded = true;
             if (level >= 0)
             {
@@ -29,6 +29,23 @@ namespace MTW_AncestorSpirits
             else
             {
                 reinjectTime = 0;
+            }
+        }
+
+        private bool MapComponentsExist()
+        {
+            try
+            {
+                var canInject = Current.Game != null && Find.Map != null && Find.Map.components != null;
+                Log.Message("MTW_AncestorSpirits.MapComponentInjectorBehavior.MapComponentsExist: canInject=" +
+                    canInject);
+                return canInject;
+            }
+            catch (Exception e)
+            {
+                Log.Message("MTW_AncestorSpirits' MapComponentInject could not find the map to inject!");
+                Log.Notify_Exception(e);
+                return false;
             }
         }
 
@@ -41,18 +58,20 @@ namespace MTW_AncestorSpirits
                 {
                     reinjectNeeded = false;
                     reinjectTime = 0;
-                    if (Current.Game != null && Find.Map != null && Find.Map.components != null)
+                    if (this.MapComponentsExist())
                     {
                         if (Find.Map.components.FindAll(x => x.GetType().ToString() == mapComponentName).Count != 0)
                         {
-                            Log.Message("MapComponentInjector: map already has " + mapComponentName + ".");
+                            Log.Message("MTW_AncestorSpirits.MapComponentInjector: map already has " +
+                                mapComponentName + ".");
                             //Destroy(gameObject);
                         }
                         else
                         {
-                            Log.Message("MapComponentInjector: adding " + mapComponentName + "...");
+                            Log.Message("MTW_AncestorSpirits.MapComponentInjector: adding " + mapComponentName +
+                                "...");
                             Find.Map.components.Add(mapComponent);
-                            Log.Message("MapComponentInjector: success!");
+                            Log.Message("MTW_AncestorSpirits.MapComponentInjector: success!");
                             //Destroy(gameObject);
                         }
                     }
