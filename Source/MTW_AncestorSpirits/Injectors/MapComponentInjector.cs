@@ -56,10 +56,11 @@ namespace MTW_AncestorSpirits
                 reinjectTime -= Time.fixedDeltaTime;
                 if (reinjectTime <= 0)
                 {
-                    reinjectNeeded = false;
-                    reinjectTime = 0;
                     if (this.MapComponentsExist())
                     {
+                        reinjectNeeded = false;
+                        reinjectTime = 0;
+
                         if (Find.Map.components.FindAll(x => x.GetType().ToString() == mapComponentName).Count != 0)
                         {
                             Log.Message("MTW_AncestorSpirits.MapComponentInjector: map already has " +
