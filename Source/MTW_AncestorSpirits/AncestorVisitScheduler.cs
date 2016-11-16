@@ -56,12 +56,12 @@ namespace MTW_AncestorSpirits
         {
             Messages.Message("Your Ancestors wanted to visit, but you have no Shrine! They are very displeased.",
                 MessageSound.Negative);
-            Find.Map.GetComponent<MapComponent_AncestorTicker>().Notify_VisitImpossibleWithoutAnchor();
+            AncestorUtils.GetMapComponent().Notify_VisitImpossibleWithoutAnchor();
         }
 
         public void TryFireVisit()
         {
-            if (Find.Map.GetComponent<MapComponent_AncestorTicker>().CurrentSpawner != null)
+            if (AncestorUtils.GetMapComponent().CurrentSpawner != null)
             {
                 this.FireVisit();
             }

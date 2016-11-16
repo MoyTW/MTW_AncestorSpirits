@@ -24,7 +24,7 @@ namespace MTW_AncestorSpirits
         public override void PostMake()
         {
             base.PostMake();
-            Find.Map.GetComponent<MapComponent_AncestorTicker>().Notify_SpawnerCreated(this);
+            AncestorUtils.GetMapComponent().Notify_SpawnerCreated(this);
         }
 
         public override void SpawnSetup()
@@ -51,12 +51,12 @@ namespace MTW_AncestorSpirits
         public override void DeSpawn()
         {
             base.DeSpawn();
-            Find.Map.GetComponent<MapComponent_AncestorTicker>().Notify_SpawnerDestroyed(this);
+            AncestorUtils.GetMapComponent().Notify_SpawnerDestroyed(this);
         }
 
         public override string GetInspectString()
         {
-            int magic = Find.Map.GetComponent<MapComponent_AncestorTicker>().CurrentMagic;
+            int magic = AncestorUtils.GetMapComponent().CurrentMagic;
 
             StringBuilder builder = new StringBuilder();
             builder.AppendLine("Magic available: " + magic);

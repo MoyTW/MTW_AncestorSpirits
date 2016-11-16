@@ -78,5 +78,20 @@ namespace MTW_AncestorSpirits
 
             return true;
         }
+
+        internal static MapComponent_AncestorTicker GetMapComponent()
+        {
+            var ticker = Find.Map.GetComponent<MapComponent_AncestorTicker>();
+            if (ticker == null)
+            {
+                Find.Map.components.Add(new MapComponent_AncestorTicker());
+                Log.Message("Injected MTW_AncestorSpirits.MapComponent_AncestorTicker!");
+                return Find.Map.GetComponent<MapComponent_AncestorTicker>();
+            }
+            else
+            {
+                return ticker;
+            }
+        }
     }
 }

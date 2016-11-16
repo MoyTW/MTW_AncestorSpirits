@@ -146,7 +146,7 @@ namespace MTW_AncestorSpirits
             var introDef = DefDatabase<ConceptDef>.GetNamed("MTW_AncestorVisit");
             LessonAutoActivator.TeachOpportunity(introDef, OpportunityType.Important);
 
-            var spawnController = Find.Map.GetComponent<MapComponent_AncestorTicker>();
+            var spawnController = AncestorUtils.GetMapComponent();
             for (int i = 0; i < AncestorConstants.ANCESTORS_PER_VISIT; i++)
             {
                 var spawned = spawnController.TrySpawnRandomVisitor();
@@ -166,7 +166,7 @@ namespace MTW_AncestorSpirits
         {
             if (!this.forcedEnd)
             {
-                var spawnController = Find.Map.GetComponent<MapComponent_AncestorTicker>();
+                var spawnController = AncestorUtils.GetMapComponent();
                 foreach (var visitor in this.visitors.Where(p => p.Spawned))
                 {
                     spawnController.Notify_ShouldDespawn(visitor, AncestorLeftCondition.LeftVoluntarily);
@@ -196,7 +196,7 @@ namespace MTW_AncestorSpirits
         private void SubmitApprovalChanges()
         {
             var summary = new AncestralVisitSummary(this.visitors, this.visitInfoMap);
-            Find.Map.GetComponent<MapComponent_AncestorTicker>().Notify_VisitEnded(summary);
+            AncestorUtils.GetMapComponent().Notify_VisitEnded(summary);
         }
 
         public override void MapConditionTick()

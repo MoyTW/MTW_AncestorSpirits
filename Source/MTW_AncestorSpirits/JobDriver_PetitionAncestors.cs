@@ -42,7 +42,7 @@ namespace MTW_AncestorSpirits
 
             toilPetition.AddFinishAction(() =>
             {
-                Find.Map.GetComponent<MapComponent_AncestorTicker>().Notify_PetitionMade(this.PetitionDef, this.pawn);
+                AncestorUtils.GetMapComponent().Notify_PetitionMade(this.PetitionDef, this.pawn);
             });
 
             toilPetition.defaultCompleteMode = ToilCompleteMode.Never;

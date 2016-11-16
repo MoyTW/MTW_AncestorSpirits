@@ -12,7 +12,7 @@ namespace MTW_AncestorSpirits
             // TODO: There's gotta be a better way of doin' this!
             if (!AncestorUtils.IsAncestor(p)) { return ThoughtState.Inactive; }
 
-            var shrine = Find.Map.GetComponent<MapComponent_AncestorTicker>().CurrentSpawner;
+            var shrine = AncestorUtils.GetMapComponent().CurrentSpawner;
             if (shrine == null) { return ThoughtState.Inactive; }
 
             // HACK ALERT! Change Shrines to have an Interaction cell, and use that instead of a random one!

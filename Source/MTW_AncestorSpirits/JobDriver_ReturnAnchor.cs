@@ -38,7 +38,7 @@ namespace MTW_AncestorSpirits
             {
                 if (this.ticksElapsed > returnDurationTicks)
                 {
-                    var ticker = Find.Map.GetComponent<MapComponent_AncestorTicker>();
+                    var ticker = AncestorUtils.GetMapComponent();
                     ticker.Notify_ShouldDespawn(this.pawn, AncestorLeftCondition.LeftVoluntarily);
                     ReadyForNextToil();
                 }

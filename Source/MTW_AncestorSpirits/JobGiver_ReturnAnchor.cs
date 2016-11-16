@@ -12,7 +12,7 @@ namespace MTW_AncestorSpirits
                 return pawn.CurJob;
             }
 
-            var spawner = Find.Map.GetComponent<MapComponent_AncestorTicker>().CurrentSpawner;
+            var spawner = AncestorUtils.GetMapComponent().CurrentSpawner;
             if (spawner == null) { return null; }
 
             IntVec3 anchorCell;
@@ -25,7 +25,7 @@ namespace MTW_AncestorSpirits
             Thing blocker = path.FirstBlockingBuilding(out cellBeforeBlocker, pawn);
             if (blocker != null)
             {
-                var ticker = Find.Map.GetComponent<MapComponent_AncestorTicker>();
+                var ticker = AncestorUtils.GetMapComponent();
                 ticker.Notify_ShouldDespawn(pawn, AncestorLeftCondition.AnchorBlocked);
             }
             path.Dispose();

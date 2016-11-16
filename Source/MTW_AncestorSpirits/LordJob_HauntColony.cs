@@ -57,7 +57,7 @@ namespace MTW_AncestorSpirits
 
         private void DespawnAllPawnsAndTerminate()
         {
-            var ancestorTicker = Find.Map.GetComponent<MapComponent_AncestorTicker>();
+            var ancestorTicker = AncestorUtils.GetMapComponent();
             var pawns = this.lord.ownedPawns.ToList();
             for (int i = pawns.Count - 1; i >= 0; i--)
             {
@@ -82,7 +82,7 @@ namespace MTW_AncestorSpirits
             // Link ALL nodes to Exit if Anchor Destroyed
             LordToil endToil = new LordToil_End();
             graph.lordToils.Add(endToil);
-            var ancestorTicker = Find.Map.GetComponent<MapComponent_AncestorTicker>();
+            var ancestorTicker = AncestorUtils.GetMapComponent();
             foreach (var toil in graph.lordToils.Where(t => t != endToil))
             {
                 Transition endTransition = new Transition(toil, endToil);
