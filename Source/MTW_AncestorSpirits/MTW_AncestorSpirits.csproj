@@ -92,7 +92,6 @@
     <Compile Include="MemoWorker_SingleCropBlight.cs" />
     <Compile Include="MemoWorker_SingleColonistLightning.cs" />
     <Compile Include="PetitionDef.cs" />
-    <Compile Include="Injectors\MapComponentInjector.cs" />
     <Compile Include="MapComponent_AncestorTicker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoomRoleWorker_ShrineRoom.cs" />
