@@ -31,6 +31,10 @@
 + Add mechanisms to prevent Ancestors from overstaying their estimated time
 + Add warning if mod loaded to existing game without having Faction Discovery
 
+## v0.1f
+
++ Fix error when loading into slow-loading games
+
 # Planned Features
 
 ## DONE Useless Ancestors

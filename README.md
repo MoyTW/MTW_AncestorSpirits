@@ -58,7 +58,7 @@ This mod detours the following functions, and will conflict with any mods that a
 
 # Download
 
-See here: https://github.com/MoyTW/MTW_AncestorSpirits/releases/tag/v0.1b
+See here: https://github.com/MoyTW/MTW_AncestorSpirits/releases
 
 At some future point I may put it on Steam, but I don't feel it's nearly done enough for that.
 
