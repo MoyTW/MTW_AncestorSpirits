@@ -16,21 +16,6 @@ namespace MTW_AncestorSpirits
 
         #region No editing required
         protected bool reinjectNeeded = false;
-        protected float reinjectTime = 0;
-
-        public void OnLevelWasLoaded(int level)
-        {
-            Log.Message("MTW_AncestorSpirits: Level was loaded; attempting to reinject!");
-            reinjectNeeded = true;
-            if (level >= 0)
-            {
-                reinjectTime = 1;
-            }
-            else
-            {
-                reinjectTime = 0;
-            }
-        }
 
         private bool MapComponentsExist()
         {
@@ -51,38 +36,31 @@ namespace MTW_AncestorSpirits
 
         public void FixedUpdate()
         {
-            if (reinjectNeeded)
+            if (reinjectNeeded && this.MapComponentsExist())
             {
-                reinjectTime -= Time.fixedDeltaTime;
-                if (reinjectTime <= 0)
-                {
-                    if (this.MapComponentsExist())
-                    {
-                        reinjectNeeded = false;
-                        reinjectTime = 0;
+                reinjectNeeded = false;
 
-                        if (Find.Map.components.FindAll(x => x.GetType().ToString() == mapComponentName).Count != 0)
-                        {
-                            Log.Message("MTW_AncestorSpirits.MapComponentInjector: map already has " +
-                                mapComponentName + ".");
-                            //Destroy(gameObject);
-                        }
-                        else
-                        {
-                            Log.Message("MTW_AncestorSpirits.MapComponentInjector: adding " + mapComponentName +
-                                "...");
-                            Find.Map.components.Add(mapComponent);
-                            Log.Message("MTW_AncestorSpirits.MapComponentInjector: success!");
-                            //Destroy(gameObject);
-                        }
-                    }
+                if (Find.Map.components.FindAll(x => x.GetType().ToString() == mapComponentName).Count != 0)
+                {
+                    Log.Message("MTW_AncestorSpirits.MapComponentInjector: map already has " +
+                        mapComponentName + ".");
+                    //Destroy(gameObject);
+                }
+                else
+                {
+                    Log.Message("MTW_AncestorSpirits.MapComponentInjector: adding " + mapComponentName +
+                        "...");
+                    Find.Map.components.Add(mapComponent);
+                    Log.Message("MTW_AncestorSpirits.MapComponentInjector: success!");
+                    //Destroy(gameObject);
                 }
             }
         }
 
         public void Start()
         {
-            OnLevelWasLoaded(-1);
+            Log.Message("MTW_AncestorSpirits: Level was loaded; attempting to reinject!");
+            reinjectNeeded = true;
         }
     }
 
